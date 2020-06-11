@@ -20,8 +20,8 @@ Simulates AIS data: Message types: 1, 5
 
 Simulates NMEA based $GPRMC and $GPGGA messages.
 
-[Source](http://aprs.gids.nl/nmea/#rmc)
-[Source](http://aprs.gids.nl/nmea/#gga)
+[Source 1](http://aprs.gids.nl/nmea/#rmc)
+[Source 2](http://aprs.gids.nl/nmea/#gga)
 
 ### RADAR
 
@@ -46,7 +46,7 @@ where
 ```shell
    <type> is {ADSB, AIS, GPS, RADAR}
    <port> is a number
-   <nrOfTracks> is number
+   <nrOfTracks> is a number
 ```
   
 
