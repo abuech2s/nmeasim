@@ -1,4 +1,4 @@
-package sim.adsb;
+package sim.data.adsb;
 
 public class ADSBMessages {
 	public static String MSG_1 = "MSG,1,123,321,${hexident},11267,${time},${time},${callsign},,,,,,,,,,,";

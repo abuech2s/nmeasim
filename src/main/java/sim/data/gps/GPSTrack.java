@@ -1,4 +1,4 @@
-package sim.gps;
+package sim.data.gps;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -10,10 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.model.Point;
+import sim.model.tracks.Track;
 import sim.GeoOps;
-import sim.Sink;
+import sim.SinkDispatcher;
 
-public class GPSTrack implements Runnable {
+public class GPSTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(GPSTrack.class);
 
@@ -65,7 +66,7 @@ public class GPSTrack implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (!kill) {
 			Point current = points.get(position);
 			
 			position++;
@@ -91,8 +92,8 @@ public class GPSTrack implements Runnable {
 			else message2 = message2.replace("${lonWE}", "E");
 			message2 = message2.replace("${time}", dateTimeFormatter.format(new Date().toInstant()));
 			
-			Sink.take(message1);
-			Sink.take(message2);
+			SinkDispatcher.take("GPS", message1);
+			SinkDispatcher.take("GPS", message2);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));

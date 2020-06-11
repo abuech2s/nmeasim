@@ -1,4 +1,4 @@
-package sim.adsb;
+package sim.data.adsb;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +12,12 @@ import org.slf4j.LoggerFactory;
 
 import sim.model.Cities;
 import sim.model.Point;
+import sim.model.tracks.Track;
 import sim.GeoOps;
-import sim.Sink;
+import sim.SinkDispatcher;
+import sim.config.Constants;
 
-public class ADSBLinearTrack implements Runnable {
+public class ADSBLinearTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(ADSBCircleTrack.class);
 
@@ -72,7 +74,7 @@ public class ADSBLinearTrack implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (!kill) {
 			Point current = points.get(position);
 			
 			position++;
@@ -96,9 +98,9 @@ public class ADSBLinearTrack implements Runnable {
 			message4 = message4.replace("${speed}", "485"); // 485 kn
 			message4 = message4.replace("${track}", String.valueOf(GeoOps.getBearing(current.getLatitude(), current.getLongitude(), points.get(position).getLatitude(), points.get(position).getLongitude())));
 			
-			Sink.take(message1);
-			Sink.take(message3);
-			Sink.take(message4);
+			SinkDispatcher.take(Constants.sinkAdsb, message1);
+			SinkDispatcher.take(Constants.sinkAdsb, message3);
+			SinkDispatcher.take(Constants.sinkAdsb, message4);
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {

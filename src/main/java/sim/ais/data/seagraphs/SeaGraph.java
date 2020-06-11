@@ -15,10 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.GeoOps;
-import sim.ais.data.Connection;
-import sim.ais.data.Edge;
-import sim.ais.data.Node;
-import sim.ais.data.Route;
+import sim.data.ais.Connection;
+import sim.data.ais.Edge;
+import sim.data.ais.Node;
+import sim.data.ais.Route;
 import sim.model.Point;
 
 public abstract class SeaGraph {

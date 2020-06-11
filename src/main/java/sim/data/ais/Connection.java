@@ -1,4 +1,4 @@
-package sim.ais.data;
+package sim.data.ais;
 
 public class Connection {
 	private String node1 = "";

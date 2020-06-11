@@ -1,4 +1,4 @@
-package sim;
+package sim.model.sinks;
 
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
@@ -9,28 +9,30 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Sink implements Runnable {
+public class Sink extends AbstractSink {
 	
 	private static final Logger log = LoggerFactory.getLogger(Sink.class);
 
-	private static ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<>();
+	private ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<>();
 	private ServerSocket serverSocket = null;
 	private Socket socket = null;
 	private OutputStreamWriter writer = null;
-	private static boolean isReady = false;
-	private int port = 6868;
+	private boolean isReady = false;
+	private int port = 0;
+
 	
-	public Sink(int port) {
+	public Sink(String identifier, int port) {
+		super(identifier);
 		this.port = port;
 		log.info("Sink started.");
 	}
 
-	public static void take(String message) {
+	public void take(String message) {
 		if (isReady) queue.add(message);
 		if (queue.size() > 100) queue.poll();
 	}
 	
-	public static void take(List<String> messages) {
+	public void take(List<String> messages) {
 		for (String msg : messages) {
 			take(msg);
 		}
@@ -38,11 +40,8 @@ public class Sink implements Runnable {
 
 	@Override
 	public void run() {
-
-		while (true) {
-
+		while (!kill) {
 			try {
-
 				serverSocket = new ServerSocket(port);
 				log.info("Create new listener on port: " + port);
 				isReady = false;
@@ -51,7 +50,7 @@ public class Sink implements Runnable {
 				isReady = true;
 				writer = new OutputStreamWriter(socket.getOutputStream());
 
-				while (true) {
+				while (!kill) {
 					if (!queue.isEmpty()) {
 						String message = queue.poll();
 						writer.write(message+"\r\n");
@@ -64,11 +63,14 @@ public class Sink implements Runnable {
 				}
 
 			} catch (Exception e) {
-				log.warn("Exception {}", e);
-				try {
-					if (null != socket) socket.close();
-					if (null != serverSocket) serverSocket.close();
-				} catch (Exception e1) {}
+				log.warn("Exception: ", e);
+			}
+			
+			try {
+				if (null != socket) socket.close();
+				if (null != serverSocket) serverSocket.close();
+			} catch (Exception e1) {
+				log.warn("Exception: ", e1);
 			}
 
 		}

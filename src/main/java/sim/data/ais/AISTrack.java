@@ -1,4 +1,4 @@
-package sim.ais.data;
+package sim.data.ais;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.GeoOps;
-import sim.Sink;
+import sim.SinkDispatcher;
 import sim.ais.data.ship.IShip;
 import sim.ais.data.ship.ShipFactory;
+import sim.config.Constants;
 import sim.model.Point;
+import sim.model.tracks.Track;
 
-public class AISTrack implements Runnable {
+public class AISTrack extends Track {
 
 	private static final Logger log = LoggerFactory.getLogger(AISTrack.class);
 	
@@ -34,7 +36,7 @@ public class AISTrack implements Runnable {
 	@Override
 	public void run() {
 
-		while (true) {
+		while (!kill) {
 			Point current = points.get(position);
 
 			position++;
@@ -47,8 +49,8 @@ public class AISTrack implements Runnable {
 			String binMsg5 = AISEncoder.getBinaryStringMsg5(mmsi, current.getLatitude(), current.getLongitude(), ship, 0, 0, 0, 0, route.getEndHarbour());
 			List<String> msgs5 = AISEncoder.getFinalAISMessages(binMsg5);
 
-			Sink.take(msgs1);
-			Sink.take(msgs5);
+			SinkDispatcher.take(Constants.sinkAis, msgs1);
+			SinkDispatcher.take(Constants.sinkAis, msgs5);
 
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));

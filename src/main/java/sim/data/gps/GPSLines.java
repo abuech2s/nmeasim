@@ -1,4 +1,4 @@
-package sim.gps;
+package sim.data.gps;
 
 import java.util.ArrayList;
 import java.util.HashMap;

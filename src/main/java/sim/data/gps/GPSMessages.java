@@ -1,4 +1,4 @@
-package sim.gps;
+package sim.data.gps;
 
 public class GPSMessages {
 	public static String MSG_GPGGA = "$GPGGA,${time},${lat},${latNS},${lon},${lonWE},1,03,10.0,0.0,M,0.0,M,,*00";

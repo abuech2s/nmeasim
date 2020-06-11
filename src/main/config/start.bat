@@ -1,0 +1,1 @@
+java -DlogPath="." -Dlogback.configurationFile="logback.xml" -jar ${project.name}.jar

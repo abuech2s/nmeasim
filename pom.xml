@@ -24,6 +24,10 @@
 		<version.mvncompilerplugin>3.8.1</version.mvncompilerplugin>
 		<version.surefire>2.22.2</version.surefire>
 		<version.mvnshade>3.2.3</version.mvnshade>
+		<version.commons.lang3>3.10</version.commons.lang3>
+		<version.logback>1.1.2</version.logback>
+		<version.slf4j>1.7.7</version.slf4j>
+		<version.mvnjar>3.1.0</version.mvnjar>
 	</properties>
 
 	<dependencies>
@@ -31,17 +35,17 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
+			<version>${version.slf4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.1.2</version>
+			<version>${version.logback}</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
-			<version>1.1.2</version>
+			<version>${version.logback}</version>
 		</dependency>
 
 		<!-- MISC -->
@@ -54,11 +58,22 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.10</version>
+			<version>${version.commons.lang3}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/config</directory>
+				<targetPath>${project.build.directory}</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -66,6 +81,7 @@
 				<version>${version.mvnshade}</version>
 				<configuration>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<finalName>${project.artifactId}</finalName>
 				</configuration>
 				<executions>
 					<execution>
@@ -87,7 +103,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>${version.mvnjar}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -98,6 +114,7 @@
 					</archive>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 

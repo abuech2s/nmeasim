@@ -1,4 +1,4 @@
-package sim.adsb;
+package sim.data.adsb;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import sim.model.Point;
 import sim.GeoOps;
-import sim.Sink;
+import sim.SinkDispatcher;
+import sim.config.Constants;
 
 public class ADSBCircleTrack implements Runnable {
 
@@ -73,9 +74,9 @@ public class ADSBCircleTrack implements Runnable {
 			message4 = message4.replace("${speed}", "485");
 			message4 = message4.replace("${track}", String.valueOf(GeoOps.getBearing(current.getLatitude(), current.getLongitude(), points.get(position).getLatitude(), points.get(position).getLongitude())));
 			
-			Sink.take(message1);
-			Sink.take(message3);
-			Sink.take(message4);
+			SinkDispatcher.take(Constants.sinkAdsb, message1);
+			SinkDispatcher.take(Constants.sinkAdsb, message3);
+			SinkDispatcher.take(Constants.sinkAdsb, message4);
 			try { Thread.sleep((long)(timeInterval * 1000L)); }
 			catch (InterruptedException e) {}
 		}

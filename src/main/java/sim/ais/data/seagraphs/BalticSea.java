@@ -1,7 +1,6 @@
 package sim.ais.data.seagraphs;
 
-import java.util.ArrayList;
-import sim.ais.data.Connection;
+import sim.data.ais.Connection;
 import sim.model.Point;
 
 public class BalticSea extends SeaGraph {
