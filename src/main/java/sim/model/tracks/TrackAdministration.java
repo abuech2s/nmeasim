@@ -8,6 +8,7 @@ import sim.config.Configs;
 import sim.data.adsb.ADSBTrackFactory;
 import sim.data.ais.AISTrackFactory;
 import sim.data.gps.GPSTrackFactory;
+import sim.data.radar.RadarTrackFactory;
 
 public class TrackAdministration {
 
@@ -33,6 +34,11 @@ public class TrackAdministration {
 			case "gps":
 				if (config.getActive()) {
 					addTracks(GPSTrackFactory.create());
+				}
+				break;
+			case "radar":
+				if (config.getActive()) {
+					addTracks(RadarTrackFactory.create());
 				}
 				break;
 			}

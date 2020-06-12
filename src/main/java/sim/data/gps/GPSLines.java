@@ -19,7 +19,7 @@ public class GPSLines {
 		kiel_rodbyhavn.add(new Point(54.389060, 10.199262));
 		kiel_rodbyhavn.add(new Point(54.454903, 10.239679));
 		kiel_rodbyhavn.add(new Point(54.653804, 11.348283));
-		gpsLines.put("kiel_rodbyhavn", kiel_rodbyhavn);
+		//gpsLines.put("kiel_rodbyhavn", kiel_rodbyhavn);
 		
 		List<Point> kiel_eckernfoerde = new ArrayList<>();
 		kiel_eckernfoerde.add(new Point(54.318396, 10.141522));
@@ -28,7 +28,7 @@ public class GPSLines {
 		kiel_eckernfoerde.add(new Point(54.518510, 10.070901));
 		kiel_eckernfoerde.add(new Point(54.464082, 9.851926));
 		kiel_eckernfoerde.add(new Point(54.476031, 9.839995));
-		gpsLines.put("kiel_eckernfoerde", kiel_eckernfoerde);
+		//gpsLines.put("kiel_eckernfoerde", kiel_eckernfoerde);
 		
 		
 		List<Point> flensburg_luebeck = new ArrayList<>();
@@ -53,7 +53,7 @@ public class GPSLines {
 		flensburg_luebeck.add(new Point(53.9173243, 10.8717236));
 		flensburg_luebeck.add(new Point(53.8906253, 10.8092388));
 		flensburg_luebeck.add(new Point(53.8881972, 10.8037457));
-		gpsLines.put("flensburg_luebeck", flensburg_luebeck);
+		//gpsLines.put("flensburg_luebeck", flensburg_luebeck);
 		
 		List<Point> nordseeinseln = new ArrayList<>();
 		nordseeinseln.add(new Point(53.5151881, 8.1399453));
@@ -74,7 +74,7 @@ public class GPSLines {
 		nordseeinseln.add(new Point(53.5404943, 8.1811441));
 		nordseeinseln.add(new Point(53.5115134, 8.1550516));
 		nordseeinseln.add(new Point(53.5151881, 8.1399453));
-		gpsLines.put("nordseeinseln", nordseeinseln);
+		//gpsLines.put("nordseeinseln", nordseeinseln);
 		
 		List<Point> kiel_danzig = new ArrayList<>();
 		kiel_danzig.add(new Point(54.3464143, 10.1325133));
@@ -89,7 +89,26 @@ public class GPSLines {
 		kiel_danzig.add(new Point(54.7161558, 18.9490416));
 		kiel_danzig.add(new Point(54.4902461, 18.9600279));
 		kiel_danzig.add(new Point(54.4072048, 18.6908629));
-		gpsLines.put("kiel_danzig", kiel_danzig);
+		//gpsLines.put("kiel_danzig", kiel_danzig);
+		
+		List<Point> balticSea = new ArrayList<>();
+		balticSea.add(new Point(54.6746753,10.0616863));
+		balticSea.add(new Point(54.5123633,10.1550701));
+		balticSea.add(new Point(54.3910041,10.8087566));
+		balticSea.add(new Point(54.6429004,10.9680584));
+		balticSea.add(new Point(54.2676809,12.0529583));
+		balticSea.add(new Point(54.8568991,13.0774334));
+		balticSea.add(new Point(54.6039002,14.4280154));
+		balticSea.add(new Point(54.4253303,15.3014285));
+		balticSea.add(new Point(55.0217328,16.4385135));
+		balticSea.add(new Point(55.3916002,14.8619754));
+		balticSea.add(new Point(55.2352962,13.8677127));
+		balticSea.add(new Point(55.2352963,12.8020389));
+		balticSea.add(new Point(54.7531695,12.6207644));
+		balticSea.add(new Point(54.4492912,11.7198855));
+		balticSea.add(new Point(54.6960674,11.1595828));
+		balticSea.add(new Point(54.6746753,10.0616863));
+		gpsLines.put("balticsea", balticSea);
 	}
 	
 	public static List<Point> get(String line) {

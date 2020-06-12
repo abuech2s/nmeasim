@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configs>
-	<config type="adsb"  active="true"  port="10300" nroftrack="1"/>
+	<config type="adsb"  active="false"  port="10300" nroftrack="1"/>
 	<config type="ais"   active="false" port="10200" nroftrack="1"/>
-	<config type="radar" active="false" port="10400" nroftrack="1"/>
-	<config type="gps"   active="false" port="10500" nroftrack="1"/>
+	<config type="radar" active="true" port="10400"/>
+	<config type="gps"   active="false" port="10500"/>
 </configs>

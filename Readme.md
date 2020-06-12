@@ -42,7 +42,7 @@ mvn clean package
 
 ## How to start
 
-Either start `start.bat` or use the following command
+Either execute the file `start.bat` or use the following command
 
 ```shell
 java -DlogPath="." -Dlogback.configurationFile="logback.xml" -jar simulator.jar
@@ -51,6 +51,8 @@ java -DlogPath="." -Dlogback.configurationFile="logback.xml" -jar simulator.jar
 While starting this program, the simulator expects a `config.xml` relative to itself.
 
 ### Configuration
+
+The content of `config.xml` must be
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -63,8 +65,13 @@ While starting this program, the simulator expects a `config.xml` relative to it
 ```
 
 If `radar` is active, `gps` will be automatically activated as well (the active-flag of `gps` will be ignored.).
-The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration is reloaded automatically.
-  
+The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.
+
+The variable `nroftrack` of `gps` will always be ignored. We expect, that we produce just GPS data for one object.
+
+## Changelog
+
+
 
 ## CopyRight
 

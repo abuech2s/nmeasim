@@ -1,6 +1,5 @@
 package sim.data.ais;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.data.ais.data.ship.IShip;
+import sim.model.GeoOps;
 
 public class AISEncoder {
 	
@@ -257,35 +257,18 @@ public class AISEncoder {
 		return binaryString;
 	}
 	
-	protected static String calcCheckSum(String line) {
-		List<Integer> asciivalues = new ArrayList<>();
-		for (int i = 0; i < line.length(); i++) {
-			char d = line.charAt(i);
-			int ascii_value = (int)d;
-			asciivalues.add(new Integer(ascii_value));
-		}
-		
-		int result = asciivalues.get(0);
-		for (int i = 1; i < asciivalues.size(); i++) {
-			result = result^asciivalues.get(i);
-		}
-		String cs = Integer.toHexString(result).toUpperCase();
-		if (cs.length() == 1) cs = "0" +cs;
-		return cs;
-	}
-	
 	protected static List<String> getFinalAISMessages(String binaryMessage) {
 		switch (binaryMessage.substring(0, 6)) {
 		case "000001":
 			String checksumExprMsg1 = "AIVDM,1,1,,A," + encode(binaryMessage) + ",0";
-			String aisMsg1 = "!" + checksumExprMsg1 + "*" + calcCheckSum(checksumExprMsg1);
+			String aisMsg1 = "!" + checksumExprMsg1 + "*" + GeoOps.calcCheckSum(checksumExprMsg1);
 			return Arrays.asList(aisMsg1);
 		case "000101":
 			String payload = encode(binaryMessage+"00");
 			String checksumExprMsg5a = "AIVDM,2,1,1,A," + payload.substring(0, 60) + ",0";
 			String checksumExprMsg5b = "AIVDM,2,2,1,A," + payload.substring(60) + ",2";
-			String aisMsg5a = "!" + checksumExprMsg5a + "*" + calcCheckSum(checksumExprMsg5a);
-			String aisMsg5b = "!" + checksumExprMsg5b + "*" + calcCheckSum(checksumExprMsg5b);
+			String aisMsg5a = "!" + checksumExprMsg5a + "*" + GeoOps.calcCheckSum(checksumExprMsg5a);
+			String aisMsg5b = "!" + checksumExprMsg5b + "*" + GeoOps.calcCheckSum(checksumExprMsg5b);
 			return Arrays.asList(aisMsg5a, aisMsg5b);
 		}
 		return null;

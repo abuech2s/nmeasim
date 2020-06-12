@@ -11,13 +11,13 @@ public class Config {
 	private String type = "";
 	
 	@XmlAttribute (name = "active")
-	private String active = "";
+	private String active = "false";
 	
 	@XmlAttribute (name = "port")
-	private String port = "";
+	private String port = "0";
 	
 	@XmlAttribute (name = "nroftrack")
-	private String nroftrack = "";
+	private String nroftrack = "1";
 	
 	public String getType() {
 		return type;
@@ -49,6 +49,6 @@ public class Config {
 	
 	@Override
 	public String toString() {
-		return "[" + getType() + "(" + getPort() + ") active=" + getActive() + " NrOfTracks=" + getNroftrack() + "]";
+		return "[ " + getType() + " (" + getPort() + ") active=" + getActive() + " NrOfTracks=" + getNroftrack() + " ]";
 	}
 }

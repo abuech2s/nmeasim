@@ -21,7 +21,7 @@ public class GPSTrack extends Track {
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd,HH:mm:ss.SSS")
 			.withZone(ZoneId.systemDefault());
 
-	private double speed = 40; // 13 in [m/s] = 46 [km/h] = 25 [kn]
+	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
 
 	private List<Point> points = new ArrayList<>();
 

@@ -1,5 +1,8 @@
 package sim.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GeoOps {
 
 	public static double getDistance(double lat1, double lon1, double lat2, double lon2) {
@@ -27,6 +30,23 @@ public class GeoOps {
 		double angleInDeg = (angle*180/Math.PI + 360) % 360;
 		
 		return ((int)(angleInDeg * 10.0))/10.0;
+	}
+	
+	public static String calcCheckSum(String line) {
+		List<Integer> asciivalues = new ArrayList<>();
+		for (int i = 0; i < line.length(); i++) {
+			char d = line.charAt(i);
+			int ascii_value = (int)d;
+			asciivalues.add(new Integer(ascii_value));
+		}
+		
+		int result = asciivalues.get(0);
+		for (int i = 1; i < asciivalues.size(); i++) {
+			result = result^asciivalues.get(i);
+		}
+		String cs = Integer.toHexString(result).toUpperCase();
+		if (cs.length() == 1) cs = "0" +cs;
+		return cs;
 	}
 	
 }

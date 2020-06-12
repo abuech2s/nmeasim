@@ -22,4 +22,11 @@ public class Configs {
 	    this.configs = configs;  
 	} 
 	
+	public Config getConfig(String type) {
+		for (Config config : configs) {
+			if (config.getType().equalsIgnoreCase(type)) return config;
+		}
+		return null;
+	}
+	
 }
