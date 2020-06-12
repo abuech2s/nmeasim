@@ -1,11 +1,13 @@
 package sim.data.radar;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +23,21 @@ public class RadarTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(RadarTrack.class);
 
-	private DateTimeFormatter dateFormatterGps = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault());
+	DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+	
+	private DateTimeFormatter dateFormatterGps = DateTimeFormatter.ofPattern("yyMMdd").withZone(ZoneId.systemDefault());
 	private DateTimeFormatter timeFormatterGps = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.systemDefault());
 	
-	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS")
-			.withZone(ZoneId.systemDefault());
+	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS").withZone(ZoneId.systemDefault());
 	
 	private DecimalFormat df2 = new DecimalFormat("##.#");
 	private DecimalFormat df3 = new DecimalFormat("###.#");
+	
+	private DecimalFormat lonFormat = new DecimalFormat("00000.00", symbols);
+	private DecimalFormat latFormat = new DecimalFormat("0000.00", symbols);
+	
+	private DecimalFormat lonFormatGGA = new DecimalFormat("00000.0000", symbols);
+	private DecimalFormat latFormatGGA = new DecimalFormat("0000.0000", symbols);
 	
 	private static final double maxRadarRadius = 30_000.0;
 
@@ -45,11 +54,6 @@ public class RadarTrack extends Track {
 
 	public RadarTrack(List<Point> route) {
 		init(route);
-	}
-	
-	private String cut(double value, int nrOfDigits) {
-		double factor = Math.pow(10.0, (double)nrOfDigits);
-		return ""+(((int)(value* factor)) / factor);
 	}
 	
 	private void init(List<Point> route) {
@@ -94,20 +98,20 @@ public class RadarTrack extends Track {
 			
 			
 			String message1 = GPSMessages.MSG_GPGGA;
-			message1 = message1.replace("${time}", dateTimeFormatterRadar.format(new Date().toInstant()));
-			message1 = message1.replace("${lat}", cut(Math.abs(current.getLatitude()*100.0), 2));
+			message1 = message1.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
+			message1 = message1.replace("${lat}", latFormatGGA.format(Math.abs(current.getLatitude()*100.0)));
 			if (current.getLatitude() < 0) message1 = message1.replace("${latNS}", "S");
 			else message1 = message1.replace("${latNS}", "N");
 							
-			message1 = message1.replace("${lon}", cut(Math.abs(current.getLongitude()*100.0), 2));
+			message1 = message1.replace("${lon}", lonFormatGGA.format(Math.abs(current.getLongitude()*100.0)));
 			if (current.getLongitude() < 0) message1 = message1.replace("${lonWE}", "W");
 			else message1 = message1.replace("${lonWE}", "E");
 			
 			String message2 = GPSMessages.MSG_GPRMC;
-			message2 = message2.replace("${lat}", cut(Math.abs(current.getLatitude()*100.0), 2));
+			message2 = message2.replace("${lat}", latFormat.format(Math.abs(current.getLatitude()*100.0)) );
 			if (current.getLatitude() < 0) message2 = message2.replace("${latNS}", "S");
 			else message2 = message2.replace("${latNS}", "N");
-			message2 = message2.replace("${lon}", cut(Math.abs(current.getLongitude()*100.0), 2));
+			message2 = message2.replace("${lon}", lonFormat.format(Math.abs(current.getLongitude()*100.0))  );
 			if (current.getLongitude() < 0) message2 = message2.replace("${lonWE}", "W");
 			else message2 = message2.replace("${lonWE}", "E");
 			message2 = message2.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
