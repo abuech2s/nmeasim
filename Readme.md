@@ -1,6 +1,11 @@
 # NMEA and Air survaillance Simulator
 
-Simulates NMEA and SBS data via TCP Socket
+Simulates NMEA and SBS data via TCP Socket connections.
+
+## Requirements
+
+- Java 1.8+
+- Maven 3.6.3
 
 ## Supported sentences
 
@@ -37,17 +42,27 @@ mvn clean package
 
 ## How to start
 
-```shell
-java -jar simulator*.jar <type> <port> <nrOfTracks>
-```
-
-where 
+Either start `start.bat` or use the following command
 
 ```shell
-   <type> is {ADSB, AIS, GPS, RADAR}
-   <port> is a number
-   <nrOfTracks> is a number
+java -DlogPath="." -Dlogback.configurationFile="logback.xml" -jar simulator.jar
 ```
+
+While starting this program, the simulator expects a `config.xml` relative to itself.
+
+### Configuration
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<config type="adsb"  active="true"   port="10300"  nroftrack="1"/>
+	<config type="ais"   active="false"  port="10200"  nroftrack="1"/>
+	<config type="radar" active="false"  port="10400"  nroftrack="1"/>
+	<config type="gps"   active="false"  port="10500"  nroftrack="1"/>
+</configs>
+```
+
+In case of active Radar, the GPS will be automatically activated as well (the active-flag of GPS will be ignored.).
   
 
 ## CopyRight
