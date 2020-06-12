@@ -14,18 +14,17 @@ public abstract class AbstractSink implements ISink {
 	}
 	
 	public void start() {
-		thread = new Thread(this);
+		thread = new Thread(this, "Sink-"+getIdentifier());
 		thread.setDaemon(false);
 		thread.start();
 	}
 	
 	public void kill() {
 		thread.interrupt();
+		this.kill = true;
 		
 		//We use this trick here to kill the current thread while waiting for an accepting socket
 		close();
-		
-		this.kill = true;
 	}
 	
 	public String getIdentifier() {

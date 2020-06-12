@@ -25,7 +25,6 @@ public class Sink extends AbstractSink {
 	public Sink(String identifier, int port) {
 		super(identifier);
 		this.port = port;
-		log.info("Sink started.");
 	}
 
 	public void take(String message) {

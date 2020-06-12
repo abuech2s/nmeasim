@@ -49,6 +49,6 @@ public class Config {
 	
 	@Override
 	public String toString() {
-		return "[type=" + getType() + " port=" + getPort() + " active=" + getActive() + " NrOfTracks=" + getNroftrack() + "]";
+		return "[" + getType() + "(" + getPort() + ") active=" + getActive() + " NrOfTracks=" + getNroftrack() + "]";
 	}
 }
