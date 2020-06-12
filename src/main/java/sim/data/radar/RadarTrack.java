@@ -30,8 +30,8 @@ public class RadarTrack extends Track {
 	
 	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS").withZone(ZoneId.systemDefault());
 	
-	private DecimalFormat df2 = new DecimalFormat("##.#");
-	private DecimalFormat df3 = new DecimalFormat("###.#");
+	private DecimalFormat df2 = new DecimalFormat("00.0");
+	private DecimalFormat df3 = new DecimalFormat("000.0");
 	
 	private DecimalFormat lonFormat = new DecimalFormat("00000.00", symbols);
 	private DecimalFormat latFormat = new DecimalFormat("0000.00", symbols);
