@@ -8,8 +8,8 @@ import sim.config.Configuration;
 public class App {
 
 	private static final Logger log = LoggerFactory.getLogger(App.class);
-	public static void main(String[] args) {
-		
+	
+	public static void main(String[] args) {	
 		if (args.length > 0 && args[0].endsWith("-help")) exit();
 		initConfiguration();
 		log.info("Simulator started.");

@@ -4,14 +4,14 @@ Simulates NMEA and SBS data via TCP Socket connections.
 
 ## Requirements
 
-- Java 1.8+
-- Maven 3.6.3
+ - Java 1.8+
+ - Maven 3.6.3
 
 ## Supported sentences
 
 ### ADSB
 
-Simulates SBS data: MSG-Messages with subtypes 1,3,4
+Simulates SBS data: MSG-Messages with subtypes 1,3 and 4
 
 [Source](http://woodair.net/sbs/Article/Barebones42_Socket_Data.htm)
 
@@ -62,7 +62,8 @@ While starting this program, the simulator expects a `config.xml` relative to it
 </configs>
 ```
 
-In case of active Radar, the GPS will be automatically activated as well (the active-flag of GPS will be ignored.).
+If `radar` is active, `gps` will be automatically activated as well (the active-flag of `gps` will be ignored.).
+The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration is reloaded automatically.
   
 
 ## CopyRight
