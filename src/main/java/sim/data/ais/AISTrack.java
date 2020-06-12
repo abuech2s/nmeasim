@@ -6,12 +6,12 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.GeoOps;
-import sim.SinkDispatcher;
-import sim.ais.data.ship.IShip;
-import sim.ais.data.ship.ShipFactory;
+import sim.data.ais.data.ship.IShip;
+import sim.data.ais.data.ship.ShipFactory;
 import sim.config.Constants;
+import sim.model.GeoOps;
 import sim.model.Point;
+import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 
 public class AISTrack extends Track {

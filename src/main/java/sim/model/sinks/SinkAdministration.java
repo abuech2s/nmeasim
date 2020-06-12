@@ -1,14 +1,18 @@
-package sim.config;
+package sim.model.sinks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import sim.model.sinks.ISink;
-import sim.model.sinks.Sink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SinkStarter {
+import sim.config.Config;
+import sim.config.Configs;
+
+public class SinkAdministration {
 
 	private static List<ISink> sinks = null;
+	private static final Logger log = LoggerFactory.getLogger(SinkAdministration.class);
 	
 	public static void reInit(Configs configs) {
 		if (sinks == null) sinks = new ArrayList<>();
@@ -35,11 +39,11 @@ public class SinkStarter {
 	}
 	
 	private static void startSinks() {
-
 		try {
+			//We wait a moment, to be sure that all legacy ports are closed
 			Thread.sleep(2000);
 		} catch (InterruptedException e1) {
-			e1.printStackTrace();
+			log.warn("Exception: {}", e1);
 		}
 		
 		for (ISink sink : sinks) {

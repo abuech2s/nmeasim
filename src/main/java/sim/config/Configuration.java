@@ -13,6 +13,9 @@ import javax.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.model.sinks.SinkAdministration;
+import sim.model.tracks.TrackAdministration;
+
 public class Configuration implements Runnable {
 	
 	private static final Logger log = LoggerFactory.getLogger(Configuration.class);
@@ -27,7 +30,7 @@ public class Configuration implements Runnable {
 	private void init() throws JAXBException, NoSuchAlgorithmException {
 		if (md5Digest == null) {
 			md5Digest = MessageDigest.getInstance("MD5");
-			file = new File("config.xml");
+			file = new File(Constants.configFileName);
 			jaxbContext = JAXBContext.newInstance(Configs.class);
 			jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		}
@@ -38,8 +41,8 @@ public class Configuration implements Runnable {
 		        configs = (Configs) jaxbUnmarshaller.unmarshal(file);
 		        log.info("(Re)load config file.");
 		        printConfig();
-		        TrackStarter.reInit(configs);
-		        SinkStarter.reInit(configs);
+		        TrackAdministration.reInit(configs);
+		        SinkAdministration.reInit(configs);
 		        lastChecksum = currentChecksum;
 			}
 		} catch (IOException e) {
@@ -55,7 +58,7 @@ public class Configuration implements Runnable {
 			} catch (Exception e) {
 				log.warn("Exception while loading config file {}", e);
 			}
-			try { Thread.sleep(15_000); } catch (Exception e) {}
+			try { Thread.sleep(Constants.configReloadTime); } catch (Exception e) {}
 		}
 	}
 	
@@ -88,7 +91,7 @@ public class Configuration implements Runnable {
 	
 	private void printConfig() {
 		for (Config config : configs.getConfigs()) {
-			log.info(config.toString());
+			log.info("    {}", config.toString());
 		}
 	}
 	

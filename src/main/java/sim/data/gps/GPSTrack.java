@@ -9,10 +9,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.model.GeoOps;
 import sim.model.Point;
+import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
-import sim.GeoOps;
-import sim.SinkDispatcher;
 
 public class GPSTrack extends Track {
 	
@@ -98,7 +98,7 @@ public class GPSTrack extends Track {
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				log.warn("Exception: ", e);
 			}
 
 		}

@@ -1,4 +1,4 @@
-package sim.ais.data.ship;
+package sim.data.ais.data.ship;
 
 import java.util.concurrent.ThreadLocalRandom;
 

@@ -7,6 +7,8 @@ public abstract class AbstractSink implements ISink {
 	protected boolean kill = false;
 	protected String identifier = "";
 	
+	protected abstract void close();
+	
 	protected AbstractSink(String identifier) {
 		this.identifier = identifier.toLowerCase().trim();
 	}
@@ -18,6 +20,11 @@ public abstract class AbstractSink implements ISink {
 	}
 	
 	public void kill() {
+		thread.interrupt();
+		
+		//We use this trick here to kill the current thread while waiting for an accepting socket
+		close();
+		
 		this.kill = true;
 	}
 	

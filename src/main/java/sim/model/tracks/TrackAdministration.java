@@ -1,40 +1,43 @@
-package sim.config;
+package sim.model.tracks;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import sim.data.adsb.ADSBInit;
-import sim.data.ais.AISInit;
-import sim.data.gps.GPSInit;
-import sim.model.tracks.ITrack;
+import sim.config.Config;
+import sim.config.Configs;
+import sim.data.adsb.ADSBTrackFactory;
+import sim.data.ais.AISTrackFactory;
+import sim.data.gps.GPSTrackFactory;
 
-public class TrackStarter {
+public class TrackAdministration {
 
 	private static List<ITrack> tracks = null;
 	
 	public static void reInit(Configs configs) {
 		if (tracks == null) tracks = new ArrayList<>();
+		
 		stopTrackThreads();
 		
 		for (Config config : configs.getConfigs()) {
 			switch (config.getType().toLowerCase().trim()) {
 			case "adsb":
 				if (config.getActive()) {
-					addTracks(ADSBInit.get(config.getNroftrack()));
+					addTracks(ADSBTrackFactory.create(config.getNroftrack()));
 				}
 				break;
 			case "ais":
 				if (config.getActive()) {
-					addTracks(AISInit.get(config.getNroftrack()));
+					addTracks(AISTrackFactory.create(config.getNroftrack()));
 				}
 				break;
 			case "gps":
 				if (config.getActive()) {
-					addTracks(GPSInit.get());
+					addTracks(GPSTrackFactory.create());
 				}
 				break;
 			}
 		}
+		
 		startTrackThreads();
 	}
 	

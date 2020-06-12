@@ -3,7 +3,6 @@ package sim.model.sinks;
 import java.util.List;
 
 public interface ISink extends Runnable {
-
 	public void start();
 	public void kill();
 	public String getIdentifier();

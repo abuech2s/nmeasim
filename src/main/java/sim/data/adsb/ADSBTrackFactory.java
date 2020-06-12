@@ -3,16 +3,15 @@ package sim.data.adsb;
 import java.util.ArrayList;
 import java.util.List;
 
-import sim.model.Cities;
 import sim.model.tracks.ITrack;
 
-public class ADSBInit {
+public class ADSBTrackFactory {
 
-	public static List<ITrack> get(int nrOfTracks) {
+	public static List<ITrack> create(int nrOfTracks) {
 		List<ITrack> threads = new ArrayList<>();
 		for (int i = 1; i <= nrOfTracks; i++) {
-			//TODO: Random choice for CircularTrack
-			ITrack track = new ADSBLinearTrack("HEX"+i, "CS00"+i, Cities.getRandom(), Cities.getRandom());
+			//TODO: Integrate CircularTrack
+			ITrack track = new ADSBLinearTrack("HEX"+i, "CS00"+i);
 			threads.add(track);
 		}
 		return threads;

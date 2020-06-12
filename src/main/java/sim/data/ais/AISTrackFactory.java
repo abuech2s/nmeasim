@@ -3,11 +3,12 @@ package sim.data.ais;
 import java.util.ArrayList;
 import java.util.List;
 
-import sim.ais.data.seagraphs.BalticSea;
+import sim.data.ais.data.seagraphs.BalticSea;
 import sim.model.tracks.ITrack;
 
-public class AISInit {
-	public static List<ITrack> get(int nrOfTracks) {
+public class AISTrackFactory {
+	
+	public static List<ITrack> create(int nrOfTracks) {
 		List<ITrack> threads = new ArrayList<>();
 		int mmsi = 100_000_000;
 		
@@ -18,4 +19,5 @@ public class AISInit {
 		}
 		return threads;
 	}
+	
 }

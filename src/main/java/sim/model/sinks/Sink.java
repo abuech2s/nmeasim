@@ -3,6 +3,7 @@ package sim.model.sinks;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -40,19 +41,22 @@ public class Sink extends AbstractSink {
 
 	@Override
 	public void run() {
+		close();
 		while (!kill) {
 			try {
 				serverSocket = new ServerSocket(port);
-				log.info("Create new listener on port: " + port);
+				log.info("Create listener for {} ({})", getIdentifier(), port);
 				isReady = false;
 				socket = serverSocket.accept();
-				log.info("accepted.");
+				log.info("{} accepted.", getIdentifier());
 				isReady = true;
 				writer = new OutputStreamWriter(socket.getOutputStream());
 
 				while (!kill) {
 					if (!queue.isEmpty()) {
 						String message = queue.poll();
+						if (message == null) continue;
+						
 						writer.write(message+"\r\n");
 						writer.flush();
 						log.debug("Write:" + message);
@@ -62,17 +66,22 @@ public class Sink extends AbstractSink {
 					}
 				}
 
-			} catch (Exception e) {
-				log.warn("Exception: ", e);
-			}
-			
-			try {
-				if (null != socket) socket.close();
-				if (null != serverSocket) serverSocket.close();
+			} catch (SocketException e) {
+				//This here is an exit for killing the current thread at being at a blocking function
+				log.debug("Exception: ", e);
 			} catch (Exception e1) {
 				log.warn("Exception: ", e1);
 			}
-
+			close();
+		}
+	}
+	
+	protected void close() {
+		try {
+			if (null != socket) socket.close();
+			if (null != serverSocket) serverSocket.close();
+		} catch (Exception e1) {
+			log.warn("Exception: ", e1);
 		}
 	}
 }

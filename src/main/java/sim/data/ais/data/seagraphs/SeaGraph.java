@@ -1,4 +1,4 @@
-package sim.ais.data.seagraphs;
+package sim.data.ais.data.seagraphs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.GeoOps;
 import sim.data.ais.Connection;
 import sim.data.ais.Edge;
 import sim.data.ais.Node;
 import sim.data.ais.Route;
+import sim.model.GeoOps;
 import sim.model.Point;
 
 public abstract class SeaGraph {

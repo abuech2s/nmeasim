@@ -1,4 +1,4 @@
-package sim;
+package sim.model;
 
 public class GeoOps {
 

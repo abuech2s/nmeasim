@@ -1,4 +1,4 @@
-package sim.ais.data.ship;
+package sim.data.ais.data.ship;
 
 public interface IShip {
 	public int getIMO();

@@ -10,16 +10,16 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.model.Cities;
+import sim.model.GeoOps;
 import sim.model.Point;
+import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
-import sim.GeoOps;
-import sim.SinkDispatcher;
 import sim.config.Constants;
+import sim.data.adsb.data.Cities;
 
 public class ADSBLinearTrack extends Track {
 	
-	private static final Logger log = LoggerFactory.getLogger(ADSBCircleTrack.class);
+	private static final Logger log = LoggerFactory.getLogger(ADSBLinearTrack.class);
 
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd,HH:mm:ss.SSS")
 			.withZone(ZoneId.systemDefault());
@@ -34,19 +34,23 @@ public class ADSBLinearTrack extends Track {
 	private int position = 0;
 	private double timeInterval = 1.0; // in [s]
 	
-	public ADSBLinearTrack(String hexIdent, String callsign, Entry<String, Point> city1, Entry<String, Point> city2) {
+	public ADSBLinearTrack(String hexIdent, String callsign) {
+		init(hexIdent, callsign);
+	}
+	
+	private void init(String hexIdent, String callsign) {
+		
+		Entry<String, Point> city1 = Cities.getRandom();
+		Entry<String, Point> city2 = Cities.getRandom();
 		while (city1.getValue().getLatitude() == city2.getValue().getLatitude() && city1.getValue().getLongitude() == city2.getValue().getLongitude()) {
 			city2 = Cities.getRandom();
 		}
-		log.info("Created ADSB route from " + city1.getKey() + " to " + city2.getKey());
-		init(hexIdent, callsign, city1.getValue().getLatitude(), city1.getValue().getLongitude(), city2.getValue().getLatitude(), city2.getValue().getLongitude());
-	}
-
-	public ADSBLinearTrack(String hexIdent, String callsign, double lat1, double lon1, double lat2, double lon2) {
-		init(hexIdent, callsign, lat1, lon1, lat2, lon2);
-	}
-	
-	private void init(String hexIdent, String callsign, double lat1, double lon1, double lat2, double lon2) {
+		
+		double lat1 = city1.getValue().getLatitude();
+		double lon1 = city1.getValue().getLongitude();
+		double lat2 = city2.getValue().getLatitude();
+		double lon2 = city2.getValue().getLongitude();
+		
 		this.hexIdent = hexIdent;
 
 		double distance = GeoOps.getDistance(lat1, lon1, lat2, lon2);
@@ -69,7 +73,7 @@ public class ADSBLinearTrack extends Track {
 			points.add(new Point(lat1 + factorLat * i * stepLat, lon1 + factorLon * i * stepLon));
 		}
 
-		log.info("Created track for ADSB({}) with {} trackpoints.", hexIdent, nrOfGeneratedPoints);
+		log.info("Created track for ADSB({}) with {} trackpoints from {} to {}.", hexIdent, nrOfGeneratedPoints, city1.getKey(), city2.getKey());
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.ais.data.ship.IShip;
+import sim.data.ais.data.ship.IShip;
 
 public class AISEncoder {
 	

@@ -5,12 +5,12 @@ import java.util.List;
 
 import sim.model.tracks.ITrack;
 
-public class GPSInit {
+public class GPSTrackFactory {
 
-	public static List<ITrack> get() {
+	public static List<ITrack> create() {
 		List<ITrack> threads = new ArrayList<>();
-		ITrack track1 = new GPSTrack(GPSLines.getRandom());
-		threads.add(track1);
+		ITrack track = new GPSTrack(GPSLines.getRandom());
+		threads.add(track);
 		return threads;
 	}
 	

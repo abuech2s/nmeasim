@@ -1,4 +1,4 @@
-package sim.ais.data.seagraphs;
+package sim.data.ais.data.seagraphs;
 
 import sim.data.ais.Connection;
 import sim.model.Point;

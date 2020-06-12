@@ -1,4 +1,4 @@
-package sim.model;
+package sim.data.adsb.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import sim.model.Point;
 
 import java.util.Random;
 

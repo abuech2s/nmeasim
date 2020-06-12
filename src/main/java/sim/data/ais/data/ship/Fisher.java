@@ -1,50 +1,50 @@
-package sim.ais.data.ship;
+package sim.data.ais.data.ship;
 
-public class Cargo implements IShip {
+public class Fisher implements IShip {
 
 	@Override
 	public int getIMO() {
-		return 1000003;
+		return 1000001;
 	}
 
 	@Override
 	public String getCallsign() {
-		return "C100001";
+		return "F000001";
 	}
 
 	@Override
 	public String getVesselName() {
-		return "BigCargo";
+		return "FishersFritze";
 	}
 
 	@Override
 	public int getDraught() {
-		return 15;
+		return 10;
 	}
 
 	@Override
 	public int getBow() {
-		return 20;
+		return 5;
 	}
 
 	@Override
 	public int getStern() {
-		return 50;
+		return 7;
 	}
 
 	@Override
 	public int getPort() {
-		return 12;
+		return 5;
 	}
 
 	@Override
 	public int getStarboard() {
-		return 25;
+		return 4;
 	}
 
 	@Override
 	public int getShipType() {
-		return 70;
+		return 30;
 	}
 
 }
