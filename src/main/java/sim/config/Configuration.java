@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,6 +15,7 @@ import javax.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.App;
 import sim.model.sinks.SinkAdministration;
 import sim.model.tracks.TrackAdministration;
 
@@ -40,6 +43,7 @@ public class Configuration implements Runnable {
 			if (lastChecksum.isEmpty() || !currentChecksum.equals(lastChecksum)) {
 		        configs = (Configs) jaxbUnmarshaller.unmarshal(file);
 		        log.info("(Re)load config file.");
+		        validate(configs);
 		        printConfig();
 		        TrackAdministration.reInit(configs);
 		        SinkAdministration.reInit(configs);
@@ -82,7 +86,7 @@ public class Configuration implements Runnable {
 	    byte[] bytes = digest.digest();
 
 	    StringBuilder sb = new StringBuilder();
-	    for (int i=0; i< bytes.length ;i++) {
+	    for (int i=0; i < bytes.length; i++) {
 	        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 	    }
 
@@ -93,6 +97,18 @@ public class Configuration implements Runnable {
 		for (Config config : configs.getConfigs()) {
 			log.info("    {}", config.toString());
 		}
+	}
+	
+	private boolean validate(Configs configs) {
+		
+		//Check if ports exists multiple times
+		Set<Integer> ports = new HashSet<>();
+		for (Config c : configs.getConfigs()) {
+			ports.add(c.getPort());
+		}
+		if (ports.size() != configs.getConfigs().size()) App.exit("At least two configs have the same port.");
+		
+		return true;
 	}
 	
 }

@@ -10,7 +10,7 @@ public class App {
 	private static final Logger log = LoggerFactory.getLogger(App.class);
 	
 	public static void main(String[] args) {	
-		if (args.length > 0 && args[0].endsWith("-help")) exit();
+		if (args.length > 0 && args[0].endsWith("-help")) help();
 		initConfiguration();
 		log.info("Simulator started.");
 	}
@@ -21,7 +21,12 @@ public class App {
 		configurationThread.start();
 	}
 	
-	private static void exit() {
+	public static void exit(String message) {
+		log.error("ERROR: {}", message);
+		System.exit(-1);
+	}
+	
+	public static void help() {
 		log.error("");
 		log.error("Usage: java -jar *.jar");
 		log.error("");
