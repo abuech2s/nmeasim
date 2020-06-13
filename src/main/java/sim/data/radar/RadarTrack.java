@@ -27,7 +27,6 @@ public class RadarTrack extends Track {
 	
 	private DateTimeFormatter dateFormatterGps = DateTimeFormatter.ofPattern("yyMMdd").withZone(ZoneId.systemDefault());
 	private DateTimeFormatter timeFormatterGps = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.systemDefault());
-	
 	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS").withZone(ZoneId.systemDefault());
 	
 	private DecimalFormat df2 = new DecimalFormat("00.0");
@@ -39,7 +38,7 @@ public class RadarTrack extends Track {
 	private DecimalFormat lonFormatGGA = new DecimalFormat("00000.0000", symbols);
 	private DecimalFormat latFormatGGA = new DecimalFormat("0000.0000", symbols);
 	
-	private static final double maxRadarRadius = 30_000.0;
+	private static final double maxRadarRadius = 30_000.0; // in [m]
 
 	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
 
@@ -120,8 +119,8 @@ public class RadarTrack extends Track {
 			message1 = message1 + GeoOps.calcCheckSum(message1);
 			message2 = message2 + GeoOps.calcCheckSum(message2);
 			
-			SinkDispatcher.take(Constants.sinkGps, message1);
-			SinkDispatcher.take(Constants.sinkGps, message2);
+			SinkDispatcher.take(Constants.tokenGps, message1);
+			SinkDispatcher.take(Constants.tokenGps, message2);
 			
 			//Based on GPS position, we check furthermore, if we can find a track plot
 			
@@ -147,7 +146,7 @@ public class RadarTrack extends Track {
 				
 				radarMsg = radarMsg + GeoOps.calcCheckSum(radarMsg);
 
-				SinkDispatcher.take(Constants.sinkRadar, radarMsg);
+				SinkDispatcher.take(Constants.tokenRadar, radarMsg);
 			} else {
 				currentRadarTrackId = null;
 			}

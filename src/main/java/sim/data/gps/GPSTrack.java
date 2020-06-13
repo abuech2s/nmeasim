@@ -9,6 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.config.Constants;
 import sim.model.GeoOps;
 import sim.model.Point;
 import sim.model.sinks.SinkDispatcher;
@@ -71,8 +72,7 @@ public class GPSTrack extends Track {
 			
 			position++;
 			position = position % points.size();
-			
-			
+				
 			String message1 = GPSMessages.MSG_GPGGA;
 			message1 = message1.replace("${time}", dateTimeFormatter.format(new Date().toInstant()));
 			message1 = message1.replace("${lat}", String.valueOf(Math.abs(current.getLatitude()*100.0)));
@@ -92,8 +92,8 @@ public class GPSTrack extends Track {
 			else message2 = message2.replace("${lonWE}", "E");
 			message2 = message2.replace("${time}", dateTimeFormatter.format(new Date().toInstant()));
 			
-			SinkDispatcher.take("GPS", message1);
-			SinkDispatcher.take("GPS", message2);
+			SinkDispatcher.take(Constants.tokenGps, message1);
+			SinkDispatcher.take(Constants.tokenGps, message2);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));

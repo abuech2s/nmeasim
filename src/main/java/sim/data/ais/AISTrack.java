@@ -49,8 +49,8 @@ public class AISTrack extends Track {
 			String binMsg5 = AISEncoder.getBinaryStringMsg5(mmsi, current.getLatitude(), current.getLongitude(), ship, 0, 0, 0, 0, route.getEndHarbour());
 			List<String> msgs5 = AISEncoder.getFinalAISMessages(binMsg5);
 
-			SinkDispatcher.take(Constants.sinkAis, msgs1);
-			SinkDispatcher.take(Constants.sinkAis, msgs5);
+			SinkDispatcher.take(Constants.tokenAis, msgs1);
+			SinkDispatcher.take(Constants.tokenAis, msgs5);
 
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));

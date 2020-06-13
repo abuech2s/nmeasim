@@ -102,9 +102,9 @@ public class ADSBLinearTrack extends Track {
 			message4 = message4.replace("${speed}", "485"); // 485 kn
 			message4 = message4.replace("${track}", String.valueOf(GeoOps.getBearing(current.getLatitude(), current.getLongitude(), points.get(position).getLatitude(), points.get(position).getLongitude())));
 			
-			SinkDispatcher.take(Constants.sinkAdsb, message1);
-			SinkDispatcher.take(Constants.sinkAdsb, message3);
-			SinkDispatcher.take(Constants.sinkAdsb, message4);
+			SinkDispatcher.take(Constants.tokenAdsb, message1);
+			SinkDispatcher.take(Constants.tokenAdsb, message3);
+			SinkDispatcher.take(Constants.tokenAdsb, message4);
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {
