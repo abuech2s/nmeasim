@@ -65,6 +65,8 @@ public class Sink extends AbstractSink {
 					}
 				}
 
+			} catch (InterruptedException e) {
+				log.debug("Exception: ", e);
 			} catch (SocketException e) {
 				//This here is an exit for killing the current thread at being at a blocking function
 				log.debug("Exception: ", e);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import sim.config.Config;
 import sim.config.Configs;
+import sim.config.Constants;
 import sim.data.adsb.ADSBTrackFactory;
 import sim.data.ais.AISTrackFactory;
 import sim.data.gps.GPSTrackFactory;
@@ -14,29 +15,30 @@ public class TrackAdministration {
 
 	private static List<ITrack> tracks = null;
 	
-	public static void reInit(Configs configs) {
+	public synchronized static void reInit(Configs configs) {
 		if (tracks == null) tracks = new ArrayList<>();
 		
 		stopTrackThreads();
 		
 		for (Config config : configs.getConfigs()) {
 			switch (config.getType().toLowerCase().trim()) {
-			case "adsb":
+			case Constants.tokenAdsb:
 				if (config.getActive()) {
 					addTracks(ADSBTrackFactory.create(config.getNroftrack()));
 				}
 				break;
-			case "ais":
+			case Constants.tokenAis:
 				if (config.getActive()) {
 					addTracks(AISTrackFactory.create(config.getNroftrack()));
 				}
 				break;
-			case "gps":
-				if (config.getActive()) {
+			case Constants.tokenGps:
+				//GPS will be automatically activated in case of Radar
+				if (config.getActive() && !configs.getConfig(Constants.tokenRadar).getActive()) {
 					addTracks(GPSTrackFactory.create());
 				}
 				break;
-			case "radar":
+			case Constants.tokenRadar:
 				if (config.getActive()) {
 					addTracks(RadarTrackFactory.create());
 				}
@@ -47,7 +49,7 @@ public class TrackAdministration {
 		startTrackThreads();
 	}
 	
-	private static void stopTrackThreads() {
+	private synchronized static void stopTrackThreads() {
 		for (ITrack thread : tracks) {
 			try {
 				thread.kill();
@@ -56,11 +58,11 @@ public class TrackAdministration {
 		tracks.clear();
 	}
 	
-	private static void addTracks(List<ITrack> newThreads) {
+	private synchronized static void addTracks(List<ITrack> newThreads) {
 		tracks.addAll(newThreads);
 	}
 	
-	private static void startTrackThreads() {
+	private synchronized static void startTrackThreads() {
 		for (ITrack t : tracks) {
 			t.start();
 		}

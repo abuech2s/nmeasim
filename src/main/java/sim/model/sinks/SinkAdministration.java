@@ -15,7 +15,7 @@ public class SinkAdministration {
 	private static List<ISink> sinks = null;
 	private static final Logger log = LoggerFactory.getLogger(SinkAdministration.class);
 	
-	public static void reInit(Configs configs) {
+	public synchronized static void reInit(Configs configs) {
 		if (sinks == null) sinks = new ArrayList<>();
 		stopSinkThreads();
 		
@@ -24,8 +24,8 @@ public class SinkAdministration {
 				ISink sink = new Sink(config.getType(), config.getPort());
 				addSink(sink);
 			}
-			if (config.getType().equalsIgnoreCase(Constants.sinkRadar)) {
-				Config gpsConfig = configs.getConfig(Constants.sinkGps);
+			if (config.getType().equalsIgnoreCase(Constants.tokenRadar) && config.getActive()) {
+				Config gpsConfig = configs.getConfig(Constants.tokenGps);
 				ISink sink = new Sink(gpsConfig.getType(), gpsConfig.getPort());
 				addSink(sink);
 			}
@@ -33,7 +33,7 @@ public class SinkAdministration {
 		startSinks();
 	}
 	
-	private static void stopSinkThreads() {
+	private synchronized static void stopSinkThreads() {
 		for (ISink sink : sinks) {
 			sink.kill();
 		}
@@ -44,10 +44,10 @@ public class SinkAdministration {
 		sinks.add(sink);
 	}
 	
-	private static void startSinks() {
+	private synchronized static void startSinks() {
 		try {
 			//We wait a moment, to be sure that all legacy ports are closed
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			log.warn("Exception: {}", e1);
 		}
@@ -57,7 +57,7 @@ public class SinkAdministration {
 		}
 	}
 	
-	public static ISink get(String identifier) {
+	public synchronized static ISink get(String identifier) {
 		for (ISink sink : sinks) {
 			if (sink.getIdentifier().equalsIgnoreCase(identifier)) 
 				return sink;
