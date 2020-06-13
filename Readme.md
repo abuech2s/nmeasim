@@ -1,4 +1,4 @@
-# NMEA and Air survaillance Simulator
+# NMEA and Air Surveillance Simulator
 
 Simulates NMEA and SBS data via TCP Socket connections.
 
@@ -65,9 +65,9 @@ The content of `config.xml` must be
 ```
 
 If `radar` is active, `gps` will be automatically activated as well (the active-flag of `gps` will be ignored.).
-The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.
+The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.<br/>
 
-The variable `nroftrack` of `gps` will always be ignored. We expect, that we produce just GPS data for one object.
+The variable `nroftrack` of `gps` will always be ignored. We expect, that we produce just GPS data for one object.<br/>
 The variable `nroftrack` of `radar` will always be ignored. There is a list of fixed positions of track objects.
 
 ## Changelog
