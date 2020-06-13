@@ -59,8 +59,8 @@ The content of `config.xml` must be
 <configs>
 	<config type="adsb"  active="true"   port="10300"  nroftrack="1"/>
 	<config type="ais"   active="false"  port="10200"  nroftrack="1"/>
-	<config type="radar" active="false"  port="10400"  nroftrack="1"/>
-	<config type="gps"   active="false"  port="10500"  nroftrack="1"/>
+	<config type="radar" active="false"  port="10400" />
+	<config type="gps"   active="false"  port="10500" />
 </configs>
 ```
 
@@ -68,10 +68,12 @@ If `radar` is active, `gps` will be automatically activated as well (the active-
 The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.
 
 The variable `nroftrack` of `gps` will always be ignored. We expect, that we produce just GPS data for one object.
+The variable `nroftrack` of `radar` will always be ignored. There is a list of fixed positions of track objects.
 
 ## Changelog
 
-
+2020-06-13 : V1.0
+ - Initial version
 
 ## CopyRight
 
