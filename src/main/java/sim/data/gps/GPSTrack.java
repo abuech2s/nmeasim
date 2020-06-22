@@ -19,9 +19,9 @@ public class GPSTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(GPSTrack.class);
 
-	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd,HH:mm:ss.SSS")
-			.withZone(ZoneId.systemDefault());
-
+	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.systemDefault());
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.systemDefault());
+	
 	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
 
 	private List<Point> points = new ArrayList<>();
@@ -74,7 +74,7 @@ public class GPSTrack extends Track {
 			position = position % points.size();
 				
 			String message1 = GPSMessages.MSG_GPGGA;
-			message1 = message1.replace("${time}", dateTimeFormatter.format(new Date().toInstant()));
+			message1 = message1.replace("${time}", timeFormatter.format(new Date().toInstant()));
 			message1 = message1.replace("${lat}", String.valueOf(Math.abs(current.getLatitude()*100.0)));
 			if (current.getLatitude() < 0) message1 = message1.replace("${latNS}", "S");
 			else message1 = message1.replace("${latNS}", "N");
@@ -90,7 +90,8 @@ public class GPSTrack extends Track {
 			message2 = message2.replace("${lon}", String.valueOf(Math.abs(current.getLongitude()*100.0)));
 			if (current.getLongitude() < 0) message2 = message2.replace("${lonWE}", "W");
 			else message2 = message2.replace("${lonWE}", "E");
-			message2 = message2.replace("${time}", dateTimeFormatter.format(new Date().toInstant()));
+			message2 = message2.replace("${time}", timeFormatter.format(new Date().toInstant()));
+			message2 = message2.replace("${date}", dateFormatter.format(new Date().toInstant()));
 			
 			SinkDispatcher.take(Constants.tokenGps, message1);
 			SinkDispatcher.take(Constants.tokenGps, message2);

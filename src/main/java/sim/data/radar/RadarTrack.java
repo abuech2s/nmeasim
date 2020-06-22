@@ -25,7 +25,7 @@ public class RadarTrack extends Track {
 
 	DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 	
-	private DateTimeFormatter dateFormatterGps = DateTimeFormatter.ofPattern("yyMMdd").withZone(ZoneId.systemDefault());
+	private DateTimeFormatter dateFormatterGps = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.systemDefault());
 	private DateTimeFormatter timeFormatterGps = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.systemDefault());
 	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS").withZone(ZoneId.systemDefault());
 	
