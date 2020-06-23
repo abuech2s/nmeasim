@@ -72,9 +72,9 @@ The variable `nroftrack` of `radar` will always be ignored. There is a list of f
 
 ## Changelog
 
-2020-06-13 : V1.0
+2020-06-23 : V1.0
  - Initial version
 
 ## CopyRight
 
-(c) Alexander Buechel, May 2020
+(c) Alexander Buechel, abuech2s@gmail.com, May 2020
