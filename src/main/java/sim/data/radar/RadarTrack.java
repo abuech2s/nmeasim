@@ -32,12 +32,6 @@ public class RadarTrack extends Track {
 	private DecimalFormat df2 = new DecimalFormat("00.0");
 	private DecimalFormat df3 = new DecimalFormat("000.0");
 	
-	private DecimalFormat lonFormat = new DecimalFormat("00000.00", symbols);
-	private DecimalFormat latFormat = new DecimalFormat("0000.00", symbols);
-	
-	private DecimalFormat lonFormatGGA = new DecimalFormat("00000.0000", symbols);
-	private DecimalFormat latFormatGGA = new DecimalFormat("0000.0000", symbols);
-	
 	private static final double maxRadarRadius = 30_000.0; // in [m]
 
 	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
@@ -98,19 +92,19 @@ public class RadarTrack extends Track {
 			
 			String message1 = GPSMessages.MSG_GPGGA;
 			message1 = message1.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
-			message1 = message1.replace("${lat}", latFormatGGA.format(Math.abs(current.getLatitude()*100.0)));
+			message1 = message1.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 4));
 			if (current.getLatitude() < 0) message1 = message1.replace("${latNS}", "S");
 			else message1 = message1.replace("${latNS}", "N");
 							
-			message1 = message1.replace("${lon}", lonFormatGGA.format(Math.abs(current.getLongitude()*100.0)));
+			message1 = message1.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 4));
 			if (current.getLongitude() < 0) message1 = message1.replace("${lonWE}", "W");
 			else message1 = message1.replace("${lonWE}", "E");
 			
 			String message2 = GPSMessages.MSG_GPRMC;
-			message2 = message2.replace("${lat}", latFormat.format(Math.abs(current.getLatitude()*100.0)) );
+			message2 = message2.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 2) );
 			if (current.getLatitude() < 0) message2 = message2.replace("${latNS}", "S");
 			else message2 = message2.replace("${latNS}", "N");
-			message2 = message2.replace("${lon}", lonFormat.format(Math.abs(current.getLongitude()*100.0))  );
+			message2 = message2.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 2)  );
 			if (current.getLongitude() < 0) message2 = message2.replace("${lonWE}", "W");
 			else message2 = message2.replace("${lonWE}", "E");
 			message2 = message2.replace("${time}", timeFormatterGps.format(new Date().toInstant()));

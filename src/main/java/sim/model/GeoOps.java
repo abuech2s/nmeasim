@@ -1,6 +1,7 @@
 package sim.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GeoOps {
@@ -47,6 +48,28 @@ public class GeoOps {
 		String cs = Integer.toHexString(result).toUpperCase();
 		if (cs.length() == 1) cs = "0" +cs;
 		return cs;
+	}
+	
+	public static String GeoDecToDegMin(double value, int leadingDigits, int nrDecimals) {
+		String decimals = String.join("", Collections.nCopies(nrDecimals, "0"));
+		int degree = (int)value;
+		double factor = Math.pow(10, nrDecimals);
+		
+		double rest = (value - (double)degree) * 0.6 * 100.0;
+		rest = ((int)(rest * factor)) / factor;
+		
+		double result = degree * 100.0 + rest;
+
+		String res = "";
+		if (leadingDigits == 4) {
+			//For latitude
+			res = new java.text.DecimalFormat("0000."+decimals).format(result);
+		} else {
+			//For longitude
+			res = new java.text.DecimalFormat("00000."+decimals).format(result);
+		}
+		res = res.replace(",", ".");
+		return res;
 	}
 	
 }

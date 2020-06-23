@@ -75,19 +75,19 @@ public class GPSTrack extends Track {
 				
 			String message1 = GPSMessages.MSG_GPGGA;
 			message1 = message1.replace("${time}", timeFormatter.format(new Date().toInstant()));
-			message1 = message1.replace("${lat}", String.valueOf(Math.abs(current.getLatitude()*100.0)));
+			message1 = message1.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 4) );
 			if (current.getLatitude() < 0) message1 = message1.replace("${latNS}", "S");
 			else message1 = message1.replace("${latNS}", "N");
 							
-			message1 = message1.replace("${lon}", String.valueOf(Math.abs(current.getLongitude()*100.0)));
+			message1 = message1.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 4));
 			if (current.getLongitude() < 0) message1 = message1.replace("${lonWE}", "W");
 			else message1 = message1.replace("${lonWE}", "E");
 			
 			String message2 = GPSMessages.MSG_GPRMC;
-			message2 = message2.replace("${lat}", String.valueOf(Math.abs(current.getLatitude()*100.0)));
+			message2 = message2.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 2));
 			if (current.getLatitude() < 0) message2 = message2.replace("${latNS}", "S");
 			else message2 = message2.replace("${latNS}", "N");
-			message2 = message2.replace("${lon}", String.valueOf(Math.abs(current.getLongitude()*100.0)));
+			message2 = message2.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 2));
 			if (current.getLongitude() < 0) message2 = message2.replace("${lonWE}", "W");
 			else message2 = message2.replace("${lonWE}", "E");
 			message2 = message2.replace("${time}", timeFormatter.format(new Date().toInstant()));
