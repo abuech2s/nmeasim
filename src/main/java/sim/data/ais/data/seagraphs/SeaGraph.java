@@ -19,13 +19,13 @@ import sim.data.ais.Edge;
 import sim.data.ais.Node;
 import sim.data.ais.Route;
 import sim.model.GeoOps;
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 
 public abstract class SeaGraph {
 
 	private static Logger log = LoggerFactory.getLogger(SeaGraph.class);
 	
-	protected List<Point> habours = null;
+	protected List<GeoCoordinate> habours = null;
 	protected List<Connection> connections = null;
 	
 	private List<Node> nodes = null;
@@ -45,13 +45,13 @@ public abstract class SeaGraph {
 	}
 	
 	public Route getRandomRoute() {
-		Point p1 = getRandomPoint();
-		Point p2 = getRandomPoint();
+		GeoCoordinate p1 = getRandomPoint();
+		GeoCoordinate p2 = getRandomPoint();
 		while (p1.getName().equalsIgnoreCase(p2.getName())) {
 			p2 = getRandomPoint();
 		}
-		List<Point> listOfPoints = new ArrayList<>();
-		List<Point> calcAStarPoints = calcAStar(p1, p2);
+		List<GeoCoordinate> listOfPoints = new ArrayList<>();
+		List<GeoCoordinate> calcAStarPoints = calcAStar(p1, p2);
 		
 		listOfPoints.add(p1);
 		listOfPoints.addAll(calcAStarPoints);
@@ -64,8 +64,8 @@ public abstract class SeaGraph {
 		return route;
 	}
 	
-	protected Point get(String name) {
-		for (Point p : habours) {
+	protected GeoCoordinate get(String name) {
+		for (GeoCoordinate p : habours) {
 			if (p.getName().equalsIgnoreCase(name)) {
 				return p;
 			}
@@ -73,14 +73,14 @@ public abstract class SeaGraph {
 		return null;
 	}
 	
-	private Point getRandomPoint() {
-		Point point = null;
+	private GeoCoordinate getRandomPoint() {
+		GeoCoordinate point = null;
 		
 		while (point == null) {
 			Random rand = new Random();
 			Object[] values = habours.toArray();
 			Object o = values[rand.nextInt(values.length)];
-			point = (Point)o;
+			point = (GeoCoordinate)o;
 			if (!point.IsAcity()) point = null;
 		}
 		return point;
@@ -94,7 +94,7 @@ public abstract class SeaGraph {
 		return null;
 	}
 	
-	private boolean containsConnection(Point p1, Point p2) {
+	private boolean containsConnection(GeoCoordinate p1, GeoCoordinate p2) {
 		for (Connection connection : connections) {
 			if (connection.getNode1().equalsIgnoreCase(p1.getName()) && connection.getNode2().equalsIgnoreCase(p2.getName()) ||
 				connection.getNode2().equalsIgnoreCase(p1.getName()) && connection.getNode1().equalsIgnoreCase(p2.getName()) )
@@ -113,9 +113,9 @@ public abstract class SeaGraph {
 		return false;
 	}
 	
-	protected List<Point> calcAStar(Point source, Point goal) {
+	protected List<GeoCoordinate> calcAStar(GeoCoordinate source, GeoCoordinate goal) {
 		
-		for (Point point : habours) {
+		for (GeoCoordinate point : habours) {
 			Node newNode = new Node(point, 0.0);
 			if (!nodeExists(newNode)) nodes.add(newNode);
 		}
@@ -137,7 +137,7 @@ public abstract class SeaGraph {
 		
 		//Check if two cities are connected directly
 		if (source.IsAcity() && goal.IsAcity() && containsConnection(source, goal)) {
-			List<Point> points = new ArrayList<>();
+			List<GeoCoordinate> points = new ArrayList<>();
 			points.add(source);
 			points.add(goal);
 			log.info("AIS: " + source.getName() + " -> " + goal.getName());
@@ -245,8 +245,8 @@ public abstract class SeaGraph {
 		return 0.0;
 	}
 	
-	public static List<Point> getPath(Node target) {
-		List<Point> points = new ArrayList<>();
+	public static List<GeoCoordinate> getPath(Node target) {
+		List<GeoCoordinate> points = new ArrayList<>();
 		List<String> cities = new ArrayList<>();
 		cities.add(target.getPoint().getName());
 		for (Node node = target; node != null; node = node.getParent()) {

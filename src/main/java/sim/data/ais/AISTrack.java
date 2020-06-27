@@ -10,7 +10,7 @@ import sim.data.ais.data.ship.IShip;
 import sim.data.ais.data.ship.ShipFactory;
 import sim.config.Constants;
 import sim.model.GeoOps;
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 
@@ -18,7 +18,7 @@ public class AISTrack extends Track {
 
 	private static final Logger log = LoggerFactory.getLogger(AISTrack.class);
 	
-	private List<Point> points = new ArrayList<>();
+	private List<GeoCoordinate> points = new ArrayList<>();
 	private Route route = null;
 
 	private int position = 0;
@@ -37,7 +37,7 @@ public class AISTrack extends Track {
 	public void run() {
 
 		while (!kill) {
-			Point current = points.get(position);
+			GeoCoordinate current = points.get(position);
 
 			position++;
 			position = position % points.size();
@@ -107,7 +107,9 @@ public class AISTrack extends Track {
 				factorLon = -factorLon;
 
 			for (int i = 0; i < nrOfGeneratedPoints; i++) {
-				points.add(new Point(lat1 + factorLat * i * stepLat, lon1 + factorLon * i * stepLon));
+				double newLat = lat1 + factorLat * i * stepLat;
+				double newLon = lon1 + factorLon * i * stepLon;
+				points.add(new GeoCoordinate(newLat, newLon));
 			}
 		}
 		

@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.model.GeoOps;
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 import sim.model.sinks.SinkDispatcher;
 import sim.config.Constants;
 
@@ -26,7 +26,7 @@ public class ADSBCircleTrack implements Runnable {
 	
 	private double speed = 250.0; // in [m/s] = 900 [km/h] = 485 [kn]
 	
-	private List<Point> points = new ArrayList<>();
+	private List<GeoCoordinate> points = new ArrayList<>();
 	
 	private int position = 0;
 	private double timeInterval = 0.5;
@@ -42,7 +42,7 @@ public class ADSBCircleTrack implements Runnable {
 		
 		for (int i = 0; i < nrOfGeneratedPoints; i++) {
 		    double angle = Math.toRadians(((double) i / (double) nrOfGeneratedPoints) * 360.0);
-		    points.add(new Point(centerLat + Math.cos(angle) * radiusInDegree, centerLon + Math.sin(angle) * radiusInDegree));
+		    points.add(new GeoCoordinate(centerLat + Math.cos(angle) * radiusInDegree, centerLon + Math.sin(angle) * radiusInDegree));
 		}
 		
 		log.info("Created track for {} with wait Time of {} s.", hexIdent, timeInterval);
@@ -52,7 +52,7 @@ public class ADSBCircleTrack implements Runnable {
 	public void run() {
 		
 		while (true) {
-			Point current = points.get(position);
+			GeoCoordinate current = points.get(position);
 			
 			position++;
 			position = position % points.size();

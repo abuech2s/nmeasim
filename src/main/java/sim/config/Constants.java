@@ -11,4 +11,6 @@ public class Constants {
 	public static final int configReloadTime = 15_000;
 	
 	public static final long TRACK_SLEEP_TIME = 600 * 1_000L; // in [s]
+	
+	public static final double fromMtoNM = 0.000539957; // from [m] to [NM]
 }

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import sim.config.Constants;
 import sim.model.GeoOps;
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 
@@ -24,16 +24,16 @@ public class GPSTrack extends Track {
 	
 	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
 
-	private List<Point> points = new ArrayList<>();
+	private List<GeoCoordinate> points = new ArrayList<>();
 
 	private int position = 0;
 	private double timeInterval = 5.0; // in [s]
 
-	public GPSTrack(List<Point> route) {
+	public GPSTrack(List<GeoCoordinate> route) {
 		init(route);
 	}
 	
-	private void init(List<Point> route) {
+	private void init(List<GeoCoordinate> route) {
 		
 		for (int p = 0; p < route.size()-1; p++) {
 			double lat1 = route.get(p).getLatitude();
@@ -58,7 +58,9 @@ public class GPSTrack extends Track {
 				factorLon = -factorLon;
 
 			for (int i = 0; i < nrOfGeneratedPoints; i++) {
-				points.add(new Point(lat1 + factorLat * i * stepLat, lon1 + factorLon * i * stepLon));
+				double newLat = lat1 + factorLat * i * stepLat;
+				double newLon = lon1 + factorLon * i * stepLon;
+				points.add(new GeoCoordinate(newLat, newLon));
 			}
 		}
 		
@@ -68,7 +70,7 @@ public class GPSTrack extends Track {
 	@Override
 	public void run() {
 		while (!kill) {
-			Point current = points.get(position);
+			GeoCoordinate current = points.get(position);
 			
 			position++;
 			position = position % points.size();

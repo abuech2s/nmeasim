@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.model.GeoOps;
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 import sim.config.Constants;
@@ -29,7 +29,7 @@ public class ADSBLinearTrack extends Track {
 
 	private double speed = 250.0; // in [m/s] = 900 [km/h] = 485 [kn]
 
-	private List<Point> points = new ArrayList<>();
+	private List<GeoCoordinate> points = new ArrayList<>();
 
 	private int position = 0;
 	private double timeInterval = 1.0; // in [s]
@@ -40,8 +40,8 @@ public class ADSBLinearTrack extends Track {
 	
 	private void init(String hexIdent, String callsign) {
 		
-		Entry<String, Point> city1 = Cities.getRandom();
-		Entry<String, Point> city2 = Cities.getRandom();
+		Entry<String, GeoCoordinate> city1 = Cities.getRandom();
+		Entry<String, GeoCoordinate> city2 = Cities.getRandom();
 		while (city1.getValue().getLatitude() == city2.getValue().getLatitude() && city1.getValue().getLongitude() == city2.getValue().getLongitude()) {
 			city2 = Cities.getRandom();
 		}
@@ -70,7 +70,9 @@ public class ADSBLinearTrack extends Track {
 			factorLon = -factorLon;
 
 		for (int i = 0; i < nrOfGeneratedPoints; i++) {
-			points.add(new Point(lat1 + factorLat * i * stepLat, lon1 + factorLon * i * stepLon));
+			double newLat = lat1 + factorLat * i * stepLat;
+			double newLon = lon1 + factorLon * i * stepLon;
+			points.add(new GeoCoordinate(newLat, newLon));
 		}
 
 		log.info("Created track for ADSB({}) with {} trackpoints from {} to {}.", hexIdent, nrOfGeneratedPoints, city1.getKey(), city2.getKey());
@@ -79,7 +81,7 @@ public class ADSBLinearTrack extends Track {
 	@Override
 	public void run() {
 		while (!kill) {
-			Point current = points.get(position);
+			GeoCoordinate current = points.get(position);
 			
 			position++;
 			position = position % points.size();

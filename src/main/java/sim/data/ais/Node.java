@@ -9,7 +9,7 @@ public class Node {
 
 	private double fValue = 0.0;
 	private double gValue = 0.0;
-	private Point point = null;
+	private GeoCoordinate point = null;
 	private Node parent = null;
 	private List<Node> neighbours = null;
 	
@@ -21,13 +21,13 @@ public class Node {
 		this.neighbours = node.getNeighbours();
 	}
 	
-	public Node(Point point, double fValue) {
+	public Node(GeoCoordinate point, double fValue) {
 		this.point = point;
 		this.fValue = fValue;
 		neighbours = new ArrayList<>();
 	}
 	
-	public Point getPoint() {
+	public GeoCoordinate getPoint() {
 		return point;
 	}
 	

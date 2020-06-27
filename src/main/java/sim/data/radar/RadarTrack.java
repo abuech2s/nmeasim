@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import sim.config.Constants;
 import sim.data.gps.GPSMessages;
 import sim.model.GeoOps;
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 
@@ -36,18 +36,18 @@ public class RadarTrack extends Track {
 
 	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
 
-	private List<Point> points = new ArrayList<>();
+	private List<GeoCoordinate> points = new ArrayList<>();
 	private int position = 0;
 	private double timeInterval = 5.0; // in [s]
 	
 	private int radarTrackCounter = 0;
 	private String currentRadarTrackId = null;
 
-	public RadarTrack(List<Point> route) {
+	public RadarTrack(List<GeoCoordinate> route) {
 		init(route);
 	}
 	
-	private void init(List<Point> route) {
+	private void init(List<GeoCoordinate> route) {
 		
 		for (int p = 0; p < route.size()-1; p++) {
 			double lat1 = route.get(p).getLatitude();
@@ -72,7 +72,9 @@ public class RadarTrack extends Track {
 				factorLon = -factorLon;
 
 			for (int i = 0; i < nrOfGeneratedPoints; i++) {
-				points.add(new Point(lat1 + factorLat * i * stepLat, lon1 + factorLon * i * stepLon));
+				double newLat = lat1 + factorLat * i * stepLat;
+				double newLon = lon1 + factorLon * i * stepLon;
+				points.add(new GeoCoordinate(newLat, newLon));
 			}
 		}
 		
@@ -82,7 +84,7 @@ public class RadarTrack extends Track {
 	@Override
 	public void run() {
 		while (!kill) {
-			Point current = points.get(position);
+			GeoCoordinate current = points.get(position);
 			
 			position++;
 			position = position % points.size();
@@ -116,7 +118,7 @@ public class RadarTrack extends Track {
 			
 			//Based on GPS position, we check furthermore, if we can find a track plot
 			
-			Point radarPlot = isInRadiusOfRadarPlot(current.getLatitude(), current.getLongitude());
+			GeoCoordinate radarPlot = isInRadiusOfRadarPlot(current.getLatitude(), current.getLongitude());
 			
 			if (radarPlot != null) {
 				if (currentRadarTrackId == null) radarTrackCounter++;
@@ -127,8 +129,7 @@ public class RadarTrack extends Track {
 				double dist = GeoOps.getDistance(current.getLatitude(), current.getLongitude(), radarPlot.getLatitude(), radarPlot.getLongitude());
 				double bearing = GeoOps.getBearing(current.getLatitude(), current.getLongitude(), radarPlot.getLatitude(), radarPlot.getLongitude());
 				
-				dist = dist * 0.000539957; // [m] in [NM]
-				bearing = (540.0 - bearing) % 360; // Calculate based on True North
+				dist = dist * Constants.fromMtoNM; // [m] in [NM]
 				
 				msgRattm = msgRattm.replace("${trackid}", currentRadarTrackId);
 				msgRattm = msgRattm.replace("${dist}", df2.format(dist).replace(",", "."));
@@ -137,7 +138,7 @@ public class RadarTrack extends Track {
 				msgRattm = msgRattm.replace("${name}", "TRK"+currentRadarTrackId);
 				
 				msgRattm = msgRattm + GeoOps.calcCheckSum(msgRattm);
-
+				
 				SinkDispatcher.take(Constants.TOKEN_RADAR, msgRattm);
 			} else {
 				currentRadarTrackId = null;
@@ -152,8 +153,8 @@ public class RadarTrack extends Track {
 		}
 	}
 	
-	private Point isInRadiusOfRadarPlot(double lat, double lon) {
-		for (Point radarPlot : RadarPlots.get()) {
+	private GeoCoordinate isInRadiusOfRadarPlot(double lat, double lon) {
+		for (GeoCoordinate radarPlot : RadarPlots.get()) {
 			double dist = GeoOps.getDistance(lat,  lon, radarPlot.getLatitude(),  radarPlot.getLongitude());
 			if (dist <= RadarTrack.maxRadarRadius) {
 				return radarPlot;

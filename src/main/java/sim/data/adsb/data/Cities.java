@@ -11,13 +11,13 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.model.Point;
+import sim.model.GeoCoordinate;
 
 import java.util.Random;
 
 public class Cities {
 
-	private static Map<String, Point> cities = null;
+	private static Map<String, GeoCoordinate> cities = null;
 	private static final Logger log = LoggerFactory.getLogger(Cities.class);
 
 	private static InputStream getFileFromResources(String fileName) {
@@ -41,7 +41,7 @@ public class Cities {
 				String[] elem = line.split(",");
 				double lat = Double.parseDouble(elem[1]);
 				double lon = Double.parseDouble(elem[2]);
-				cities.put(elem[0], new Point(lat, lon));
+				cities.put(elem[0], new GeoCoordinate(lat, lon));
 			}
 			br.close();
 		} catch (IOException e) {
@@ -51,7 +51,7 @@ public class Cities {
 		log.debug("Created {} cities.", cities.size());
 	}
 
-	public static Point get(String city) {
+	public static GeoCoordinate get(String city) {
 		if (cities == null)
 			init();
 		city = city.toLowerCase().trim();
@@ -59,13 +59,13 @@ public class Cities {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Entry<String, Point> getRandom() {
+	public static Entry<String, GeoCoordinate> getRandom() {
 		if (cities == null)
 			init();
 		Random rand = new Random();
 		Object[] values = cities.entrySet().toArray();
 		Object o = values[rand.nextInt(values.length)];
-		return (Entry<String, Point>) o;
+		return (Entry<String, GeoCoordinate>) o;
 	}
 
 }
