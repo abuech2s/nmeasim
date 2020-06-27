@@ -2,7 +2,6 @@ package sim.data.gps;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,49 +20,16 @@ public class GPSTrack extends Track {
 
 	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.systemDefault());
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.systemDefault());
-	
-	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
-
-	private List<GeoCoordinate> points = new ArrayList<>();
 
 	private int position = 0;
-	private double timeInterval = 5.0; // in [s]
 
 	public GPSTrack(List<GeoCoordinate> route) {
+		super(100.0, 5.0);
 		init(route);
 	}
 	
-	private void init(List<GeoCoordinate> route) {
-		
-		for (int p = 0; p < route.size()-1; p++) {
-			double lat1 = route.get(p).getLatitude();
-			double lon1 = route.get(p).getLongitude();
-			double lat2 = route.get(p+1).getLatitude();
-			double lon2 = route.get(p+1).getLongitude();
-
-			double distance = Math.abs(GeoOps.getDistance(route.get(p).getLatitude(), route.get(p).getLongitude(),
-					route.get(p+1).getLatitude(), route.get(p+1).getLongitude()));
-			double time = distance / speed; // in [s]
-			int nrOfGeneratedPoints = (int)(time / timeInterval);
-			
-			double stepLat = Math.abs((lat1 - lat2) / nrOfGeneratedPoints);
-			double stepLon = Math.abs((lon1 - lon2) / nrOfGeneratedPoints);
-
-			double factorLat = 1.0;
-			double factorLon = 1.0;
-
-			if (lat1 > lat2)
-				factorLat = -factorLat;
-			if (lon1 > lon2)
-				factorLon = -factorLon;
-
-			for (int i = 0; i < nrOfGeneratedPoints; i++) {
-				double newLat = lat1 + factorLat * i * stepLat;
-				double newLon = lon1 + factorLon * i * stepLon;
-				points.add(new GeoCoordinate(newLat, newLon));
-			}
-		}
-		
+	private void init(List<GeoCoordinate> routePoints) {
+		createGeoCoordinates(routePoints);
 		log.info("Created track for GPS with {} trackpoints.", points.size());
 	}
 

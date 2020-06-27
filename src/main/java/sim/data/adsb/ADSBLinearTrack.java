@@ -27,55 +27,28 @@ public class ADSBLinearTrack extends Track {
 	private String hexIdent = "HEXxx";
 	private String callsign = "CS0000";
 
-	private double speed = 250.0; // in [m/s] = 900 [km/h] = 485 [kn]
-
-	private List<GeoCoordinate> points = new ArrayList<>();
-
 	private int position = 0;
-	private double timeInterval = 1.0; // in [s]
 	
 	public ADSBLinearTrack(String hexIdent, String callsign) {
-		init(hexIdent, callsign);
+		super(250.0, 1.0);
+		this.hexIdent = hexIdent;
+		this.callsign = callsign;
+		init();
 	}
 	
-	private void init(String hexIdent, String callsign) {
-		
+	private void init() {
 		Entry<String, GeoCoordinate> city1 = Cities.getRandom();
 		Entry<String, GeoCoordinate> city2 = Cities.getRandom();
 		while (city1.getValue().getLatitude() == city2.getValue().getLatitude() && city1.getValue().getLongitude() == city2.getValue().getLongitude()) {
 			city2 = Cities.getRandom();
 		}
 		
-		double lat1 = city1.getValue().getLatitude();
-		double lon1 = city1.getValue().getLongitude();
-		double lat2 = city2.getValue().getLatitude();
-		double lon2 = city2.getValue().getLongitude();
+		List<GeoCoordinate> routePoints = new ArrayList<>();
+		routePoints.add(new GeoCoordinate(city1.getValue().getLatitude(), city1.getValue().getLongitude()));
+		routePoints.add(new GeoCoordinate(city2.getValue().getLatitude(), city2.getValue().getLongitude()));
 		
-		this.hexIdent = hexIdent;
-
-		double distance = GeoOps.getDistance(lat1, lon1, lat2, lon2);
-		distance = Math.abs(distance);
-		double time = distance / speed;
-		int nrOfGeneratedPoints = (int)(time / timeInterval);
-		
-		double stepLat = Math.abs((lat1 - lat2) / nrOfGeneratedPoints);
-		double stepLon = Math.abs((lon1 - lon2) / nrOfGeneratedPoints);
-
-		double factorLat = 1.0;
-		double factorLon = 1.0;
-
-		if (lat1 > lat2)
-			factorLat = -factorLat;
-		if (lon1 > lon2)
-			factorLon = -factorLon;
-
-		for (int i = 0; i < nrOfGeneratedPoints; i++) {
-			double newLat = lat1 + factorLat * i * stepLat;
-			double newLon = lon1 + factorLon * i * stepLon;
-			points.add(new GeoCoordinate(newLat, newLon));
-		}
-
-		log.info("Created track for ADSB({}) with {} trackpoints from {} to {}.", hexIdent, nrOfGeneratedPoints, city1.getKey(), city2.getKey());
+		createGeoCoordinates(routePoints);
+		log.info("Created track for ADSB({}) with {} trackpoints from {} to {}.", hexIdent, points.size(), city1.getKey(), city2.getKey());
 	}
 
 	@Override
