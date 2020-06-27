@@ -74,9 +74,9 @@ public class ADSBCircleTrack implements Runnable {
 			message4 = message4.replace("${speed}", "485");
 			message4 = message4.replace("${track}", String.valueOf(GeoOps.getBearing(current.getLatitude(), current.getLongitude(), points.get(position).getLatitude(), points.get(position).getLongitude())));
 			
-			SinkDispatcher.take(Constants.tokenAdsb, message1);
-			SinkDispatcher.take(Constants.tokenAdsb, message3);
-			SinkDispatcher.take(Constants.tokenAdsb, message4);
+			SinkDispatcher.take(Constants.TOKEN_ADSB, message1);
+			SinkDispatcher.take(Constants.TOKEN_ADSB, message3);
+			SinkDispatcher.take(Constants.TOKEN_ADSB, message4);
 			try { Thread.sleep((long)(timeInterval * 1000L)); }
 			catch (InterruptedException e) {}
 		}

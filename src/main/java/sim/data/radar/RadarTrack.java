@@ -37,10 +37,8 @@ public class RadarTrack extends Track {
 	private double speed = 100; // 13 in [m/s] = 46 [km/h] = 25 [kn]
 
 	private List<Point> points = new ArrayList<>();
-
 	private int position = 0;
 	private double timeInterval = 5.0; // in [s]
-	
 	
 	private int radarTrackCounter = 0;
 	private String currentRadarTrackId = null;
@@ -89,32 +87,32 @@ public class RadarTrack extends Track {
 			position++;
 			position = position % points.size();
 			
+			String msgGpgga = GPSMessages.MSG_GPGGA;
+			msgGpgga = msgGpgga.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
+			msgGpgga = msgGpgga.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 4));
+			if (current.getLatitude() < 0) msgGpgga = msgGpgga.replace("${latNS}", "S");
+			else msgGpgga = msgGpgga.replace("${latNS}", "N");
 			
-			String message1 = GPSMessages.MSG_GPGGA;
-			message1 = message1.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
-			message1 = message1.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 4));
-			if (current.getLatitude() < 0) message1 = message1.replace("${latNS}", "S");
-			else message1 = message1.replace("${latNS}", "N");
-							
-			message1 = message1.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 4));
-			if (current.getLongitude() < 0) message1 = message1.replace("${lonWE}", "W");
-			else message1 = message1.replace("${lonWE}", "E");
+			msgGpgga = msgGpgga.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 4));
+			if (current.getLongitude() < 0) msgGpgga = msgGpgga.replace("${lonWE}", "W");
+			else msgGpgga = msgGpgga.replace("${lonWE}", "E");
 			
-			String message2 = GPSMessages.MSG_GPRMC;
-			message2 = message2.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 2) );
-			if (current.getLatitude() < 0) message2 = message2.replace("${latNS}", "S");
-			else message2 = message2.replace("${latNS}", "N");
-			message2 = message2.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 2)  );
-			if (current.getLongitude() < 0) message2 = message2.replace("${lonWE}", "W");
-			else message2 = message2.replace("${lonWE}", "E");
-			message2 = message2.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
-			message2 = message2.replace("${date}", dateFormatterGps.format(new Date().toInstant()));
+			String msgGprmc = GPSMessages.MSG_GPRMC;
+			msgGprmc = msgGprmc.replace("${time}", timeFormatterGps.format(new Date().toInstant()));
+			msgGprmc = msgGprmc.replace("${date}", dateFormatterGps.format(new Date().toInstant()));
+			msgGprmc = msgGprmc.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 2) );
+			if (current.getLatitude() < 0) msgGprmc = msgGprmc.replace("${latNS}", "S");
+			else msgGprmc = msgGprmc.replace("${latNS}", "N");
 			
-			message1 = message1 + GeoOps.calcCheckSum(message1);
-			message2 = message2 + GeoOps.calcCheckSum(message2);
+			msgGprmc = msgGprmc.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 2)  );
+			if (current.getLongitude() < 0) msgGprmc = msgGprmc.replace("${lonWE}", "W");
+			else msgGprmc = msgGprmc.replace("${lonWE}", "E");
 			
-			SinkDispatcher.take(Constants.tokenGps, message1);
-			SinkDispatcher.take(Constants.tokenGps, message2);
+			msgGpgga = msgGpgga + GeoOps.calcCheckSum(msgGpgga);
+			msgGprmc = msgGprmc + GeoOps.calcCheckSum(msgGprmc);
+			
+			SinkDispatcher.take(Constants.TOKEN_GPS, msgGpgga);
+			SinkDispatcher.take(Constants.TOKEN_GPS, msgGprmc);
 			
 			//Based on GPS position, we check furthermore, if we can find a track plot
 			
@@ -123,8 +121,8 @@ public class RadarTrack extends Track {
 			if (radarPlot != null) {
 				if (currentRadarTrackId == null) radarTrackCounter++;
 				radarTrackCounter = radarTrackCounter % 100;
-				currentRadarTrackId = "0" + radarTrackCounter;
-				String radarMsg = RadarMessage.MSG_TTM;
+				if (radarTrackCounter < 10) currentRadarTrackId = "0" + radarTrackCounter;
+				String msgRattm = RadarMessage.MSG_TTM;
 				
 				double dist = GeoOps.getDistance(current.getLatitude(), current.getLongitude(), radarPlot.getLatitude(), radarPlot.getLongitude());
 				double bearing = GeoOps.getBearing(current.getLatitude(), current.getLongitude(), radarPlot.getLatitude(), radarPlot.getLongitude());
@@ -132,15 +130,15 @@ public class RadarTrack extends Track {
 				dist = dist * 0.000539957; // [m] in [NM]
 				bearing = (540.0 - bearing) % 360; // Calculate based on True North
 				
-				radarMsg = radarMsg.replace("${trackid}", currentRadarTrackId);
-				radarMsg = radarMsg.replace("${dist}", df2.format(dist).replace(",", "."));
-				radarMsg = radarMsg.replace("${bearing}", df3.format(bearing).replace(",", "."));
-				radarMsg = radarMsg.replace("${time}", dateTimeFormatterRadar.format(new Date().toInstant()));
-				radarMsg = radarMsg.replace("${name}", "TRK"+currentRadarTrackId);
+				msgRattm = msgRattm.replace("${trackid}", currentRadarTrackId);
+				msgRattm = msgRattm.replace("${dist}", df2.format(dist).replace(",", "."));
+				msgRattm = msgRattm.replace("${bearing}", df3.format(bearing).replace(",", "."));
+				msgRattm = msgRattm.replace("${time}", dateTimeFormatterRadar.format(new Date().toInstant()));
+				msgRattm = msgRattm.replace("${name}", "TRK"+currentRadarTrackId);
 				
-				radarMsg = radarMsg + GeoOps.calcCheckSum(radarMsg);
+				msgRattm = msgRattm + GeoOps.calcCheckSum(msgRattm);
 
-				SinkDispatcher.take(Constants.tokenRadar, radarMsg);
+				SinkDispatcher.take(Constants.TOKEN_RADAR, msgRattm);
 			} else {
 				currentRadarTrackId = null;
 			}

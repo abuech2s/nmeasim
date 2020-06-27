@@ -73,28 +73,28 @@ public class GPSTrack extends Track {
 			position++;
 			position = position % points.size();
 				
-			String message1 = GPSMessages.MSG_GPGGA;
-			message1 = message1.replace("${time}", timeFormatter.format(new Date().toInstant()));
-			message1 = message1.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 4) );
-			if (current.getLatitude() < 0) message1 = message1.replace("${latNS}", "S");
-			else message1 = message1.replace("${latNS}", "N");
+			String msgGpgga = GPSMessages.MSG_GPGGA;
+			msgGpgga = msgGpgga.replace("${time}", timeFormatter.format(new Date().toInstant()));
+			msgGpgga = msgGpgga.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 4) );
+			if (current.getLatitude() < 0) msgGpgga = msgGpgga.replace("${latNS}", "S");
+			else msgGpgga = msgGpgga.replace("${latNS}", "N");
 							
-			message1 = message1.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 4));
-			if (current.getLongitude() < 0) message1 = message1.replace("${lonWE}", "W");
-			else message1 = message1.replace("${lonWE}", "E");
+			msgGpgga = msgGpgga.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 4));
+			if (current.getLongitude() < 0) msgGpgga = msgGpgga.replace("${lonWE}", "W");
+			else msgGpgga = msgGpgga.replace("${lonWE}", "E");
 			
-			String message2 = GPSMessages.MSG_GPRMC;
-			message2 = message2.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 2));
-			if (current.getLatitude() < 0) message2 = message2.replace("${latNS}", "S");
-			else message2 = message2.replace("${latNS}", "N");
-			message2 = message2.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 2));
-			if (current.getLongitude() < 0) message2 = message2.replace("${lonWE}", "W");
-			else message2 = message2.replace("${lonWE}", "E");
-			message2 = message2.replace("${time}", timeFormatter.format(new Date().toInstant()));
-			message2 = message2.replace("${date}", dateFormatter.format(new Date().toInstant()));
+			String msgGprmc = GPSMessages.MSG_GPRMC;
+			msgGprmc = msgGprmc.replace("${lat}", GeoOps.GeoDecToDegMin(current.getLatitude(), 4, 2));
+			if (current.getLatitude() < 0) msgGprmc = msgGprmc.replace("${latNS}", "S");
+			else msgGprmc = msgGprmc.replace("${latNS}", "N");
+			msgGprmc = msgGprmc.replace("${lon}", GeoOps.GeoDecToDegMin(current.getLongitude(), 5, 2));
+			if (current.getLongitude() < 0) msgGprmc = msgGprmc.replace("${lonWE}", "W");
+			else msgGprmc = msgGprmc.replace("${lonWE}", "E");
+			msgGprmc = msgGprmc.replace("${time}", timeFormatter.format(new Date().toInstant()));
+			msgGprmc = msgGprmc.replace("${date}", dateFormatter.format(new Date().toInstant()));
 			
-			SinkDispatcher.take(Constants.tokenGps, message1);
-			SinkDispatcher.take(Constants.tokenGps, message2);
+			SinkDispatcher.take(Constants.TOKEN_GPS, msgGpgga);
+			SinkDispatcher.take(Constants.TOKEN_GPS, msgGprmc);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));

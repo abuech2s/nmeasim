@@ -24,8 +24,8 @@ public class SinkAdministration {
 				ISink sink = new Sink(config.getType(), config.getPort());
 				addSink(sink);
 			}
-			if (config.getType().equalsIgnoreCase(Constants.tokenRadar) && config.getActive()) {
-				Config gpsConfig = configs.getConfig(Constants.tokenGps);
+			if (config.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) && config.getActive()) {
+				Config gpsConfig = configs.getConfig(Constants.TOKEN_GPS);
 				ISink sink = new Sink(gpsConfig.getType(), gpsConfig.getPort());
 				addSink(sink);
 			}

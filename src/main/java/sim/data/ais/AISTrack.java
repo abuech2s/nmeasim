@@ -42,15 +42,15 @@ public class AISTrack extends Track {
 			position++;
 			position = position % points.size();
 
-			String binMsg1 = AISEncoder.getBinaryStringMsg1(mmsi, current.getLatitude(), current.getLongitude(), speed);
-			List<String> msgs1 = AISEncoder.getFinalAISMessages(binMsg1);
+			String msgType1 = AISEncoder.getBinaryStringMsg1(mmsi, current.getLatitude(), current.getLongitude(), speed);
+			List<String> msgs1 = AISEncoder.getFinalAISMessages(msgType1);
 			
 			//TODO: ETA
 			String binMsg5 = AISEncoder.getBinaryStringMsg5(mmsi, current.getLatitude(), current.getLongitude(), ship, 0, 0, 0, 0, route.getEndHarbour());
 			List<String> msgs5 = AISEncoder.getFinalAISMessages(binMsg5);
 
-			SinkDispatcher.take(Constants.tokenAis, msgs1);
-			SinkDispatcher.take(Constants.tokenAis, msgs5);
+			SinkDispatcher.take(Constants.TOKEN_AIS, msgs1);
+			SinkDispatcher.take(Constants.TOKEN_AIS, msgs5);
 
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
@@ -61,12 +61,12 @@ public class AISTrack extends Track {
 			//If last point of track is received, sleep x minutes and restart it
 			if (position == points.size()-1) {
 				try {
-					log.info("Track (mmsi={}) terminated. Restart in 10 minutes.", mmsi);
-					Thread.sleep((long) (600 * 1000L));
+					log.info("Track for mmsi={} terminated. Restart in {} minutes.", mmsi, Constants.TRACK_SLEEP_TIME/60000);
+					Thread.sleep(Constants.TRACK_SLEEP_TIME);
 				} catch (InterruptedException e) {
 					log.warn("Exception at Thread {} ", e);
 				}
-				log.info("Restart Track (mmsi={}).", mmsi);
+				log.info("Restart Track for mmsi={}.", mmsi);
 				position = 0;
 			}
 		}

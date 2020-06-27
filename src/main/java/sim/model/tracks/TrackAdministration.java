@@ -22,23 +22,23 @@ public class TrackAdministration {
 		
 		for (Config config : configs.getConfigs()) {
 			switch (config.getType().toLowerCase().trim()) {
-			case Constants.tokenAdsb:
+			case Constants.TOKEN_ADSB:
 				if (config.getActive()) {
 					addTracks(ADSBTrackFactory.create(config.getNroftrack()));
 				}
 				break;
-			case Constants.tokenAis:
+			case Constants.TOKEN_AIS:
 				if (config.getActive()) {
 					addTracks(AISTrackFactory.create(config.getNroftrack()));
 				}
 				break;
-			case Constants.tokenGps:
+			case Constants.TOKEN_GPS:
 				//GPS will be automatically activated in case of Radar
-				if (config.getActive() && !configs.getConfig(Constants.tokenRadar).getActive()) {
+				if (config.getActive() && !configs.getConfig(Constants.TOKEN_RADAR).getActive()) {
 					addTracks(GPSTrackFactory.create());
 				}
 				break;
-			case Constants.tokenRadar:
+			case Constants.TOKEN_RADAR:
 				if (config.getActive()) {
 					addTracks(RadarTrackFactory.create());
 				}
