@@ -10,7 +10,7 @@ public class App {
 	private static final Logger log = LoggerFactory.getLogger(App.class);
 	
 	public static void main(String[] args) {	
-		if (args.length == 0 || args[0].endsWith("-help")) help();
+		if (args.length > 0 && args[0].endsWith("-help")) help();
 		initConfiguration();
 		log.info("Simulator started.");
 	}
