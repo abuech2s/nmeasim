@@ -83,6 +83,8 @@ public class RadarTrack extends Track {
 			if (radarPlot != null) {
 				if (currentRadarTrackId == null) radarTrackCounter++;
 				radarTrackCounter = radarTrackCounter % 100;
+				
+				currentRadarTrackId = String.valueOf(radarTrackCounter);
 				if (radarTrackCounter < 10) currentRadarTrackId = "0" + radarTrackCounter;
 				String msgRattm = RadarMessage.MSG_TTM;
 				
