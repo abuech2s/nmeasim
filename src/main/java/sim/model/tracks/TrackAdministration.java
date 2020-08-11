@@ -3,8 +3,12 @@ package sim.model.tracks;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import sim.config.Config;
 import sim.config.Configs;
+import sim.config.Configuration;
 import sim.config.Constants;
 import sim.data.adsb.ADSBTrackFactory;
 import sim.data.ais.AISTrackFactory;
@@ -13,6 +17,8 @@ import sim.data.radar.RadarTrackFactory;
 
 public class TrackAdministration {
 
+	private static final Logger log = LoggerFactory.getLogger(TrackAdministration.class);
+	
 	private static List<ITrack> tracks = null;
 	
 	public synchronized static void reInit(Configs configs) {
@@ -21,7 +27,8 @@ public class TrackAdministration {
 		stopTrackThreads();
 		
 		for (Config config : configs.getConfigs()) {
-			switch (config.getType().toLowerCase().trim()) {
+			String type = config.getType().toLowerCase().trim();
+			switch (type) {
 			case Constants.TOKEN_ADSB:
 				if (config.getActive()) {
 					addTracks(ADSBTrackFactory.create(config.getNroftrack()));
@@ -43,6 +50,8 @@ public class TrackAdministration {
 					addTracks(RadarTrackFactory.create());
 				}
 				break;
+			default:
+				log.warn("Unknown type: {}. Ignored.", type);
 			}
 		}
 		

@@ -101,7 +101,7 @@ public class Configuration implements Runnable {
 	
 	private boolean validate(Configs configs) {
 		
-		//Check if ports exists multiple times
+		//Check if ports exist multiple times
 		Set<Integer> ports = new HashSet<>();
 		for (Config c : configs.getConfigs()) {
 			ports.add(c.getPort());
