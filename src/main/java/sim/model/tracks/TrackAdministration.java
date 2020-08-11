@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import sim.config.Config;
 import sim.config.Configs;
-import sim.config.Configuration;
 import sim.config.Constants;
 import sim.data.adsb.ADSBTrackFactory;
 import sim.data.ais.AISTrackFactory;

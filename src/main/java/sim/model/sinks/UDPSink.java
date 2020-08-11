@@ -2,7 +2,7 @@ package sim.model.sinks;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.List;
 import org.slf4j.Logger;
@@ -13,6 +13,7 @@ public class UDPSink extends AbstractSink {
 	private static final Logger log = LoggerFactory.getLogger(UDPSink.class);
 
 	private DatagramSocket datagramSocket = null;
+	private InetAddress address = null;
 	
 	private String ip = "";
 	private int port = 0;
@@ -41,7 +42,8 @@ public class UDPSink extends AbstractSink {
 		close();
 		while (!kill) {
 			try {
-				datagramSocket = new DatagramSocket(new InetSocketAddress(this.ip, this.port));;
+				datagramSocket = new DatagramSocket();
+				address = InetAddress.getByName(ip);
 				log.info("Create udp sink for {} ({}:{})", getIdentifier(), ip, port);
 				isReady = true;
 
@@ -51,12 +53,12 @@ public class UDPSink extends AbstractSink {
 						if (message == null) continue;
 					
 						byte[] bytes = message.getBytes();
-						DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
+						DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
 						datagramSocket.send(packet);
 						log.debug("Send: {}", message);
 						if (queue.size() > 100) queue.clear();
 					} else {
-						Thread.sleep(500);
+						Thread.sleep(100);
 					}
 				}
 
@@ -65,8 +67,8 @@ public class UDPSink extends AbstractSink {
 			} catch (SocketException e) {
 				//This here is an exit for killing the current thread at being at a blocking function
 				log.debug("Exception: ", e);
-			} catch (Exception e1) {
-				log.warn("Exception: ", e1);
+			} catch (Exception e) {
+				log.warn("Exception: ", e);
 			}
 			close();
 		}

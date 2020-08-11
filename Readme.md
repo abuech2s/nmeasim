@@ -69,7 +69,7 @@ where
  * `type` equals to a stream type. Possible values: `adsb`, `ais`, `gps`, `radar`
  * `sink` equals to a sink type. Possible values: `tcp`, `udp`
  * `active` is the flag, to decide, if this stream is active or not. Possible value: `true`, `false` 
- * `ip` is used in case of `sink=udp` and is the target address
+ * `ip` is used in case of `sink=udp` and is the target address.
  * `port` is the TCP-Socket-Port or in case of `sink=udp` the target port
  * `nroftracks` equals to the number of generated tracks.
 
@@ -78,6 +78,8 @@ The simulator will check every `15s`, if this file is modified (based on MD5 has
 
 The variable `nroftrack` in case of `gps` will always be ignored. We expect, that we produce just GPS data for one object.<br/>
 The variable `nroftrack` in case of `radar` will always be ignored. There is a list of fixed positions of track objects.
+
+It is recommended, that the IP-Address should be set with the default IPv4 structure `x.x.x.x`.
 
 ## Changelog
 
