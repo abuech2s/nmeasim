@@ -10,8 +10,14 @@ public class Config {
 	@XmlAttribute (name = "type")
 	private String type = "";
 	
+	@XmlAttribute (name = "sink")
+	private String sink = "";
+	
 	@XmlAttribute (name = "active")
 	private String active = "false";
+	
+	@XmlAttribute (name = "ip")
+	private String ip = "";
 	
 	@XmlAttribute (name = "port")
 	private String port = "0";
@@ -24,6 +30,20 @@ public class Config {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public String getSink() {
+		return sink;
+	}
+	public void setSink(String sink) {
+		this.sink = sink;
+	}
+	
+	public String getIP() {
+		return ip;
+	}
+	public void setIP(String ip) {
+		this.ip = ip;
 	}
 	
 	public int getPort() {

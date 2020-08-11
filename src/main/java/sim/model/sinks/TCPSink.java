@@ -5,33 +5,31 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Sink extends AbstractSink {
+public class TCPSink extends AbstractSink {
 	
-	private static final Logger log = LoggerFactory.getLogger(Sink.class);
+	private static final Logger log = LoggerFactory.getLogger(TCPSink.class);
 
-	private ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<>();
 	private ServerSocket serverSocket = null;
 	private Socket socket = null;
 	private OutputStreamWriter writer = null;
-	private boolean isReady = false;
-	private int port = 0;
 
+	private int port = 0;
 	
-	public Sink(String identifier, int port) {
+	public TCPSink(String identifier, int port) {
 		super(identifier);
 		this.port = port;
 	}
 
+	@Override
 	public void take(String message) {
 		if (isReady) queue.add(message);
 		if (queue.size() > 100) queue.poll();
 	}
 	
+	@Override
 	public void take(List<String> messages) {
 		for (String msg : messages) {
 			take(msg);
@@ -77,6 +75,7 @@ public class Sink extends AbstractSink {
 		}
 	}
 	
+	@Override
 	protected void close() {
 		try {
 			if (null != socket) socket.close();

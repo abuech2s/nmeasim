@@ -1,5 +1,7 @@
 package sim.model.sinks;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 public abstract class AbstractSink implements ISink {
 
 	private Thread thread;
@@ -7,10 +9,14 @@ public abstract class AbstractSink implements ISink {
 	protected boolean kill = false;
 	protected String identifier = "";
 	
+	protected ConcurrentLinkedQueue<String> queue = null;
+	protected boolean isReady = false;
+	
 	protected abstract void close();
 	
 	protected AbstractSink(String identifier) {
 		this.identifier = identifier.toLowerCase().trim();
+		queue = new ConcurrentLinkedQueue<>();
 	}
 	
 	public void start() {

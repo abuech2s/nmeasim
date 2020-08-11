@@ -1,6 +1,6 @@
 # NMEA and Air Surveillance Simulator
 
-Simulates NMEA and SBS data via TCP Socket connections.
+Simulates NMEA and SBS data via TCP/UDP connections.
 
 ## Requirements
 
@@ -52,29 +52,38 @@ While starting this program, the simulator expects a `config.xml` relative to it
 
 ### Configuration
 
-The content of `config.xml` must be
+The content of `config.xml` must have the following structure 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configs>
-	<config type="adsb"  active="true"   port="10300"  nroftrack="1"/>
-	<config type="ais"   active="false"  port="10200"  nroftrack="1"/>
-	<config type="radar" active="false"  port="10400" />
-	<config type="gps"   active="false"  port="10500" />
+	<config type="adsb"  sink="tcp" active="true"  ip="" port="10300"  nroftrack="1"/>
+	<config type="ais"   sink="tcp" active="false" ip="" port="10200"  nroftrack="1"/>
+	<config type="radar" sink="tcp" active="false" ip="" port="10400" />
+	<config type="gps"   sink="tcp" active="false" ip="" port="10500" />
 </configs>
 ```
+
+where
+
+ * `type` equals to a stream type. Possible values: `adsb`, `ais`, `gps`, `radar`
+ * `sink` equals to a sink type. Possible values: `tcp`, `udp`
+ * `active` is the flag, to decide, if this stream is active or not. Possible value: `true`, `false` 
+ * `ip` is used in case of `sink=udp` and is the target address
+ * `port` is the TCP-Socket-Port or in case of `sink=udp` the target port
+ * `nroftracks` equals to the number of generated tracks.
 
 If `radar` is active, `gps` will be automatically activated as well (the active-flag of `gps` will be ignored.).
 The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.<br/>
 
-The variable `nroftrack` of `gps` will always be ignored. We expect, that we produce just GPS data for one object.<br/>
-The variable `nroftrack` of `radar` will always be ignored. There is a list of fixed positions of track objects.
+The variable `nroftrack` in case of `gps` will always be ignored. We expect, that we produce just GPS data for one object.<br/>
+The variable `nroftrack` in case of `radar` will always be ignored. There is a list of fixed positions of track objects.
 
 ## Changelog
 
-2020-06-23 : V1.0
+2020-08-11 : V1.0
  - Initial version
 
 ## CopyRight
 
-(c) Alexander Buechel, abuech2s@gmail.com, May 2020
+(c) Alexander Buechel, abuech2s@gmail.com, August 2020

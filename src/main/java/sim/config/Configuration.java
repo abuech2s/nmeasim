@@ -33,7 +33,7 @@ public class Configuration implements Runnable {
 	private void init() throws JAXBException, NoSuchAlgorithmException {
 		if (md5Digest == null) {
 			md5Digest = MessageDigest.getInstance("MD5");
-			file = new File(Constants.configFileName);
+			file = new File(Constants.CONFIG_FILENAME);
 			jaxbContext = JAXBContext.newInstance(Configs.class);
 			jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		}
@@ -62,7 +62,7 @@ public class Configuration implements Runnable {
 			} catch (Exception e) {
 				log.warn("Exception while loading config file {}", e);
 			}
-			try { Thread.sleep(Constants.configReloadTime); } catch (Exception e) {}
+			try { Thread.sleep(Constants.CONFIG_RELOADTIME); } catch (Exception e) {}
 		}
 	}
 	

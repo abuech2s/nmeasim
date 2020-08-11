@@ -21,13 +21,13 @@ public class SinkAdministration {
 		
 		for (Config config : configs.getConfigs()) {
 			if (config.getActive()) {
-				ISink sink = new Sink(config.getType(), config.getPort());
-				addSink(sink);
+				ISink sink = getInstance(config);
+				if (sink != null) addSink(sink);
 			}
 			if (config.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) && config.getActive()) {
 				Config gpsConfig = configs.getConfig(Constants.TOKEN_GPS);
-				ISink sink = new Sink(gpsConfig.getType(), gpsConfig.getPort());
-				addSink(sink);
+				ISink sink = getInstance(gpsConfig);
+				if (sink != null) addSink(sink);
 			}
 		}
 		startSinks();
@@ -38,6 +38,19 @@ public class SinkAdministration {
 			sink.kill();
 		}
 		sinks.clear();
+	}
+	
+	private static ISink getInstance(Config config) {
+		switch (config.getSink().toLowerCase()) {
+		case "tcp":
+			return new TCPSink(config.getType(), config.getPort());
+		case "udp":
+			return new UDPSink(config.getType(), config.getIP(), config.getPort());
+		default:
+			log.warn("Unknown sink type: {}", config);
+		}
+
+		return null;
 	}
 	
 	private static void addSink(ISink sink) {
