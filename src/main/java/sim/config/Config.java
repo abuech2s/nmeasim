@@ -69,6 +69,6 @@ public class Config {
 	
 	@Override
 	public String toString() {
-		return "[ " + getType() + " (" + getPort() + ") active=" + getActive() + " NrOfTracks=" + getNroftrack() + " ]";
+		return "[ " + getType() + " (" + getIP() + ":" + getPort() + ") sink=" + getSink() + "active=" + getActive() + " NrOfTracks=" + getNroftrack() + " ]";
 	}
 }

@@ -55,7 +55,7 @@ public class UDPSink extends AbstractSink {
 						byte[] bytes = message.getBytes();
 						DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
 						datagramSocket.send(packet);
-						log.debug("Send: {}", message);
+						log.debug("Send via UDP " + getIdentifier() + " : 1");
 						if (queue.size() > 100) queue.clear();
 					} else {
 						Thread.sleep(100);
@@ -63,7 +63,7 @@ public class UDPSink extends AbstractSink {
 				}
 
 			} catch (InterruptedException e) {
-				log.debug("Exception: ", e);
+				// Do nothing
 			} catch (SocketException e) {
 				//This here is an exit for killing the current thread at being at a blocking function
 				log.debug("Exception: ", e);

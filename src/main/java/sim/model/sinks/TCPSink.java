@@ -56,7 +56,7 @@ public class TCPSink extends AbstractSink {
 						
 						writer.write(message+"\r\n");
 						writer.flush();
-						log.debug("Write:" + message);
+						log.debug("Send via TCP " + getIdentifier() + " : 1");
 						if (queue.size() > 100) queue.clear();
 					} else {
 						Thread.sleep(500);
@@ -64,9 +64,9 @@ public class TCPSink extends AbstractSink {
 				}
 
 			} catch (InterruptedException e) {
-				log.debug("Exception: ", e);
+				// Do nothing
 			} catch (SocketException e) {
-				//This here is an exit for killing the current thread at being at a blocking function
+				// This here is an exit for killing the current thread at being at a blocking function
 				log.debug("Exception: ", e);
 			} catch (Exception e1) {
 				log.warn("Exception: ", e1);
