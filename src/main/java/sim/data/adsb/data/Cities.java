@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.config.Constants;
 import sim.model.GeoCoordinate;
 
 import java.util.Random;
@@ -24,7 +25,7 @@ public class Cities {
 		ClassLoader classLoader = Cities.class.getClassLoader();
 		InputStream stream = classLoader.getResourceAsStream(fileName);
 		if (stream == null) {
-			throw new IllegalArgumentException("file is not found!");
+			throw new IllegalArgumentException("file: " + fileName + " not found!");
 		} else {
 			return stream;
 		}
@@ -33,7 +34,7 @@ public class Cities {
 	private static void init() {
 		cities = new HashMap<>();
 
-		InputStream stream = getFileFromResources("cities.csv");
+		InputStream stream = getFileFromResources(Constants.adsbCities);
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 			String line;
@@ -48,7 +49,7 @@ public class Cities {
 			log.warn("Exception while loding cities {}", e);
 		}
 
-		log.debug("Created {} cities.", cities.size());
+		log.debug("Loaded {} cities.", cities.size());
 	}
 
 	public static GeoCoordinate get(String city) {

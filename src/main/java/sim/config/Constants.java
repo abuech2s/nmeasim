@@ -17,4 +17,7 @@ public class Constants {
 	
 	//Physical constants
 	public static final double fromMtoNM = 0.000539957; // from [m] to [NM]
+	
+	//Filenames
+	public static final String adsbCities = "cities.csv";
 }
