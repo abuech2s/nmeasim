@@ -1,6 +1,9 @@
 package sim.config;
 
 import javax.xml.bind.annotation.XmlAttribute;
+
+import lombok.Getter;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -8,67 +11,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class Config {
 	
 	@XmlAttribute (name = "type")
-	private String type = "";
+	@Getter private String type = "";
 	
 	@XmlAttribute (name = "sink")
-	private String sink = "";
+	@Getter private String sink = "";
 	
 	@XmlAttribute (name = "active")
-	private String active = "false";
+	@Getter private boolean active = false;
 	
 	@XmlAttribute (name = "ip")
-	private String ip = "";
+	@Getter private String ip = "";
 	
 	@XmlAttribute (name = "port")
-	private String port = "0";
+	@Getter private int port = 0;
 	
 	@XmlAttribute (name = "nroftrack")
-	private String nroftrack = "1";
-	
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public String getSink() {
-		return sink;
-	}
-	public void setSink(String sink) {
-		this.sink = sink;
-	}
-	
-	public String getIP() {
-		return ip;
-	}
-	public void setIP(String ip) {
-		this.ip = ip;
-	}
-	
-	public int getPort() {
-		return Integer.parseInt(port);
-	}
-	public void setPort(String port) {
-		this.port = port;
-	}
-	
-	public int getNroftrack() {
-		return Integer.parseInt(nroftrack);
-	}
-	public void setNroftrack(String nroftrack) {
-		this.nroftrack = nroftrack;
-	}
-	
-	public boolean getActive() {
-		return Boolean.parseBoolean(active);
-	}
-	public void setActive(String active) {
-		this.active = active;
-	}
+	@Getter private int nroftrack = 1;
+
 	
 	@Override
 	public String toString() {
-		return "[ " + getType() + " (" + getIP() + ":" + getPort() + ") sink=" + getSink() + "active=" + getActive() + " NrOfTracks=" + getNroftrack() + " ]";
+		return "[ " + getType() + " (" + getIp() + ":" + getPort() + ") sink=" + getSink() + " isActive=" + isActive() + " Nroftracks=" + getNroftrack() + " ]";
 	}
 }

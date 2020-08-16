@@ -20,11 +20,11 @@ public class SinkAdministration {
 		stopSinkThreads();
 		
 		for (Config config : configs.getConfigs()) {
-			if (config.getActive()) {
+			if (config.isActive()) {
 				ISink sink = getInstance(config);
 				if (sink != null) addSink(sink);
 			}
-			if (config.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) && config.getActive()) {
+			if (config.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) && config.isActive()) {
 				Config gpsConfig = configs.getConfig(Constants.TOKEN_GPS);
 				ISink sink = getInstance(gpsConfig);
 				if (sink != null) addSink(sink);
@@ -45,7 +45,7 @@ public class SinkAdministration {
 		case "tcp":
 			return new TCPSink(config.getType(), config.getPort());
 		case "udp":
-			return new UDPSink(config.getType(), config.getIP(), config.getPort());
+			return new UDPSink(config.getType(), config.getIp(), config.getPort());
 		default:
 			log.warn("Unknown sink type: {}", config);
 		}
@@ -59,7 +59,7 @@ public class SinkAdministration {
 	
 	private synchronized static void startSinks() {
 		try {
-			//We wait a moment, to be sure that all legacy ports are closed
+			// We wait a moment, to be sure that all legacy ports are closed
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			log.warn("Exception: {}", e1);
