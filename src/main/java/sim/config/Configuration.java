@@ -66,10 +66,6 @@ public class Configuration implements Runnable {
 		}
 	}
 	
-	public static Configs get() {
-		return configs;
-	}
-	
 	private static String getFileChecksum(MessageDigest digest, File file) throws IOException
 	{
 	    FileInputStream fis = new FileInputStream(file);

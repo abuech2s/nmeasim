@@ -1,50 +1,17 @@
 package sim.data.ais.data.ship;
 
+import lombok.Getter;
+
 public class Cargo implements IShip {
-
-	@Override
-	public int getIMO() {
-		return 1000003;
-	}
-
-	@Override
-	public String getCallsign() {
-		return "C100001";
-	}
-
-	@Override
-	public String getVesselName() {
-		return "BigCargo";
-	}
-
-	@Override
-	public int getDraught() {
-		return 15;
-	}
-
-	@Override
-	public int getBow() {
-		return 20;
-	}
-
-	@Override
-	public int getStern() {
-		return 50;
-	}
-
-	@Override
-	public int getPort() {
-		return 12;
-	}
-
-	@Override
-	public int getStarboard() {
-		return 25;
-	}
-
-	@Override
-	public int getShipType() {
-		return 70;
-	}
+	
+	@Getter private int imo = 1000003;
+	@Getter private String callsign = "C100001";
+	@Getter private String vesselName = "BigCargo";
+	@Getter int draught = 15;
+	@Getter int bow = 20;
+	@Getter int stern = 50;
+	@Getter int port = 12;
+	@Getter int starboard = 25;
+	@Getter int shipType = 70;
 
 }

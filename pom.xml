@@ -28,6 +28,7 @@
 		<version.logback>1.1.2</version.logback>
 		<version.slf4j>1.7.7</version.slf4j>
 		<version.mvnjar>3.1.0</version.mvnjar>
+		<version.lombok>1.18.12</version.lombok>
 	</properties>
 
 	<dependencies>
@@ -59,6 +60,13 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${version.commons.lang3}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${version.lombok}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

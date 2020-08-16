@@ -1,11 +1,15 @@
 package sim.model;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@ToString
 public class GeoCoordinate {
 	
-	private double latitude = Double.NaN;
-	private double longitude = Double.NaN;
-	private String name = "";
-	private boolean isAcity = false;
+	@Getter private double latitude = Double.NaN;
+	@Getter private double longitude = Double.NaN;
+	@Getter private String name = "";
+	@Getter private boolean isAcity = false;
 	
 	private double factor = 100_000;
 	
@@ -27,27 +31,6 @@ public class GeoCoordinate {
 	private void setCoordinates(double latitude, double longitude) {
 		this.latitude = ((int)(latitude * factor))/factor;
 		this.longitude = ((int)(longitude * factor))/factor;
-	}
-	
-	public double getLatitude() {
-		return latitude;
-	}
-	
-	public double getLongitude() {
-		return longitude;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public boolean IsAcity() {
-		return isAcity;
-	}
-	
-	@Override
-	public String toString() {
-		return "(" + name + " : " + latitude + "," + longitude + ")";
 	}
 	
 	@Override

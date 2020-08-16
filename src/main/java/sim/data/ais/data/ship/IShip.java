@@ -1,7 +1,7 @@
 package sim.data.ais.data.ship;
 
 public interface IShip {
-	public int getIMO();
+	public int getImo();
 	public String getCallsign();
 	public String getVesselName();
 	public int getDraught();

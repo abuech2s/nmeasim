@@ -232,7 +232,7 @@ public class AISEncoder {
 		binaryString += "00"; 									// Repeat indicator		  2
 		binaryString += DecToBin(mmsi, 30);						// Mmsi 				 30
 		binaryString += "00";									// Ais version			  2
-		binaryString += DecToBin(ship.getIMO(), 30);			// Imo					 30
+		binaryString += DecToBin(ship.getImo(), 30);			// Imo					 30
 		binaryString += DecToBin(0, 120);						// ShipName 			120
 		binaryString += getBinString(ship.getCallsign(), 42);	// Callsign				 42
 		binaryString += DecToBin(ship.getShipType(), 8);		// ShipType				  8

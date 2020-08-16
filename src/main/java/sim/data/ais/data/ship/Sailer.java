@@ -1,50 +1,17 @@
 package sim.data.ais.data.ship;
 
+import lombok.Getter;
+
 public class Sailer implements IShip {
-
-	@Override
-	public int getIMO() {
-		return 1000002;
-	}
-
-	@Override
-	public String getCallsign() {
-		return "S000001";
-	}
-
-	@Override
-	public String getVesselName() {
-		return "Sailermoon";
-	}
-
-	@Override
-	public int getDraught() {
-		return 3;
-	}
-
-	@Override
-	public int getBow() {
-		return 2;
-	}
-
-	@Override
-	public int getStern() {
-		return 3;
-	}
-
-	@Override
-	public int getPort() {
-		return 4;
-	}
-
-	@Override
-	public int getStarboard() {
-		return 5;
-	}
-
-	@Override
-	public int getShipType() {
-		return 36;
-	}
+	
+	@Getter private int imo = 1000002;
+	@Getter private String callsign = "S000001";
+	@Getter private String vesselName = "Sailermoon";
+	@Getter int draught = 3;
+	@Getter int bow = 2;
+	@Getter int stern = 3;
+	@Getter int port = 4;
+	@Getter int starboard = 5;
+	@Getter int shipType = 36;
 
 }
