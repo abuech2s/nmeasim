@@ -61,6 +61,9 @@ public class GPSTrack extends Track {
 			msgGprmc = msgGprmc.replace("${time}", timeFormatter.format(new Date().toInstant()));
 			msgGprmc = msgGprmc.replace("${date}", dateFormatter.format(new Date().toInstant()));
 			
+			msgGpgga = "$" + msgGpgga + "*" + GeoOps.calcCheckSum(msgGpgga);
+			msgGprmc = "$" + msgGprmc + "*" + GeoOps.calcCheckSum(msgGprmc);
+			
 			SinkDispatcher.take(Constants.TOKEN_GPS, msgGpgga);
 			SinkDispatcher.take(Constants.TOKEN_GPS, msgGprmc);
 			
