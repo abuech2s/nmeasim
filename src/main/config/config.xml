@@ -4,4 +4,5 @@
 	<config type="ais" sink="tcp" active="false" ip="" port="10200" nroftrack="1"/>
 	<config type="radar" sink="tcp" active="true" ip="" port="10400"/>
 	<config type="gps" sink="tcp" active="false" ip="" port="10500"/>
+	<config type="weather" sink="tcp" active="false" ip="" port="10600"/>
 </configs>

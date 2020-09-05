@@ -13,6 +13,7 @@ import sim.data.adsb.ADSBTrackFactory;
 import sim.data.ais.AISTrackFactory;
 import sim.data.gps.GPSTrackFactory;
 import sim.data.radar.RadarTrackFactory;
+import sim.data.weather.WeatherTrackFactory;
 
 public class TrackAdministration {
 
@@ -24,6 +25,8 @@ public class TrackAdministration {
 		if (tracks == null) tracks = new ArrayList<>();
 		
 		stopTrackThreads();
+		
+		boolean activateGpsAnyway = false;
 		
 		for (Config config : configs.getConfigs()) {
 			String type = config.getType().toLowerCase().trim();
@@ -39,19 +42,29 @@ public class TrackAdministration {
 				}
 				break;
 			case Constants.TOKEN_GPS:
-				//GPS will be automatically activated in case of Radar
-				if (config.isActive() && !configs.getConfig(Constants.TOKEN_RADAR).isActive()) {
+				if (config.isActive()) {
 					addTracks(GPSTrackFactory.create());
 				}
 				break;
 			case Constants.TOKEN_RADAR:
 				if (config.isActive()) {
 					addTracks(RadarTrackFactory.create());
+					activateGpsAnyway = true;
+				}
+				break;
+			case Constants.TOKEN_WEATHER:
+				if (config.isActive()) {
+					addTracks(WeatherTrackFactory.create());
+					activateGpsAnyway = true;
 				}
 				break;
 			default:
 				log.warn("Unknown type: {}. Ignored.", type);
 			}
+		}
+		
+		if (activateGpsAnyway && !configs.getConfig(Constants.TOKEN_GPS).isActive()) {
+			addTracks(GPSTrackFactory.create());
 		}
 		
 		startTrackThreads();
