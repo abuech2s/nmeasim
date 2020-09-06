@@ -61,8 +61,8 @@ public class GeoOps {
 	/**
 	 * Calculates the checksum of a NMEA sentence using XOR operation of each character
 	 * 
-	 * @param expression The input expression
-	 * @return A 2 digit hexadecimal checksum
+	 * @param expression The input expression without $ and * signs
+	 * @return A 2-digit hexadecimal checksum
 	 */
 	
 	public static String calcCheckSum(String expression) {
@@ -78,7 +78,7 @@ public class GeoOps {
 			result = result^asciivalues.get(i);
 		}
 		String cs = Integer.toHexString(result).toUpperCase();
-		if (cs.length() == 1) cs = "0" +cs;
+		if (cs.length() == 1) cs = "0" + cs;
 		return cs;
 	}
 	
