@@ -3,6 +3,7 @@ package sim.config;
 import javax.xml.bind.annotation.XmlAttribute;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +18,7 @@ public class Config {
 	@Getter private String sink = "";
 	
 	@XmlAttribute (name = "active")
-	@Getter private boolean active = false;
+	@Setter @Getter private boolean active = false;
 	
 	@XmlAttribute (name = "ip")
 	@Getter private String ip = "";

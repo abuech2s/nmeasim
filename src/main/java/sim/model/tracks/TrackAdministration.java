@@ -26,8 +26,6 @@ public class TrackAdministration {
 		
 		stopTrackThreads();
 		
-		boolean activateGpsAnyway = false;
-		
 		for (Config config : configs.getConfigs()) {
 			String type = config.getType().toLowerCase().trim();
 			switch (type) {
@@ -43,28 +41,22 @@ public class TrackAdministration {
 				break;
 			case Constants.TOKEN_GPS:
 				if (config.isActive()) {
-					activateGpsAnyway = true;
+					addTracks(GPSTrackFactory.create());
 				}
 				break;
 			case Constants.TOKEN_RADAR:
 				if (config.isActive()) {
 					addTracks(RadarTrackFactory.create());
-					activateGpsAnyway = true;
 				}
 				break;
 			case Constants.TOKEN_WEATHER:
 				if (config.isActive()) {
 					addTracks(WeatherTrackFactory.create());
-					activateGpsAnyway = true;
 				}
 				break;
 			default:
 				log.warn("Unknown type: {}. Ignored.", type);
 			}
-		}
-		
-		if (activateGpsAnyway) {
-			addTracks(GPSTrackFactory.create());
 		}
 		
 		startTrackThreads();

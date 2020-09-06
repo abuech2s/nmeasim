@@ -105,14 +105,20 @@ public class Configuration implements Runnable {
 	}
 	
 	private boolean validate(Configs configs) {
+		//Check for additionally needed GPS support:
+		for (Config c : configs.getConfigs()) {
+			if (c.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) || c.getType().equalsIgnoreCase(Constants.TOKEN_WEATHER)) {
+				configs.getConfig(Constants.TOKEN_GPS).setActive(true);
+			}
+		}
 		
-		//Check if ports exist multiple times
+		//Check if ports exist multiple times:
 		Set<Integer> ports = new HashSet<>();
 		for (Config c : configs.getConfigs()) {
 			ports.add(c.getPort());
 		}
 		if (ports.size() != configs.getConfigs().size()) App.exit("At least two configs have the same port.");
-		
+
 		return true;
 	}
 	

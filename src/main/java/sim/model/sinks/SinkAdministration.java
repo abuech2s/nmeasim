@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import sim.config.Config;
 import sim.config.Configs;
-import sim.config.Constants;
 
 public class SinkAdministration {
 
@@ -22,11 +21,6 @@ public class SinkAdministration {
 		for (Config config : configs.getConfigs()) {
 			if (config.isActive()) {
 				ISink sink = getInstance(config);
-				if (sink != null) addSink(sink);
-			}
-			if ((config.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) || config.getType().equalsIgnoreCase(Constants.TOKEN_WEATHER)) && config.isActive()) {
-				Config gpsConfig = configs.getConfig(Constants.TOKEN_GPS);
-				ISink sink = getInstance(gpsConfig);
 				if (sink != null) addSink(sink);
 			}
 		}
