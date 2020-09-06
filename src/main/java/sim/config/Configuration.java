@@ -3,6 +3,7 @@ package sim.config;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -30,10 +31,15 @@ public class Configuration implements Runnable {
 	private Unmarshaller jaxbUnmarshaller = null;
 	private String lastChecksum = "";
 
-	private void init() throws JAXBException, NoSuchAlgorithmException {
+	private void init() throws JAXBException, NoSuchAlgorithmException, NoSuchFileException {
 		if (md5Digest == null) {
 			md5Digest = MessageDigest.getInstance("MD5");
 			file = new File(Constants.CONFIG_FILENAME);
+			
+			if (!file.exists()) {
+				throw new NoSuchFileException("File " + Constants.CONFIG_FILENAME + " does not exist.");
+			}
+			
 			jaxbContext = JAXBContext.newInstance(Configs.class);
 			jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		}
@@ -59,6 +65,9 @@ public class Configuration implements Runnable {
 		while (true) {
 			try {
 				init();
+			} catch (NoSuchFileException e) {
+				log.warn("File not found: {}", e);
+				break;
 			} catch (Exception e) {
 				log.warn("Exception while loading config file {}", e);
 			}

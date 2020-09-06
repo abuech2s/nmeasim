@@ -17,7 +17,7 @@ Simulates SBS data: MSG-Messages with subtypes 1, 3 and 4
 
 ### AIS
 
-Simulates AIS data: Message types: 1, 5
+Simulates AIS data: Message types: 1 and 5
 
 [Source](https://www.navcen.uscg.gov/?pageName=AISMessages)
 
@@ -83,15 +83,15 @@ where
 ### Advices:
 
  * General advices:
-   - The simulator will check every `15s`, if the file `config.xml` was modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.
+   - The simulator checks every `15s`, if the file `config.xml` was modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.
    - It is recommended, that the IP-Address should be set with the default IPv4 structure `x.x.x.x`.
 
  * Advices for `gps`:
-   - If `radar` or `weather` are active, `gps` will be automatically activated as well (in this case the active-flag of `gps` will be ignored).
+   - If `radar` or `weather` are active, `gps` will be automatically activated as well (in this case the `active`-flag of `gps` will be ignored).
    - The variable `nroftrack` will be ignored. GPS sentences correspond just to single object.
 
  * Advices for `radar`:
-   - The variable `nroftrack` will be ignored. 
+   - The variable `nroftrack` will be ignored.
    - The simulator handles a list of fixed positions of track objects. 
    - RATTM-messages are generated, if the GPS position is close enough to the stored track objects.
 
