@@ -11,12 +11,14 @@ public abstract class AbstractSink implements ISink {
 	
 	protected ConcurrentLinkedQueue<String> queue = null;
 	protected boolean isReady = false;
+	protected int port = 0;
 	
 	protected abstract void close();
 	
-	protected AbstractSink(String identifier) {
+	protected AbstractSink(String identifier, int port) {
 		this.identifier = identifier.toLowerCase().trim();
 		queue = new ConcurrentLinkedQueue<>();
+		this.port = port;
 	}
 	
 	public void start() {
@@ -33,8 +35,14 @@ public abstract class AbstractSink implements ISink {
 		close();
 	}
 	
+	@Override
 	public String getIdentifier() {
 		return identifier;
+	}
+	
+	@Override
+	public int getPort() {
+		return port;
 	}
 	
 }

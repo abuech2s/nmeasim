@@ -16,11 +16,9 @@ public class UDPSink extends AbstractSink {
 	private InetAddress address = null;
 	
 	private String ip = "";
-	private int port = 0;
 
 	public UDPSink(String identifier, String ip, int port) {
-		super(identifier);
-		this.port = port;
+		super(identifier, port);
 		this.ip = ip;
 	}
 

@@ -15,12 +15,9 @@ public class TCPSink extends AbstractSink {
 	private ServerSocket serverSocket = null;
 	private Socket socket = null;
 	private OutputStreamWriter writer = null;
-
-	private int port = 0;
 	
 	public TCPSink(String identifier, int port) {
-		super(identifier);
-		this.port = port;
+		super(identifier, port);
 	}
 
 	@Override
@@ -53,8 +50,8 @@ public class TCPSink extends AbstractSink {
 					if (!queue.isEmpty()) {
 						String message = queue.poll();
 						if (message == null) continue;
-						
-						writer.write(message+"\r\n");
+
+						writer.write(message + "\r\n");
 						writer.flush();
 						log.debug("Send via TCP " + getIdentifier() + " : 1");
 						if (queue.size() > 100) queue.clear();
