@@ -22,6 +22,8 @@ public class GPSTrack extends Track {
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.systemDefault());
 
 	private int position = 0;
+	
+	private static GeoCoordinate currentPosition = null;
 
 	public GPSTrack(List<GeoCoordinate> route) {
 		super(100.0, 5.0);
@@ -32,11 +34,16 @@ public class GPSTrack extends Track {
 		createGeoCoordinates(routePoints);
 		log.info("Created track for GPS with {} trackpoints.", points.size());
 	}
+	
+	public static GeoCoordinate getCurrentPosition() {
+		return currentPosition;
+	}
 
 	@Override
 	public void run() {
 		while (!kill) {
 			GeoCoordinate current = points.get(position);
+			currentPosition = current;
 			
 			position++;
 			position = position % points.size();
@@ -72,7 +79,6 @@ public class GPSTrack extends Track {
 			} catch (InterruptedException e) {
 				log.warn("Exception: ", e);
 			}
-
 		}
 	}
 }

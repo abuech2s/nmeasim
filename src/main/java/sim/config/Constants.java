@@ -15,6 +15,7 @@ public class Constants {
 	
 	//Track parameters
 	public static final long TRACK_SLEEP_TIME = 600 * 1_000L; // in [s]
+	public static final double MAX_RADAR_RADIUS = 30_000.0;
 	
 	//Physical constants
 	public static final double fromMtoNM = 0.000539957; // from [m] to [NM]
