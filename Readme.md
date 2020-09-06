@@ -54,7 +54,7 @@ Either execute the file `start.bat` or use the following command
 java -DlogPath="." -Dlogback.configurationFile="logback.xml" -jar simulator.jar
 ```
 
-While starting this program, the simulator expects a `config.xml` relative to itself.
+While starting this program, the simulator expects the file `config.xml` relative to itself.
 
 ### Configuration
 
@@ -66,7 +66,7 @@ The content of `config.xml` must have the following structure
 	<config type="adsb"    sink="tcp" active="true"  ip="" port="10300"  nroftrack="1"/>
 	<config type="ais"     sink="tcp" active="false" ip="" port="10200"  nroftrack="1"/>
 	<config type="radar"   sink="tcp" active="false" ip="" port="10400" />
-	<config type="gps"     sink="tcp" active="false" ip="" port="10500" />
+	<config type="gps"     sink="udp" active="true" ip="192.168.2.100" port="10500" />
 	<config type="weather" sink="tcp" active="false" ip="" port="10600" />
 </configs>
 ```
@@ -75,23 +75,33 @@ where
 
  * `type` equals to a stream type. Possible values: `adsb`, `ais`, `gps`, `radar`, `weather`
  * `sink` equals to a sink type. Possible values: `tcp`, `udp`
- * `active` is the flag, to decide, if this stream is active or not. Possible value: `true`, `false` 
+ * `active` is the flag, to decide, if this stream is active or not. Possible values: `true`, `false` 
  * `ip` is used in case of `sink=udp` and is the target address.
- * `port` is the TCP-Socket-Port or in case of `sink=udp` the target port
+ * `port` is the TCP-Socket-Port or in case of `sink=udp` the target port.
  * `nroftracks` equals to the number of generated tracks.
 
-If `radar` or `weather` are active, `gps` will be automatically activated as well (in this case the active-flag of `gps` will be ignored).
-The simulator will check every `15s`, if this file is modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically. <br/>
+### Advices:
 
-The variable `nroftrack` in case of `gps` will always be ignored. We expect, that we produce just GPS data for one single object. <br/>
-The variable `nroftrack` in case of `radar` will always be ignored. The simulator handles a list of fixed positions of track objects. RATTM-messages are generated if the GPS position is close enough to the stored track objects. <br/>
-The variable `nroftrack` in case of `weather` will always be ignored. We expect, that produced weather sentences correspond to current GPS position. <br/>
+ * General advices:
+   - The simulator will check every `15s`, if the file `config.xml` was modified (based on MD5 hash). In case of changes, the configuration file is reloaded automatically.
+   - It is recommended, that the IP-Address should be set with the default IPv4 structure `x.x.x.x`.
 
-It is recommended, that the IP-Address should be set with the default IPv4 structure `x.x.x.x`. <br/>
+ * Advices for `gps`:
+   - If `radar` or `weather` are active, `gps` will be automatically activated as well (in this case the active-flag of `gps` will be ignored).
+   - The variable `nroftrack` will be ignored. GPS sentences correspond just to single object.
+
+ * Advices for `radar`:
+   - The variable `nroftrack` will be ignored. 
+   - The simulator handles a list of fixed positions of track objects. 
+   - RATTM-messages are generated, if the GPS position is close enough to the stored track objects.
+
+ * Advices for `weather`:
+   - The variable `nroftrack` will be ignored. 
+   - We expect, that produced weather sentences correspond to current GPS position.
 
 ## Changelog
 
-2020-09-05 : V1.0
+2020-09-06 : V1.0
  - Initial version
 
 ## CopyRight
