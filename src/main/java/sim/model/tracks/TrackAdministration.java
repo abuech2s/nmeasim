@@ -43,7 +43,7 @@ public class TrackAdministration {
 				break;
 			case Constants.TOKEN_GPS:
 				if (config.isActive()) {
-					addTracks(GPSTrackFactory.create());
+					activateGpsAnyway = true;
 				}
 				break;
 			case Constants.TOKEN_RADAR:
@@ -63,7 +63,7 @@ public class TrackAdministration {
 			}
 		}
 		
-		if (activateGpsAnyway && !configs.getConfig(Constants.TOKEN_GPS).isActive()) {
+		if (activateGpsAnyway) {
 			addTracks(GPSTrackFactory.create());
 		}
 		
