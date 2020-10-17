@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import sim.data.ais.data.ship.IShip;
 import sim.data.ais.data.ship.ShipFactory;
+import sim.config.Config;
 import sim.config.Constants;
 import sim.model.GeoCoordinate;
-import sim.model.sinks.SinkDispatcher;
+import sim.model.sinks.ISink;
 import sim.model.tracks.Track;
 
 public class AISTrack extends Track {
@@ -24,10 +25,13 @@ public class AISTrack extends Track {
 	private int mmsi = 0;
 	private IShip ship = null;
 	
-	public AISTrack(int mmsi, Route route) {
-		super(25.0, 5.0);
+	private static ISink sink = null;
+	
+	public AISTrack(Config config, int mmsi, Route route) {
+		super(config, 25.0, 5.0);
 		this.mmsi = mmsi;
 		init(route);
+		if (null == sink) sink = getInstance(config);
 	}
 	
 	private void init(Route route) {
@@ -61,8 +65,8 @@ public class AISTrack extends Track {
 			String binMsg5 = AISEncoder.getBinaryStringMsg5(mmsi, current.getLatitude(), current.getLongitude(), ship, 0, 0, 0, 0, route.getEndHarbour());
 			List<String> msgs5 = AISEncoder.getFinalAISMessages(binMsg5);
 
-			SinkDispatcher.take(Constants.TOKEN_AIS, msgs1);
-			SinkDispatcher.take(Constants.TOKEN_AIS, msgs5);
+			sink.take(msgs1);
+			sink.take(msgs5);
 
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
@@ -82,6 +86,16 @@ public class AISTrack extends Track {
 				position = 0;
 			}
 		}
+	}
+
+	@Override
+	protected void killSink() {
+		sink.kill();
+	}
+
+	@Override
+	protected void startSink() {
+		sink.start();
 	}
 
 }

@@ -70,7 +70,7 @@ public class GeoOps {
 		for (int i = 0; i < expression.length(); i++) {
 			char d = expression.charAt(i);
 			int ascii_value = (int)d;
-			asciivalues.add(new Integer(ascii_value));
+			asciivalues.add(Integer.valueOf(ascii_value));
 		}
 		
 		int result = asciivalues.get(0);

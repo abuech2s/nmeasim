@@ -3,17 +3,21 @@ package sim.data.weather;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.config.Config;
 import sim.config.Constants;
 import sim.model.GeoOps;
-import sim.model.sinks.SinkDispatcher;
+import sim.model.sinks.ISink;
 import sim.model.tracks.Track;
 
 public class WeatherTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(WeatherTrack.class);
+	
+	private static ISink sink = null;
 
-	public WeatherTrack() {
-		super(1.0, 5.0); //Dummy values
+	public WeatherTrack(Config config) {
+		super(config, 1.0, 5.0); //Dummy values
+		if (null == sink) sink = getInstance(config);
 	}
 
 	@Override
@@ -40,7 +44,7 @@ public class WeatherTrack extends Track {
 			
 			msgWimda = "$" + msgWimda + "*" + GeoOps.calcCheckSum(msgWimda);
 			
-			SinkDispatcher.take(Constants.TOKEN_WEATHER, msgWimda);
+			sink.take(msgWimda);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
@@ -49,6 +53,16 @@ public class WeatherTrack extends Track {
 			}
 
 		}
+	}
+	
+	@Override
+	protected void killSink() {
+		sink.kill();
+	}
+
+	@Override
+	protected void startSink() {
+		sink.start();
 	}
 
 }

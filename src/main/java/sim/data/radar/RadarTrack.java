@@ -7,11 +7,12 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.config.Config;
 import sim.config.Constants;
 import sim.data.gps.GPSTrack;
 import sim.model.GeoOps;
+import sim.model.sinks.ISink;
 import sim.model.GeoCoordinate;
-import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 
 public class RadarTrack extends Track {
@@ -27,9 +28,12 @@ public class RadarTrack extends Track {
 	private String currentRadarTrackId = null;
 	
 	private static GeoCoordinate current = null;
+	
+	private static ISink sink = null;
 
-	public RadarTrack() {
-		super(100.0, 5.0);
+	public RadarTrack(Config config) {
+		super(config, 100.0, 5.0);
+		if (null == sink) sink = getInstance(config);
 	}
 
 	@Override
@@ -63,7 +67,7 @@ public class RadarTrack extends Track {
 					
 					msgRattm = "$" + msgRattm + "*" + GeoOps.calcCheckSum(msgRattm);
 					
-					SinkDispatcher.take(Constants.TOKEN_RADAR, msgRattm);
+					sink.take(msgRattm);
 				} else {
 					currentRadarTrackId = null;
 				}
@@ -86,5 +90,15 @@ public class RadarTrack extends Track {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	protected void killSink() {
+		sink.kill();
+	}
+
+	@Override
+	protected void startSink() {
+		sink.start();
 	}
 }

@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.App;
-import sim.model.sinks.SinkAdministration;
 import sim.model.tracks.TrackAdministration;
 
 public class Configuration implements Runnable {
@@ -52,7 +51,6 @@ public class Configuration implements Runnable {
 		        validate(configs);
 		        printConfig();
 		        TrackAdministration.reInit(configs);
-		        SinkAdministration.reInit(configs);
 		        lastChecksum = currentChecksum;
 			}
 		} catch (IOException e) {
@@ -107,7 +105,7 @@ public class Configuration implements Runnable {
 	private boolean validate(Configs configs) {
 		//Check for additionally needed GPS support:
 		for (Config c : configs.getConfigs()) {
-			if (c.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) || c.getType().equalsIgnoreCase(Constants.TOKEN_WEATHER)) {
+			if (c.isActive() && (c.getType().equalsIgnoreCase(Constants.TOKEN_RADAR) || c.getType().equalsIgnoreCase(Constants.TOKEN_WEATHER))) {
 				configs.getConfig(Constants.TOKEN_GPS).setActive(true);
 			}
 		}

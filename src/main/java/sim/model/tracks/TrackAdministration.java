@@ -31,27 +31,27 @@ public class TrackAdministration {
 			switch (type) {
 			case Constants.TOKEN_ADSB:
 				if (config.isActive()) {
-					addTracks(ADSBTrackFactory.create(config.getNroftrack()));
+					addTracks(ADSBTrackFactory.create(config));
 				}
 				break;
 			case Constants.TOKEN_AIS:
 				if (config.isActive()) {
-					addTracks(AISTrackFactory.create(config.getNroftrack()));
+					addTracks(AISTrackFactory.create(config));
 				}
 				break;
 			case Constants.TOKEN_GPS:
 				if (config.isActive()) {
-					addTracks(GPSTrackFactory.create());
+					addTracks(GPSTrackFactory.create(config));
 				}
 				break;
 			case Constants.TOKEN_RADAR:
 				if (config.isActive()) {
-					addTracks(RadarTrackFactory.create());
+					addTracks(RadarTrackFactory.create(config));
 				}
 				break;
 			case Constants.TOKEN_WEATHER:
 				if (config.isActive()) {
-					addTracks(WeatherTrackFactory.create());
+					addTracks(WeatherTrackFactory.create(config));
 				}
 				break;
 			default:

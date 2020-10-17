@@ -28,7 +28,6 @@ public class Config {
 	
 	@XmlAttribute (name = "nroftrack")
 	@Getter private int nroftrack = 1;
-
 	
 	@Override
 	public String toString() {

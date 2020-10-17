@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.model.GeoOps;
+import sim.model.sinks.ISink;
 import sim.model.GeoCoordinate;
-import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
-import sim.config.Constants;
+import sim.config.Config;
 import sim.data.adsb.data.Cities;
 
 public class ADSBLinearTrack extends Track {
@@ -29,11 +29,14 @@ public class ADSBLinearTrack extends Track {
 
 	private int position = 0;
 	
-	public ADSBLinearTrack(String hexIdent, String callsign) {
-		super(250.0, 1.0);
+	private static ISink sink = null;
+	
+	public ADSBLinearTrack(Config config, String hexIdent, String callsign) {
+		super(config, 250.0, 1.0);
 		this.hexIdent = hexIdent;
 		this.callsign = callsign;
 		init();
+		if (null == sink) sink = getInstance(config);
 	}
 	
 	private void init() {
@@ -77,9 +80,9 @@ public class ADSBLinearTrack extends Track {
 			message4 = message4.replace("${speed}", "485"); // 485 kn
 			message4 = message4.replace("${track}", String.valueOf(GeoOps.getBearing(current.getLatitude(), current.getLongitude(), points.get(position).getLatitude(), points.get(position).getLongitude())));
 			
-			SinkDispatcher.take(Constants.TOKEN_ADSB, message1);
-			SinkDispatcher.take(Constants.TOKEN_ADSB, message3);
-			SinkDispatcher.take(Constants.TOKEN_ADSB, message4);
+			sink.take(message1);
+			sink.take(message3);
+			sink.take(message4);
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {
@@ -87,5 +90,15 @@ public class ADSBLinearTrack extends Track {
 			}
 
 		}
+	}
+
+	@Override
+	protected void killSink() {
+		sink.kill();
+	}
+
+	@Override
+	protected void startSink() {
+		sink.start();
 	}
 }

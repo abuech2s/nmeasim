@@ -3,33 +3,47 @@ package sim.model.tracks;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import sim.config.Config;
 import sim.model.GeoCoordinate;
 import sim.model.GeoOps;
+import sim.model.sinks.ISink;
+import sim.model.sinks.TCPSink;
+import sim.model.sinks.UDPSink;
 
 public abstract class Track implements ITrack {
+	
+	private static final Logger log = LoggerFactory.getLogger(Track.class);
 
 	protected boolean kill = false;
-	protected Thread thread;
+	protected Thread trackThread;
 	
 	protected double speed = Double.NaN;
 	protected double timeInterval = Double.NaN;
 	protected List<GeoCoordinate> points = new ArrayList<>();
 	protected int position = 0;
 	
-	public Track(double speed, double timeInterval) {
+	protected abstract void killSink();
+	protected abstract void startSink();
+	
+	public Track(Config config, double speed, double timeInterval) {
 		this.speed = speed;
 		this.timeInterval = timeInterval;
 	}
 	
 	public void kill() {
+		killSink();
 		this.kill = true;
 	}
 	
 	@Override
 	public void start() {
-		thread = new Thread(this);
-		thread.setDaemon(false);
-		thread.start();
+		startSink();
+		trackThread = new Thread(this);
+		trackThread.setDaemon(false);
+		trackThread.start();
 	}
 	
 	protected void createGeoCoordinates(List<GeoCoordinate> routePoints) {
@@ -61,5 +75,18 @@ public abstract class Track implements ITrack {
 				points.add(new GeoCoordinate(newLat, newLon));
 			}
 		}
+	}
+	
+	protected ISink getInstance(Config config) {
+		switch (config.getSink().toLowerCase()) {
+		case "tcp":
+			return new TCPSink(config.getType(), config.getPort());
+		case "udp":
+			return new UDPSink(config.getType(), config.getIp(), config.getPort());
+		default:
+			log.warn("Unknown sink type: {}", config);
+		}
+
+		return null;
 	}
 }

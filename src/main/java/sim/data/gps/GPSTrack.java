@@ -8,10 +8,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.config.Constants;
+import sim.config.Config;
 import sim.model.GeoOps;
+import sim.model.sinks.ISink;
 import sim.model.GeoCoordinate;
-import sim.model.sinks.SinkDispatcher;
 import sim.model.tracks.Track;
 
 public class GPSTrack extends Track {
@@ -24,10 +24,13 @@ public class GPSTrack extends Track {
 	private int position = 0;
 	
 	private static GeoCoordinate currentPosition = null;
+	
+	private static ISink sink = null;
 
-	public GPSTrack(List<GeoCoordinate> route) {
-		super(100.0, 5.0);
+	public GPSTrack(Config config, List<GeoCoordinate> route) {
+		super(config, 100.0, 5.0);
 		init(route);
+		if (null == sink) sink = getInstance(config);
 	}
 	
 	private void init(List<GeoCoordinate> routePoints) {
@@ -71,8 +74,8 @@ public class GPSTrack extends Track {
 			msgGpgga = "$" + msgGpgga + "*" + GeoOps.calcCheckSum(msgGpgga);
 			msgGprmc = "$" + msgGprmc + "*" + GeoOps.calcCheckSum(msgGprmc);
 			
-			SinkDispatcher.take(Constants.TOKEN_GPS, msgGpgga);
-			SinkDispatcher.take(Constants.TOKEN_GPS, msgGprmc);
+			sink.take(msgGpgga);
+			sink.take(msgGprmc);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
@@ -80,5 +83,15 @@ public class GPSTrack extends Track {
 				log.warn("Exception: ", e);
 			}
 		}
+	}
+	
+	@Override
+	protected void killSink() {
+		sink.kill();
+	}
+
+	@Override
+	protected void startSink() {
+		sink.start();
 	}
 }
