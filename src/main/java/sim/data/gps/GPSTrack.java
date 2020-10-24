@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import sim.config.Config;
 import sim.model.GeoOps;
-import sim.model.sinks.ISink;
 import sim.model.GeoCoordinate;
 import sim.model.tracks.Track;
 
@@ -24,13 +23,10 @@ public class GPSTrack extends Track {
 	private int position = 0;
 	
 	private static GeoCoordinate currentPosition = null;
-	
-	private static ISink sink = null;
 
 	public GPSTrack(Config config, List<GeoCoordinate> route) {
 		super(config, 100.0, 5.0);
 		init(route);
-		if (null == sink) sink = getInstance(config);
 	}
 	
 	private void init(List<GeoCoordinate> routePoints) {
@@ -74,24 +70,15 @@ public class GPSTrack extends Track {
 			msgGpgga = "$" + msgGpgga + "*" + GeoOps.calcCheckSum(msgGpgga);
 			msgGprmc = "$" + msgGprmc + "*" + GeoOps.calcCheckSum(msgGprmc);
 			
-			sink.take(msgGpgga);
-			sink.take(msgGprmc);
+			publish(msgGpgga);
+			publish(msgGprmc);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {
-				log.warn("Exception: ", e);
+				log.debug("Exception: ", e);
 			}
 		}
 	}
-	
-	@Override
-	protected void killSink() {
-		sink.kill();
-	}
 
-	@Override
-	protected void startSink() {
-		sink.start();
-	}
 }

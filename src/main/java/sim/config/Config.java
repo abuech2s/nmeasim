@@ -2,13 +2,19 @@ package sim.config;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType (XmlAccessType.FIELD)
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Config {
 	
 	@XmlAttribute (name = "type")
@@ -29,8 +35,5 @@ public class Config {
 	@XmlAttribute (name = "nroftrack")
 	@Getter private int nroftrack = 1;
 	
-	@Override
-	public String toString() {
-		return "[ " + getType() + " (" + getIp() + ":" + getPort() + ") sink=" + getSink() + " isActive=" + isActive() + " Nroftracks=" + getNroftrack() + " ]";
-	}
+	@Getter private int amount = 0;
 }

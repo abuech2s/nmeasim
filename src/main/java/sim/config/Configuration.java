@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.App;
-import sim.model.tracks.TrackAdministration;
+import sim.model.tracks.StreamAdministration;
 
 public class Configuration implements Runnable {
 	
@@ -50,7 +50,7 @@ public class Configuration implements Runnable {
 		        log.info("(Re)load config file.");
 		        validate(configs);
 		        printConfig();
-		        TrackAdministration.reInit(configs);
+		        StreamAdministration.reInit(configs);
 		        lastChecksum = currentChecksum;
 			}
 		} catch (IOException e) {
@@ -89,7 +89,7 @@ public class Configuration implements Runnable {
 	    byte[] bytes = digest.digest();
 
 	    StringBuilder sb = new StringBuilder();
-	    for (int i=0; i < bytes.length; i++) {
+	    for (int i = 0; i < bytes.length; i++) {
 	        sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 	    }
 

@@ -22,9 +22,11 @@ public abstract class AbstractSink implements ISink {
 	}
 	
 	public void start() {
-		thread = new Thread(this, "Sink-"+getIdentifier());
-		thread.setDaemon(false);
-		thread.start();
+		if (!kill) {
+			thread = new Thread(this, "Sink-"+getIdentifier());
+			thread.setDaemon(false);
+			thread.start();
+		}
 	}
 	
 	public void kill() {

@@ -11,7 +11,6 @@ import sim.config.Config;
 import sim.config.Constants;
 import sim.data.gps.GPSTrack;
 import sim.model.GeoOps;
-import sim.model.sinks.ISink;
 import sim.model.GeoCoordinate;
 import sim.model.tracks.Track;
 
@@ -28,12 +27,9 @@ public class RadarTrack extends Track {
 	private String currentRadarTrackId = null;
 	
 	private static GeoCoordinate current = null;
-	
-	private static ISink sink = null;
 
 	public RadarTrack(Config config) {
 		super(config, 100.0, 5.0);
-		if (null == sink) sink = getInstance(config);
 	}
 
 	@Override
@@ -67,7 +63,7 @@ public class RadarTrack extends Track {
 					
 					msgRattm = "$" + msgRattm + "*" + GeoOps.calcCheckSum(msgRattm);
 					
-					sink.take(msgRattm);
+					publish(msgRattm);
 				} else {
 					currentRadarTrackId = null;
 				}
@@ -76,7 +72,7 @@ public class RadarTrack extends Track {
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {
-				log.warn("Exception: ", e);
+				log.debug("Exception: ", e);
 			}
 
 		}
@@ -90,15 +86,5 @@ public class RadarTrack extends Track {
 			}
 		}
 		return null;
-	}
-	
-	@Override
-	protected void killSink() {
-		sink.kill();
-	}
-
-	@Override
-	protected void startSink() {
-		sink.start();
 	}
 }

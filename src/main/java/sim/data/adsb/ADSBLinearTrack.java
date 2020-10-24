@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.model.GeoOps;
-import sim.model.sinks.ISink;
 import sim.model.GeoCoordinate;
 import sim.model.tracks.Track;
 import sim.config.Config;
@@ -29,14 +28,11 @@ public class ADSBLinearTrack extends Track {
 
 	private int position = 0;
 	
-	private static ISink sink = null;
-	
 	public ADSBLinearTrack(Config config, String hexIdent, String callsign) {
 		super(config, 250.0, 1.0);
 		this.hexIdent = hexIdent;
 		this.callsign = callsign;
 		init();
-		if (null == sink) sink = getInstance(config);
 	}
 	
 	private void init() {
@@ -80,25 +76,16 @@ public class ADSBLinearTrack extends Track {
 			message4 = message4.replace("${speed}", "485"); // 485 kn
 			message4 = message4.replace("${track}", String.valueOf(GeoOps.getBearing(current.getLatitude(), current.getLongitude(), points.get(position).getLatitude(), points.get(position).getLongitude())));
 			
-			sink.take(message1);
-			sink.take(message3);
-			sink.take(message4);
+			publish(message1);
+			publish(message3);
+			publish(message4);
+			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				log.debug("Exception at Thread {} ", e);
 			}
-
 		}
 	}
 
-	@Override
-	protected void killSink() {
-		sink.kill();
-	}
-
-	@Override
-	protected void startSink() {
-		sink.start();
-	}
 }
