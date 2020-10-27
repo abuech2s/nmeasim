@@ -21,7 +21,7 @@ public class ADSBLinearTrack extends Track {
 	private static final Logger log = LoggerFactory.getLogger(ADSBLinearTrack.class);
 
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd,HH:mm:ss.SSS")
-			.withZone(ZoneId.systemDefault());
+			.withZone(ZoneId.of("UTC"));
 
 	private String hexIdent = "HEXxx";
 	private String callsign = "CS0000";
