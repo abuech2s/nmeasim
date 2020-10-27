@@ -5,7 +5,7 @@
 
 	<groupId>de.home.buechel</groupId>
 	<artifactId>simulator</artifactId>
-	<version>1.0rc7</version>
+	<version>1.0rc8</version>
 	<name>simulator</name>
 
 	<developers>
