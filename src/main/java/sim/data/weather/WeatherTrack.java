@@ -23,8 +23,8 @@ public class WeatherTrack extends Track {
 			String msgWimda = WeatherMessages.MSG_WEATHER;
 			
 			double barpressure = 1.000;
-			msgWimda = msgWimda.replace("${barpressure1}", String.format("%.3f", barpressure));
-			msgWimda = msgWimda.replace("${barpressure2}", String.format("%.3f", barpressure * Constants.fromMmHgtoBar));
+			msgWimda = msgWimda.replace("${barpressure1}", String.format("%.3f", barpressure).replaceAll(",", "."));
+			msgWimda = msgWimda.replace("${barpressure2}", String.format("%.3f", barpressure * Constants.fromMmHgtoBar).replaceAll(",", "."));
 			
 			msgWimda = msgWimda.replace("${airtemp}", "25.3");
 			msgWimda = msgWimda.replace("${relhum}", "55.5");
@@ -35,8 +35,8 @@ public class WeatherTrack extends Track {
 			msgWimda = msgWimda.replace("${winddir2}", "279.1");
 			
 			double winddirInKn = 5.2;
-			msgWimda = msgWimda.replace("${windspeed1}", String.format("%.1f", winddirInKn));
-			msgWimda = msgWimda.replace("${windspeed2}", String.format("%.1f", winddirInKn * Constants.fromKntoMs));
+			msgWimda = msgWimda.replace("${windspeed1}", String.format("%.1f", winddirInKn).replaceAll(",", "."));
+			msgWimda = msgWimda.replace("${windspeed2}", String.format("%.1f", winddirInKn * Constants.fromKntoMs).replaceAll(",", "."));
 			
 			msgWimda = "$" + msgWimda + "*" + GeoOps.calcCheckSum(msgWimda);
 			
