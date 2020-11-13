@@ -30,13 +30,13 @@ public class WeatherTrack extends Track {
 			msgWimda = msgWimda.replace("${barpressure1}", String.format("%.3f", barpressure).replaceAll(",", "."));
 			msgWimda = msgWimda.replace("${barpressure2}", String.format("%.3f", barpressure * Constants.fromMmHgtoBar).replaceAll(",", "."));
 			
-			msgWimda = msgWimda.replace("${airtemp}", String.format("%.1f", 15.0 + weatherTempStep));
+			msgWimda = msgWimda.replace("${airtemp}", String.format("%.1f", 15.0 + weatherTempStep).replaceAll(",", "."));
 			msgWimda = msgWimda.replace("${relhum}", "55.5");
 			msgWimda = msgWimda.replace("${abshum}", "60.3");
 			msgWimda = msgWimda.replace("${dewpoint}", "23");
 			
-			msgWimda = msgWimda.replace("${winddir1}", String.format("%.1f", windDirStep));
-			msgWimda = msgWimda.replace("${winddir2}", String.format("%.1f", windDirStep + 5.0));
+			msgWimda = msgWimda.replace("${winddir1}", String.format("%.1f", windDirStep).replaceAll(",", "."));
+			msgWimda = msgWimda.replace("${winddir2}", String.format("%.1f", windDirStep + 5.0).replaceAll(",", "."));
 			
 			weatherTempStep += 0.1;
 			if (weatherTempStep >= 10.0) weatherTempStep = 0.0;
