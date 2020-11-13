@@ -12,10 +12,14 @@ public class WeatherTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(WeatherTrack.class);
 
+	private double weatherTempStep = 0.1;
+	private double windDirStep = 0.1;
+	
 	public WeatherTrack(Config config) {
 		super(config, 1.0, 5.0); //Dummy values
 	}
 
+	
 	@Override
 	public void run() {
 		while (!kill) {
@@ -26,13 +30,19 @@ public class WeatherTrack extends Track {
 			msgWimda = msgWimda.replace("${barpressure1}", String.format("%.3f", barpressure).replaceAll(",", "."));
 			msgWimda = msgWimda.replace("${barpressure2}", String.format("%.3f", barpressure * Constants.fromMmHgtoBar).replaceAll(",", "."));
 			
-			msgWimda = msgWimda.replace("${airtemp}", "25.3");
+			msgWimda = msgWimda.replace("${airtemp}", String.format("%.1f", 15.0 + weatherTempStep));
 			msgWimda = msgWimda.replace("${relhum}", "55.5");
 			msgWimda = msgWimda.replace("${abshum}", "60.3");
 			msgWimda = msgWimda.replace("${dewpoint}", "23");
 			
-			msgWimda = msgWimda.replace("${winddir1}", "273.5");
-			msgWimda = msgWimda.replace("${winddir2}", "279.1");
+			msgWimda = msgWimda.replace("${winddir1}", String.format("%.1f", windDirStep));
+			msgWimda = msgWimda.replace("${winddir2}", String.format("%.1f", windDirStep + 5.0));
+			
+			weatherTempStep += 0.1;
+			if (weatherTempStep >= 10.0) weatherTempStep = 0.0;
+			
+			windDirStep += 0.1;
+			if (windDirStep >= 360.0) windDirStep = 0.0;
 			
 			double winddirInKn = 5.2;
 			msgWimda = msgWimda.replace("${windspeed1}", String.format("%.1f", winddirInKn).replaceAll(",", "."));
