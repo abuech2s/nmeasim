@@ -12,10 +12,13 @@ public class RadarPlots {
 	// This list of radar plots are placed, that a ship can not detect two of them at the same time.
 	private static void init() {
 		radarPlots = new ArrayList<>();
-		radarPlots.add(new GeoCoordinate(54.6246, 10.45597));
-		radarPlots.add(new GeoCoordinate(54.35936, 11.79639));
-		radarPlots.add(new GeoCoordinate(54.98357, 13.25297));
-		radarPlots.add(new GeoCoordinate(54.81272, 15.87781));
+		radarPlots.add(new GeoCoordinate(54.81037, 10.22113));
+		radarPlots.add(new GeoCoordinate(54.43219, 10.48448));
+		radarPlots.add(new GeoCoordinate(54.39055, 11.62747));
+		radarPlots.add(new GeoCoordinate(54.61117, 16.67722));
+		radarPlots.add(new GeoCoordinate(54.48617, 14.57153));
+		radarPlots.add(new GeoCoordinate(55.58604, 13.56077));
+		radarPlots.add(new GeoCoordinate(55.20285, 16.13625));
 	}
 	
 	public static List<GeoCoordinate> get() {
