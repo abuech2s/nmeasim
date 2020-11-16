@@ -29,7 +29,7 @@ public class ADSBLinearTrack extends Track {
 	private int position = 0;
 	
 	public ADSBLinearTrack(Config config, String hexIdent, String callsign) {
-		super(config, 250.0, 1.0);
+		super(config, 250.0, 3.0);
 		this.hexIdent = hexIdent;
 		this.callsign = callsign;
 		init();
