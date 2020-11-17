@@ -20,6 +20,7 @@ public class Constants {
 	//Physical constants
 	public static final double fromMtoNM = 0.000539957; // from [m] to [NM]
 	public static final double fromKntoMs = 0.514444; // from [kn] to [m/s]
+	public static final double fromMstoKn = 1.94384; // from [m/s] to [kn]
 	public static final double fromMmHgtoBar = 0.0013332; // from [mmHg] to [Bar]
 	
 	//Filenames

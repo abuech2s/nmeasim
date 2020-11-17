@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.config.Config;
+import sim.config.Constants;
 import sim.model.GeoOps;
 import sim.model.GeoCoordinate;
 import sim.model.tracks.Track;
@@ -21,6 +22,7 @@ public class GPSTrack extends Track {
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.systemDefault());
 
 	private int position = 0;
+	private double course = 0.0;
 	
 	private static GeoCoordinate currentPosition = null;
 
@@ -46,6 +48,8 @@ public class GPSTrack extends Track {
 			
 			position++;
 			position = position % points.size();
+			course += 0.1;
+			if (course >= 360.0) course = course -360.0;
 				
 			String msgGpgga = GPSMessages.MSG_GPGGA;
 			msgGpgga = msgGpgga.replace("${time}", timeFormatter.format(new Date().toInstant()));
@@ -67,11 +71,18 @@ public class GPSTrack extends Track {
 			msgGprmc = msgGprmc.replace("${time}", timeFormatter.format(new Date().toInstant()));
 			msgGprmc = msgGprmc.replace("${date}", dateFormatter.format(new Date().toInstant()));
 			
+			msgGprmc = msgGprmc.replace("${speed}", String.format("%.3f", speed * Constants.fromMstoKn).replaceAll(",", "."));
+			
+			String msgGphdt = GPSMessages.MSG_GPHDT;
+			msgGphdt = msgGphdt.replace("${course}", String.format("%.1f", course).replaceAll(",", "."));
+			
 			msgGpgga = "$" + msgGpgga + "*" + GeoOps.calcCheckSum(msgGpgga);
 			msgGprmc = "$" + msgGprmc + "*" + GeoOps.calcCheckSum(msgGprmc);
+			msgGphdt = "$" + msgGphdt;
 			
 			publish(msgGpgga);
 			publish(msgGprmc);
+			publish(msgGphdt);
 			
 			try {
 				Thread.sleep((long)(timeInterval * 1000L));
