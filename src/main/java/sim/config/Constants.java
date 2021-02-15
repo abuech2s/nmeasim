@@ -8,6 +8,7 @@ public class Constants {
 	public static final String TOKEN_GPS = "gps";
 	public static final String TOKEN_RADAR = "radar";
 	public static final String TOKEN_WEATHER = "weather";
+	public static final String TOKEN_COURSE = "course";
 	
 	//Config parameters
 	public static final String CONFIG_FILENAME = "config.xml";
