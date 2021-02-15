@@ -11,6 +11,7 @@ import sim.config.Configs;
 import sim.config.Constants;
 import sim.data.adsb.ADSBTrackFactory;
 import sim.data.ais.AISTrackFactory;
+import sim.data.course.CourseTrackFactory;
 import sim.data.gps.GPSTrackFactory;
 import sim.data.radar.RadarTrackFactory;
 import sim.data.weather.WeatherTrackFactory;
@@ -57,6 +58,11 @@ public class StreamAdministration {
 			case Constants.TOKEN_WEATHER:
 				if (config.isActive()) {
 					streams.add(Stream.getInstance(WeatherTrackFactory.create(config), createSink(config)));
+				}
+				break;	
+			case Constants.TOKEN_COURSE:
+				if (config.isActive()) {
+					streams.add(Stream.getInstance(CourseTrackFactory.create(config), createSink(config)));
 				}
 				break;
 			default:

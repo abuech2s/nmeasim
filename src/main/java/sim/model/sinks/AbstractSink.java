@@ -2,6 +2,8 @@ package sim.model.sinks;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import sim.config.Mode;
+
 public abstract class AbstractSink implements ISink {
 
 	private Thread thread;
@@ -13,12 +15,26 @@ public abstract class AbstractSink implements ISink {
 	protected boolean isReady = false;
 	protected int port = 0;
 	
+	protected Mode mode = Mode.PERMANENT;
+	protected int amount;
+	protected int counterSendMessages;
+	
 	protected abstract void close();
+	
+	protected AbstractSink(String identifier, int port, Mode mode, int amount) {
+		this.identifier = identifier.toLowerCase().trim();
+		queue = new ConcurrentLinkedQueue<>();
+		this.port = port;
+		this.amount = amount;
+		this.mode = mode;
+	}
 	
 	protected AbstractSink(String identifier, int port) {
 		this.identifier = identifier.toLowerCase().trim();
 		queue = new ConcurrentLinkedQueue<>();
 		this.port = port;
+		this.amount = 0;
+		this.mode = Mode.PERMANENT;
 	}
 	
 	public void start() {

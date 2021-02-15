@@ -40,6 +40,12 @@ Simulates NMEA based `$WIMDA` messages.
 
 [Source](https://gpsd.gitlab.io/gpsd/NMEA.html#_mda_meteorological_composite)
 
+### COURSE
+
+Simulates NMEA based `$GPHDT` and `$HEHDT` messages.
+
+[Source](https://www.trimble.com/OEM_ReceiverHelp/V4.44/en/NMEA-0183messages_HDT.html)
+
 ## How to build
 
 ```shell
@@ -68,6 +74,7 @@ The content of `config.xml` must have the following structure
 	<config type="radar"   sink="tcp" active="false" ip="" port="10400" />
 	<config type="gps"     sink="udp" active="true" ip="192.168.2.100" port="10500" />
 	<config type="weather" sink="tcp" active="false" ip="" port="10600" />
+	<config type="course" sink="tcp" active="false" ip="" port="10700" />
 </configs>
 ```
 
@@ -101,9 +108,21 @@ where
 
 ## Changelog
 
-2020-09-06 : V1.0
+2021-02-15 : V1.0.4
+- Add course information (Gphdt and Hehdt)
+
+2020-11-17 : V1.0.3
+- Add course, speed and gphdt message for GPS
+
+2021-11-14 : V1.0.2
+- Optimization of radar plots
+
+2021-02-15 : V1.0.1
+- Add course information (Gphdt and Hehdt)
+
+2020-10-27 : V1.0
  - Initial version
 
 ## CopyRight
 
-(c) Alexander Buechel, abuech2s@gmail.com, Sep 2020
+(c) Alexander Buechel, abuech2s@gmail.com, Feb 2021

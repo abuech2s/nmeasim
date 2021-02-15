@@ -5,4 +5,5 @@
 	<config type="radar" sink="tcp" active="true" ip="" port="10400"/>
 	<config type="gps" sink="tcp" active="false" ip="" port="10500"/>
 	<config type="weather" sink="tcp" active="false" ip="" port="10600"/>
+	<config type="course" sink="tcp" active="false" ip="" port="10700"/>
 </configs>
