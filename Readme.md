@@ -108,6 +108,10 @@ where
 
 ## Changelog
 
+2021-03-12 : V1.0.5rc
+- fix bug of wrong ais callsign
+- fix bug of missing ship name
+
 2021-02-15 : V1.0.4
 - Add course information (Gphdt and Hehdt)
 
