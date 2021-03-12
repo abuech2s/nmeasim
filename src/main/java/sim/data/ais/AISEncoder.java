@@ -228,27 +228,27 @@ public class AISEncoder {
 		String binaryString = "";
 		
 		//424 bits
-		binaryString += "000101";								// Message id			  6
-		binaryString += "00"; 									// Repeat indicator		  2
-		binaryString += DecToBin(mmsi, 30);						// Mmsi 				 30
-		binaryString += "00";									// Ais version			  2
-		binaryString += DecToBin(ship.getImo(), 30);			// Imo					 30
-		binaryString += getBinString(ship.getCallsign(), 42);	// Callsign 			 42
-		binaryString += DecToBin(0, 120);						// ShipName				120
-		binaryString += DecToBin(ship.getShipType(), 8);		// ShipType				  8
-		binaryString += DecToBin(ship.getBow(), 9);				// Dim bow  			  9
-		binaryString += DecToBin(ship.getStern(), 9);			// Dim stern 			  9
-		binaryString += DecToBin(ship.getPort(), 6);			// Dim port				  6
-		binaryString += DecToBin(ship.getStarboard(), 6);		// Dim starboard		  6
-		binaryString += "0000";									// Position Fix Type	  4
-		binaryString += DecToBin(etaMonth, 4);					// ETA month			  4
-		binaryString += DecToBin(etaDay, 5);					// ETA day  			  5
-		binaryString += DecToBin(etaHour, 5);					// ETA hour				  5
-		binaryString += DecToBin(etaMinute, 6);					// ETA minutes			  6
-		binaryString += DecToBin(ship.getDraught(), 8);			// Draught				  8
-		binaryString += getBinString(dest, 120);				// Dest					120
-		binaryString += "0";									// DTE					  1
-		binaryString += "0";									// Spare				  1
+		binaryString += "000101";									// Message id			  6
+		binaryString += "00"; 										// Repeat indicator		  2
+		binaryString += DecToBin(mmsi, 30);							// Mmsi 				 30
+		binaryString += "00";										// Ais version			  2
+		binaryString += DecToBin(ship.getImo(), 30);				// Imo					 30
+		binaryString += getBinString(ship.getCallsign(), 42);		// Callsign 			 42
+		binaryString += getBinString(ship.getVesselName(), 120);	// ShipName				120
+		binaryString += DecToBin(ship.getShipType(), 8);			// ShipType				  8
+		binaryString += DecToBin(ship.getBow(), 9);					// Dim bow  			  9
+		binaryString += DecToBin(ship.getStern(), 9);				// Dim stern 			  9
+		binaryString += DecToBin(ship.getPort(), 6);				// Dim port				  6
+		binaryString += DecToBin(ship.getStarboard(), 6);			// Dim starboard		  6
+		binaryString += "0000";										// Position Fix Type	  4
+		binaryString += DecToBin(etaMonth, 4);						// ETA month			  4
+		binaryString += DecToBin(etaDay, 5);						// ETA day  			  5
+		binaryString += DecToBin(etaHour, 5);						// ETA hour				  5
+		binaryString += DecToBin(etaMinute, 6);						// ETA minutes			  6
+		binaryString += DecToBin(ship.getDraught(), 8);				// Draught				  8
+		binaryString += getBinString(dest, 120);					// Dest					120
+		binaryString += "0";										// DTE					  1
+		binaryString += "0";										// Spare				  1
 		
 		if (binaryString.length() != 424) {
 			log.warn("Message has not 424 bits: ");
