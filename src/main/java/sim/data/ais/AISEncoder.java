@@ -233,8 +233,8 @@ public class AISEncoder {
 		binaryString += DecToBin(mmsi, 30);						// Mmsi 				 30
 		binaryString += "00";									// Ais version			  2
 		binaryString += DecToBin(ship.getImo(), 30);			// Imo					 30
-		binaryString += DecToBin(0, 120);						// ShipName 			120
-		binaryString += getBinString(ship.getCallsign(), 42);	// Callsign				 42
+		binaryString += getBinString(ship.getCallsign(), 42);	// Callsign 			 42
+		binaryString += DecToBin(0, 120);						// ShipName				120
 		binaryString += DecToBin(ship.getShipType(), 8);		// ShipType				  8
 		binaryString += DecToBin(ship.getBow(), 9);				// Dim bow  			  9
 		binaryString += DecToBin(ship.getStern(), 9);			// Dim stern 			  9
