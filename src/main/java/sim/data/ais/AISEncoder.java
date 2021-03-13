@@ -258,12 +258,13 @@ public class AISEncoder {
 	}
 	
 	protected static List<String> getFinalAISMessages(String binaryMessage) {
+		if (binaryMessage == null) return null;
 		switch (binaryMessage.substring(0, 6)) {
-		case "000001":
+		case "000001": // Msg 1
 			String checksumExprMsg1 = "AIVDM,1,1,,A," + encode(binaryMessage) + ",0";
 			String aisMsg1 = "!" + checksumExprMsg1 + "*" + GeoOps.calcCheckSum(checksumExprMsg1);
 			return Arrays.asList(aisMsg1);
-		case "000101":
+		case "000101": // Msg 5
 			String payload = encode(binaryMessage+"00");
 			String checksumExprMsg5a = "AIVDM,2,1,1,A," + payload.substring(0, 60) + ",0";
 			String checksumExprMsg5b = "AIVDM,2,2,1,A," + payload.substring(60) + ",2";
