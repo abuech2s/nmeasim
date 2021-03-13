@@ -217,7 +217,7 @@ public class AISEncoder {
 		binaryString += "0000000000000000000"; 					// Comm state			19
 			
 		if (binaryString.length() != 168) {
-			log.warn("Message has not 168 bits: ");
+			log.warn("Message has not 168 bits: (" + binaryString.length() + ")" + binaryString);
 		}
 
 		return binaryString;
@@ -251,7 +251,7 @@ public class AISEncoder {
 		binaryString += "0";										// Spare				  1
 		
 		if (binaryString.length() != 424) {
-			log.warn("Message has not 424 bits: ");
+			log.warn("Message has not 424 bits: (" + binaryString.length() + ")" + binaryString);
 		}
 
 		return binaryString;
