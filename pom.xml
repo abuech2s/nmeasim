@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>${version.java}</maven.compiler.source>
 		<maven.compiler.target>${version.java}</maven.compiler.target>
-		
+
 		<!-- dependency versions -->
 		<version.mvncompilerplugin>3.8.1</version.mvncompilerplugin>
 		<version.surefire>2.22.2</version.surefire>
@@ -32,6 +32,7 @@
 		<version.mvnjar>3.2.0</version.mvnjar>
 		<version.lombok>1.18.12</version.lombok>
 		<version.jaxb>2.3.1</version.jaxb>
+		<version.junit>5.7.1</version.junit>
 	</properties>
 
 	<dependencies>
@@ -71,11 +72,24 @@
 			<version>${version.lombok}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>${version.jaxb}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -115,6 +129,10 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${version.surefire}</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${version.surefire}</version>
 			</plugin>
 			<plugin>
