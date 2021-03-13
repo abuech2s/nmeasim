@@ -95,7 +95,7 @@ where
 
  * Advices for `gps`:
    - If `radar` or `weather` are active, `gps` will be automatically activated as well (in this case the `active`-flag of `gps` will be ignored).
-   - The variable `nroftrack` will be ignored. GPS sentences correspond just to single object.
+   - The variable `nroftrack` will be ignored. GPS sentences correspond just to a single object.
 
  * Advices for `radar`:
    - The variable `nroftrack` will be ignored.
@@ -108,9 +108,10 @@ where
 
 ## Changelog
 
-2021-03-12 : V1.0.5rc
+2021-03-13 : V1.0.5rc
+- add more ships
 - fix bug of wrong ais callsign
-- fix bug of missing ship name
+- fix bug of missing ais ship name
 
 2021-02-15 : V1.0.4
 - Add course information (Gphdt and Hehdt)
@@ -129,4 +130,4 @@ where
 
 ## CopyRight
 
-(c) Alexander Buechel, abuech2s@gmail.com, Feb 2021
+(c) Alexander Buechel, abuech2s@gmail.com, Mar 2021
