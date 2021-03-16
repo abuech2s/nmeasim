@@ -18,8 +18,8 @@ public class GPSTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(GPSTrack.class);
 
-	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.systemDefault());
-	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.systemDefault());
+	private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss").withZone(ZoneId.of("UTC"));
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy").withZone(ZoneId.of("UTC"));
 
 	private int position = 0;
 	private double course = 0.0;
