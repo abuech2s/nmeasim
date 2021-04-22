@@ -110,6 +110,7 @@ where
 
 2021-03-13 : V1.0.5rc
 - add more ships
+- fix wrong timezone in timestamp of gps and radar
 - fix bug of wrong ais callsign
 - fix bug of missing ais ship name
 

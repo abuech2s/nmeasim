@@ -18,7 +18,7 @@ public class RadarTrack extends Track {
 	
 	private static final Logger log = LoggerFactory.getLogger(RadarTrack.class);
 	
-	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS").withZone(ZoneId.systemDefault());
+	private DateTimeFormatter dateTimeFormatterRadar = DateTimeFormatter.ofPattern("HHmmss.SS").withZone(ZoneId.of("UTC"));
 	
 	private DecimalFormat df2 = new DecimalFormat("00.0");
 	private DecimalFormat df3 = new DecimalFormat("000.0");
