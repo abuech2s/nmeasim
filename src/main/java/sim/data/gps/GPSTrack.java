@@ -27,7 +27,7 @@ public class GPSTrack extends Track {
 	private static GeoCoordinate currentPosition = null;
 
 	public GPSTrack(Config config, List<GeoCoordinate> route) {
-		super(config, 100.0, 5.0);
+		super(config, 100.0, 5);
 		init(route);
 	}
 	

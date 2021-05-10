@@ -29,7 +29,7 @@ public class RadarTrack extends Track {
 	private static GeoCoordinate current = null;
 
 	public RadarTrack(Config config) {
-		super(config, 100.0, 5.0);
+		super(config, 100.0, 5);
 	}
 
 	@Override

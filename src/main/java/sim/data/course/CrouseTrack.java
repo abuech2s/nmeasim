@@ -14,10 +14,9 @@ public class CrouseTrack extends Track {
 	private double courseTempStep = 0.1;
 	
 	public CrouseTrack(Config config) {
-		super(config, 1.0, 5.0); //Dummy values
+		super(config, 1.0, 5); //Dummy values
 	}
 
-	
 	@Override
 	public void run() {
 		while (!kill) {

@@ -13,7 +13,7 @@ public abstract class Track implements ITrack {
 	protected Thread trackThread;
 	
 	protected double speed = Double.NaN;
-	protected double timeInterval = Double.NaN;
+	protected long timeInterval = 0L;
 	protected List<GeoCoordinate> points = new ArrayList<>();
 	protected int position = 0;
 	
@@ -33,7 +33,7 @@ public abstract class Track implements ITrack {
 		if (null != sink) sink.take(messages);
 	}
 	
-	public Track(Config config, double speed, double timeInterval) {
+	public Track(Config config, double speed, long timeInterval) {
 		this.speed = speed;
 		this.timeInterval = timeInterval;
 	}

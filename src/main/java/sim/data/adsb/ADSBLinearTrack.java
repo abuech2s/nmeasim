@@ -29,7 +29,7 @@ public class ADSBLinearTrack extends Track {
 	private int position = 0;
 	
 	public ADSBLinearTrack(Config config, String hexIdent, String callsign) {
-		super(config, 250.0, 3.0);
+		super(config, 250.0, 3);
 		this.hexIdent = hexIdent;
 		this.callsign = callsign;
 		init();
@@ -47,7 +47,7 @@ public class ADSBLinearTrack extends Track {
 		routePoints.add(new GeoCoordinate(city2.getValue().getLatitude(), city2.getValue().getLongitude()));
 		
 		createGeoCoordinates(routePoints);
-		log.info("Created track for ADSB({}) with {} trackpoints from {} to {}.", hexIdent, points.size(), city1.getKey(), city2.getKey());
+		log.info("Created track {} for ADSB with {} trackpoints from {} to {}.", hexIdent, points.size(), city1.getKey(), city2.getKey());
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class ADSBLinearTrack extends Track {
 			publish(message4);
 			
 			try {
-				Thread.sleep((long)(timeInterval * 1000L));
+				Thread.sleep(timeInterval * 1_000);
 			} catch (InterruptedException e) {
 				log.debug("Exception at Thread {} ", e);
 			}
