@@ -108,7 +108,13 @@ where
 
 ## Changelog
 
-2021-03-13 : V1.0.5rc
+2021-05-10 : V1.0.6rc
+
+- add ETA for AIS tracks
+- fix bug, where \r\n at udp packages is missing
+- update dependecies
+
+2021-03-13 : V1.0.5
 - add more ships
 - fix wrong timezone in timestamp of gps and radar
 - fix bug of wrong ais callsign
