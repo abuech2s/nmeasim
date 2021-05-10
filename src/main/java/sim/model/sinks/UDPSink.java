@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.config.Constants;
+
 public class UDPSink extends AbstractSink {
 	
 	private static final Logger log = LoggerFactory.getLogger(UDPSink.class);
@@ -49,6 +51,7 @@ public class UDPSink extends AbstractSink {
 					if (!queue.isEmpty()) {
 						String message = queue.poll();
 						if (message == null) continue;
+						message += Constants.rclf;
 					
 						byte[] bytes = message.getBytes();
 						DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);

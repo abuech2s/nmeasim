@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sim.config.Constants;
+
 public class TCPSink extends AbstractSink {
 	
 	private static final Logger log = LoggerFactory.getLogger(TCPSink.class);
@@ -51,7 +53,7 @@ public class TCPSink extends AbstractSink {
 						String message = queue.poll();
 						if (message == null) continue;
 
-						writer.write(message + "\r\n");
+						writer.write(message + Constants.rclf);
 						writer.flush();
 						log.debug("Send via TCP " + getIdentifier() + " : 1");
 						if (queue.size() > 100) queue.clear();
