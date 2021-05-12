@@ -49,7 +49,7 @@ public class GPSTrack extends Track {
 			position++;
 			position = position % points.size();
 			course += 0.1;
-			if (course >= 360.0) course = course -360.0;
+			if (course >= 360.0) course = course - 360.0;
 				
 			String msgGpgga = GPSMessages.MSG_GPGGA;
 			msgGpgga = msgGpgga.replace("${time}", timeFormatter.format(new Date().toInstant()));
@@ -78,7 +78,7 @@ public class GPSTrack extends Track {
 			
 			msgGpgga = "$" + msgGpgga + "*" + GeoOps.calcCheckSum(msgGpgga);
 			msgGprmc = "$" + msgGprmc + "*" + GeoOps.calcCheckSum(msgGprmc);
-			msgGphdt = "$" + msgGphdt;
+			msgGphdt = "$" + msgGphdt + "*" + GeoOps.calcCheckSum(msgGphdt);
 			
 			publish(msgGpgga);
 			publish(msgGprmc);
