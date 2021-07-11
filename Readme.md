@@ -5,7 +5,7 @@ Simulates NMEA and SBS data via TCP/UDP connections.
 ## Requirements
 
  - Java 1.8+
- - Maven 3.6.3
+ - Maven 3.8.1
 
 ## Supported sentences
 
