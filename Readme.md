@@ -108,11 +108,12 @@ where
 
 ## Changelog
 
-2021-05-10 : V1.0.6rc
+2021-07-11 : V1.0.6
 
 - add ETA for AIS tracks
 - fix bug, where \r\n at udp packages is missing
-- update dependecies
+- fix bug, where the checksum is missing at GPHDT messages
+- update dependencies
 
 2021-03-13 : V1.0.5
 - add more ships
@@ -137,4 +138,4 @@ where
 
 ## CopyRight
 
-(c) Alexander Buechel, abuech2s@gmail.com, Mar 2021
+(c) Alexander Buechel, abuech2s@gmail.com, May 2021
