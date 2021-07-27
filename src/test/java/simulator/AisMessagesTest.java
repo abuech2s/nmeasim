@@ -14,7 +14,7 @@ import sim.data.ais.data.ship.ShipFactory;
 public class AisMessagesTest {
 
 	@Test
-	public void AisShipGenerationTest1() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void AisMessage1Test() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 	
 		int mmsi = 100123000;
 		double lat = 1.1234;
@@ -35,7 +35,7 @@ public class AisMessagesTest {
 	}
 	
 	@Test
-	public void AisShipGenerationTest5() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void AisMessage5Test() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
 		int mmsi = 100123000;
 		double lat = 1.1234;
