@@ -2,6 +2,9 @@
 
 Simulates NMEA and SBS data via TCP/UDP connections.
 
+General hint: Some field are rotated within their valid range; without any kind of validation to corresponding other fields.
+This means, numerical they should be all correct; semantically there might be no relationship between them.
+
 ## Requirements
 
  - Java 1.8+
@@ -107,6 +110,11 @@ where
    - We expect, that produced weather sentences correspond to current GPS position.
 
 ## Changelog
+
+2021-07-27 : V1.0.7rc
+
+- add navStatus, course and trueHeading for Message 1
+- add posFixType for Message 5
 
 2021-07-11 : V1.0.6
 
