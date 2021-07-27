@@ -23,6 +23,10 @@ public class AISTrack extends Track {
 	private int mmsi = 0;
 	private IShip ship = null;
 	
+	private int course = 0;
+	private int trueHeading = 0;
+	private int navStatus = 0;
+	
 	public AISTrack(Config config, int mmsi, Route route) {
 		super(config, 25.0, 5);
 		this.mmsi = mmsi;
@@ -51,8 +55,17 @@ public class AISTrack extends Track {
 
 			position++;
 			position = position % points.size();
-
-			String msgType1 = AISEncoder.getBinaryStringMsg1(mmsi, current.getLatitude(), current.getLongitude(), speed);
+			
+			course++;
+			course = course % 360;
+			
+			trueHeading++;
+			trueHeading = trueHeading % 360;
+			
+			navStatus++;
+			navStatus = navStatus % 360;
+			
+			String msgType1 = AISEncoder.getBinaryStringMsg1(mmsi, current.getLatitude(), current.getLongitude(), speed, course, trueHeading, navStatus);
 			List<String> msgs1 = AISEncoder.getFinalAISMessages(msgType1);
 			
 			ETA eta = new ETA(position, points.size(), this.timeInterval);

@@ -195,21 +195,21 @@ public class AISEncoder {
 		return strValue;
 	}
 	
-	public static String getBinaryStringMsg1(int mmsi, double lat, double lon, double speed) {
+	public static String getBinaryStringMsg1(int mmsi, double lat, double lon, double speed, int course, int trueHeading, int navStatus) {
 		String binaryString = "";
 		
 		//168 bits
 		binaryString += "000001";								// message id			 6
 		binaryString += "00"; 									// repeat indicator		 2
 		binaryString += DecToBin(mmsi, 30);						// mmsi 				30
-		binaryString += "0000";									// nav status			 4
+		binaryString += DecToBin(navStatus, 4);					// nav status			 4
 		binaryString += "00000000";								// ROT					 8
-		binaryString += DecToBin((int)(speed*10.0), 10);		// SOG					10
+		binaryString += DecToBin((int)(speed * 10.0), 10);		// SOG					10
 		binaryString += "0";									// Pos Acc				 1
 		binaryString += DecToBin((int)(lon * 600000.0), 28);	// lon					28					
 		binaryString += DecToBin((int)(lat * 600000.0), 27);	// lat					27
-		binaryString += "000000000000";							// COG					12
-		binaryString += "000000000";							// True Heading			 9
+		binaryString += DecToBin((int)(course * 10), 12);		// COG					12
+		binaryString += DecToBin((int)(trueHeading), 9);		// True Heading			 9
 		binaryString += DecToBin(Calendar.getInstance(TimeZone.getTimeZone("UTC")).get(Calendar.SECOND), 6);	// UTC Sec			6
 		binaryString += "00";									// SMI					 2
 		binaryString += "000";									// spare				 3
