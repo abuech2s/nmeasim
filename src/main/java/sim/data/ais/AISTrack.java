@@ -63,7 +63,7 @@ public class AISTrack extends Track {
 			trueHeading = trueHeading % 360;
 			
 			navStatus++;
-			navStatus = navStatus % 360;
+			navStatus = navStatus % 16;
 			
 			String msgType1 = AISEncoder.getBinaryStringMsg1(mmsi, current.getLatitude(), current.getLongitude(), speed, course, trueHeading, navStatus);
 			List<String> msgs1 = AISEncoder.getFinalAISMessages(msgType1);
