@@ -224,7 +224,7 @@ public class AISEncoder {
 	}
 	
 	public static String getBinaryStringMsg5(int mmsi, double lat, double lon, IShip ship,
-			int etaMonth, int etaDay, int etaHour, int etaMinute, String dest) {
+			int etaMonth, int etaDay, int etaHour, int etaMinute, String dest, int posFixType) {
 		String binaryString = "";
 		
 		//424 bits
@@ -240,7 +240,7 @@ public class AISEncoder {
 		binaryString += DecToBin(ship.getStern(), 9);				// Dim stern 			  9
 		binaryString += DecToBin(ship.getPort(), 6);				// Dim port				  6
 		binaryString += DecToBin(ship.getStarboard(), 6);			// Dim starboard		  6
-		binaryString += "0000";										// Position Fix Type	  4
+		binaryString += DecToBin(posFixType, 4);					// Position Fix Type	  4
 		binaryString += DecToBin(etaMonth, 4);						// ETA month			  4
 		binaryString += DecToBin(etaDay, 5);						// ETA day  			  5
 		binaryString += DecToBin(etaHour, 5);						// ETA hour				  5

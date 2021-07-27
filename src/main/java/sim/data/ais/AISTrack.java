@@ -26,6 +26,7 @@ public class AISTrack extends Track {
 	private int course = 0;
 	private int trueHeading = 0;
 	private int navStatus = 0;
+	private int posFixType = 0;
 	
 	public AISTrack(Config config, int mmsi, Route route) {
 		super(config, 25.0, 5);
@@ -65,11 +66,14 @@ public class AISTrack extends Track {
 			navStatus++;
 			navStatus = navStatus % 16;
 			
+			posFixType++;
+			posFixType = posFixType % 16;
+			
 			String msgType1 = AISEncoder.getBinaryStringMsg1(mmsi, current.getLatitude(), current.getLongitude(), speed, course, trueHeading, navStatus);
 			List<String> msgs1 = AISEncoder.getFinalAISMessages(msgType1);
 			
 			ETA eta = new ETA(position, points.size(), this.timeInterval);
-			String binMsg5 = AISEncoder.getBinaryStringMsg5(mmsi, current.getLatitude(), current.getLongitude(), ship, eta.getMonth(), eta.getDay(), eta.getHour(), eta.getMinute(), route.getEndHarbour());
+			String binMsg5 = AISEncoder.getBinaryStringMsg5(mmsi, current.getLatitude(), current.getLongitude(), ship, eta.getMonth(), eta.getDay(), eta.getHour(), eta.getMinute(), route.getEndHarbour(), posFixType);
 			List<String> msgs5 = AISEncoder.getFinalAISMessages(binMsg5);
 
 			publish(msgs1);
