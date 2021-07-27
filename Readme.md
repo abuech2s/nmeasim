@@ -115,6 +115,7 @@ where
 
 - add navStatus, course and trueHeading for Message 1
 - add posFixType for Message 5
+- add some unit tests
 
 2021-07-11 : V1.0.6
 

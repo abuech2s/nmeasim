@@ -195,7 +195,7 @@ public class AISEncoder {
 		return strValue;
 	}
 	
-	public static String getBinaryStringMsg1(int mmsi, double lat, double lon, double speed, int course, int trueHeading, int navStatus) {
+	protected static String getBinaryStringMsg1(int mmsi, double lat, double lon, double speed, int course, int trueHeading, int navStatus) {
 		String binaryString = "";
 		
 		//168 bits
@@ -223,7 +223,7 @@ public class AISEncoder {
 		return binaryString;
 	}
 	
-	public static String getBinaryStringMsg5(int mmsi, double lat, double lon, IShip ship,
+	protected static String getBinaryStringMsg5(int mmsi, double lat, double lon, IShip ship,
 			int etaMonth, int etaDay, int etaHour, int etaMinute, String dest, int posFixType) {
 		String binaryString = "";
 		

@@ -8,7 +8,11 @@ public class ShipFactory {
 
 	public static IShip getRandomShip() {
 		int randomNr = ThreadLocalRandom.current().nextInt(max + 1) + 1;
-		switch (randomNr) {
+		return getShip(randomNr);
+	}
+	
+	public static IShip getShip(int type) {
+		switch (type) {
 		case 1:
 			return new Fisher();
 		case 2:
