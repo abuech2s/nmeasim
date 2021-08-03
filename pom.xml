@@ -17,10 +17,9 @@
 	</developers>
 
 	<properties>
-		<version.java>1.8</version.java>
+		<version.java>11</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>${version.java}</maven.compiler.source>
-		<maven.compiler.target>${version.java}</maven.compiler.target>
+		<maven.compiler.release>${version.java}</maven.compiler.release>
 
 		<!-- dependency versions -->
 		<version.mvncompilerplugin>3.8.1</version.mvncompilerplugin>
@@ -126,6 +125,9 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${version.mvncompilerplugin}</version>
+				<configuration>
+	                <release>${version.java}</release>
+	            </configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
