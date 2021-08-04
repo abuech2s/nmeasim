@@ -111,7 +111,11 @@ where
 
 ## Changelog
 
-2021-07-27 : V1.0.7rc
+2021-08-03 : V1.0.8rc
+
+- make build process J11 compatible
+
+2021-07-27 : V1.0.7
 
 - add navStatus, course and trueHeading for Message 1
 - add posFixType for Message 5
