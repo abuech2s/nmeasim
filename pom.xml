@@ -32,6 +32,7 @@
 		<version.lombok>1.18.20</version.lombok>
 		<version.jaxb>2.3.1</version.jaxb>
 		<version.junit>5.7.2</version.junit>
+		<version.jaxb.runtime>2.3.5</version.jaxb.runtime>
 	</properties>
 
 	<dependencies>
@@ -77,6 +78,18 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>${version.jaxb}</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>javax.activation</groupId>
+		    <artifactId>activation</artifactId>
+		    <version>1.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.glassfish.jaxb</groupId>
+		    <artifactId>jaxb-runtime</artifactId>
+		    <version>${version.jaxb.runtime}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -84,6 +97,7 @@
 			<version>${version.junit}</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
