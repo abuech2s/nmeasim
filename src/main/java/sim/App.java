@@ -3,8 +3,8 @@ package sim;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javafx.application.Application;
 import sim.config.Configuration;
+import sim.ui.MainUI;
 
 public class App {
 
@@ -15,7 +15,7 @@ public class App {
 		initConfiguration();
 		log.info("Configuration started.");
 		
-		Application.launch(args);
+	    MainUI.main(args);
 		log.info("UI started.");
 	}
 	

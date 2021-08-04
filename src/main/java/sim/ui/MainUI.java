@@ -10,4 +10,8 @@ public class MainUI extends Application {
     	primaryStage.show();
     }
     
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
 }

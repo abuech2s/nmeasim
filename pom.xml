@@ -33,7 +33,7 @@
 		<version.jaxb>2.3.1</version.jaxb>
 		<version.junit>5.7.2</version.junit>
 		<version.javafx>11.0.2</version.javafx>
-		<version.jaxb.runtime>3.0.2</version.jaxb.runtime>
+		<version.jaxb.runtime>2.3.5</version.jaxb.runtime>
 	</properties>
 
 	<dependencies>
@@ -190,7 +190,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>sim.ui.MainUI</mainClass>
+							<mainClass>sim.App</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -201,7 +201,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>sim.ui.MainUI</mainClass>
+                    <mainClass>sim.App</mainClass>
                 </configuration>
             </plugin>
 
