@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import sim.config.Constants;
 import sim.model.GeoCoordinate;
+import sim.util.StreamUtils;
 
 import java.util.Random;
 
@@ -20,21 +21,11 @@ public class Cities {
 
 	private static Map<String, GeoCoordinate> cities = null;
 	private static final Logger log = LoggerFactory.getLogger(Cities.class);
-
-	private static InputStream getFileFromResources(String fileName) {
-		ClassLoader classLoader = Cities.class.getClassLoader();
-		InputStream stream = classLoader.getResourceAsStream(fileName);
-		if (stream == null) {
-			throw new IllegalArgumentException("file: " + fileName + " not found!");
-		} else {
-			return stream;
-		}
-	}
-
+	
 	private static void init() {
 		cities = new HashMap<>();
 
-		InputStream stream = getFileFromResources(Constants.adsbCities);
+		InputStream stream = StreamUtils.getFileFromResources(Constants.adsbCities);
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 			String line;
@@ -46,7 +37,7 @@ public class Cities {
 			}
 			br.close();
 		} catch (IOException e) {
-			log.warn("Exception while loding cities {}", e);
+			log.warn("Exception while loading cities {}", e);
 		}
 
 		log.debug("Loaded {} cities.", cities.size());

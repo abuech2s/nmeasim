@@ -26,6 +26,7 @@ public class Constants {
 	
 	//Filenames
 	public static final String adsbCities = "cities.csv";
+	public static final String versionfile = "version.txt";
 	
 	//Linebreak
 	public static final String rclf = "\r\n";

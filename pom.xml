@@ -20,6 +20,8 @@
 		<version.java>11</version.java>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>${version.java}</maven.compiler.release>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+		<timestamp>${maven.build.timestamp}</timestamp>
 
 		<!-- dependency versions -->
 		<version.mvncompilerplugin>3.8.1</version.mvncompilerplugin>

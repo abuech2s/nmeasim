@@ -102,8 +102,8 @@ public class StreamAdministration {
 	
 	private static void printStreams() {
 		log.info("Created Streams:");
-		for (IStream stream: streams) {
-			stream.print();
+		for (IStream stream : streams) {
+			log.info("   {}", stream.print());
 		}
 	}
 	
