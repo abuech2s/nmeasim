@@ -257,7 +257,7 @@ public abstract class SeaGraph {
 		Collections.reverse(cities);
 		//Sometimes, two "helper" nodes are doubled, so we eliminate them here
 		cities = cities.stream().distinct().collect(Collectors.toList());
-		log.info("AIS: " + String.join(" -> ", cities));
+		log.debug("AIS: " + String.join(" -> ", cities));
 		Collections.reverse(points);
 		return points;
 	}

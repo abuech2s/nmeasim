@@ -33,7 +33,7 @@ public class GPSTrack extends Track {
 	
 	private void init(List<GeoCoordinate> routePoints) {
 		createGeoCoordinates(routePoints);
-		log.info("Created track for GPS with {} trackpoints.", points.size());
+		log.debug("Created track for GPS with {} trackpoints.", points.size());
 	}
 	
 	public static GeoCoordinate getCurrentPosition() {

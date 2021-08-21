@@ -47,7 +47,7 @@ public class ADSBLinearTrack extends Track {
 		routePoints.add(new GeoCoordinate(city2.getValue().getLatitude(), city2.getValue().getLongitude()));
 		
 		createGeoCoordinates(routePoints);
-		log.info("Created track {} for ADSB with {} trackpoints from {} to {}.", hexIdent, points.size(), city1.getKey(), city2.getKey());
+		log.debug("Created track {} for ADSB with {} trackpoints from {} to {}.", hexIdent, points.size(), city1.getKey(), city2.getKey());
 	}
 
 	@Override
