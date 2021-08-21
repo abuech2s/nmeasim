@@ -18,22 +18,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class Config {
 	
 	@XmlAttribute (name = "type")
-	@Getter private String type = "";
+	@Getter private String type;
 	
 	@XmlAttribute (name = "sink")
-	@Getter private String sink = "";
+	@Getter private String sink;
 	
 	@XmlAttribute (name = "active")
 	@Setter @Getter private boolean active = false;
 	
 	@XmlAttribute (name = "ip")
-	@Getter private String ip = "";
+	@Getter private String ip;
 	
 	@XmlAttribute (name = "port")
-	@Getter private int port = 0;
+	@Getter private int port;
 	
 	@XmlAttribute (name = "nroftrack")
 	@Getter private int nroftrack = 1;
 	
-	@Getter private int amount = 0;
+	@Getter private int amount;
 }

@@ -73,8 +73,7 @@ public class Configuration implements Runnable {
 		}
 	}
 	
-	private static String getFileChecksum(MessageDigest digest, File file) throws IOException
-	{
+	private static String getFileChecksum(MessageDigest digest, File file) throws IOException {
 	    FileInputStream fis = new FileInputStream(file);
 	     
 	    byte[] byteArray = new byte[1024];
