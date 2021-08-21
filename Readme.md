@@ -7,8 +7,10 @@ This means, numerical they should be all correct; semantically there might be no
 
 ## Requirements
 
- - Java 1.8+
+ - Java 11
  - Maven 3.8.1
+ 
+ Since Version `V1.0.8` this simulator is developed based on OpenJDK 11. Java 1.8+ is not supported anymore.
 
 ## Supported sentences
 
@@ -72,8 +74,8 @@ The content of `config.xml` must have the following structure
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configs>
-	<config type="adsb"    sink="tcp" active="true"  ip="" port="10300"  nroftrack="1"/>
-	<config type="ais"     sink="tcp" active="false" ip="" port="10200"  nroftrack="1"/>
+	<config type="adsb"    sink="tcp" active="true"  ip="" port="10300" nroftrack="1"/>
+	<config type="ais"     sink="tcp" active="false" ip="" port="10200" nroftrack="1" sleeptime ="600000" />
 	<config type="radar"   sink="tcp" active="false" ip="" port="10400" />
 	<config type="gps"     sink="udp" active="true" ip="192.168.2.100" port="10500" />
 	<config type="weather" sink="tcp" active="false" ip="" port="10600" />
@@ -89,6 +91,7 @@ where
  * `ip` is used in case of `sink=udp` and is the target address.
  * `port` is the TCP-Socket-Port or in case of `sink=udp` the target port.
  * `nroftracks` equals to the number of generated tracks.
+ * `sleeptime` is the length of the time break, when an AIS stream is reinitialized again
 
 ### Advices:
 
@@ -110,6 +113,11 @@ where
    - We expect, that produced weather sentences correspond to current GPS position.
 
 ## Changelog
+
+2021-08-21 : V1.0.9rc
+
+- Add sleeptime for AIS streams
+- adapt printing stream information
 
 2021-08-21 : V1.0.8
 
@@ -151,4 +159,4 @@ where
 
 ## CopyRight
 
-(c) Alexander Buechel, abuech2s@gmail.com, May 2021
+(c) Alexander Buechel, abuech2s@gmail.com, August 2021
