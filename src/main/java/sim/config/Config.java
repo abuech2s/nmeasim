@@ -35,5 +35,13 @@ public class Config {
 	@XmlAttribute (name = "nroftrack")
 	@Getter private int nroftrack = 1;
 	
-	@Getter private int amount;
+	@XmlAttribute (name = "streamsleeptime")
+	private long streamsleeptime;
+	
+	@ToString.Exclude @Getter private int amount;
+	
+	public long getStreamSleepTime() {
+		if (streamsleeptime == 0) return Constants.TRACK_SLEEP_TIME;
+		return streamsleeptime;
+	}
 }

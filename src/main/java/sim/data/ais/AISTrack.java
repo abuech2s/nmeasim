@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import sim.data.ais.data.ship.IShip;
 import sim.data.ais.data.ship.ShipFactory;
 import sim.config.Config;
-import sim.config.Constants;
 import sim.model.GeoCoordinate;
 import sim.model.tracks.Track;
 
@@ -18,19 +17,22 @@ public class AISTrack extends Track {
 	
 	private Route route = null;
 
-	private int position = 0;
+	private int position;
 	
-	private int mmsi = 0;
+	private int mmsi;
 	private IShip ship = null;
 	
-	private int course = 0;
-	private int trueHeading = 0;
-	private int navStatus = 0;
-	private int posFixType = 0;
+	private int course;
+	private int trueHeading;
+	private int navStatus;
+	private int posFixType;
+	
+	private long streamSleepTime;
 	
 	public AISTrack(Config config, int mmsi, Route route) {
 		super(config, 25.0, 5);
 		this.mmsi = mmsi;
+		this.streamSleepTime = config.getStreamSleepTime();
 		init(route);
 	}
 	
@@ -45,7 +47,7 @@ public class AISTrack extends Track {
 		List<GeoCoordinate> routePoints = route.getPathPoints();
 		createGeoCoordinates(routePoints);
 		
-		log.info("Created track {} for AIS with {} trackpoints.", mmsi, points.size());
+		log.debug("Created track {} for AIS with {} trackpoints.", mmsi, points.size());
 	}
 	
 	@Override
@@ -88,8 +90,8 @@ public class AISTrack extends Track {
 			//If last point of track is received, sleep x minutes and restart it
 			if (position == points.size()-1) {
 				try {
-					log.info("Track for mmsi={} terminated. Restart in {} minutes.", mmsi, Constants.TRACK_SLEEP_TIME/60_000);
-					Thread.sleep(Constants.TRACK_SLEEP_TIME);
+					log.info("Track for mmsi={} terminated. Restart in {} minutes.", mmsi, streamSleepTime/60_000);
+					Thread.sleep(streamSleepTime);
 				} catch (InterruptedException e) {
 					log.warn("Exception at Thread {} ", e);
 				}
