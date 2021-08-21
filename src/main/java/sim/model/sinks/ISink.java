@@ -9,4 +9,6 @@ public interface ISink extends Runnable {
 	public int getPort();
 	public void take(String item);
 	public void take(List<String> item);
+	public String getSinkType();
+	public String getTarget();
 }

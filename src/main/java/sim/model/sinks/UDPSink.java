@@ -83,4 +83,14 @@ public class UDPSink extends AbstractSink {
 			log.warn("Exception: {}", e1);
 		}
 	}
+	
+	@Override
+	public String getSinkType() {
+		return "UDP";
+	}
+	
+	@Override
+	public String getTarget() {
+		return this.ip+":"+String.valueOf(this.port);
+	}
 }

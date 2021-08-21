@@ -49,7 +49,6 @@ public class Configuration implements Runnable {
 		        configs = (Configs) jaxbUnmarshaller.unmarshal(file);
 		        log.info("(Re)load config file.");
 		        validate(configs);
-		        printConfig();
 		        StreamAdministration.reInit(configs);
 		        lastChecksum = currentChecksum;
 			}
@@ -93,12 +92,6 @@ public class Configuration implements Runnable {
 	    }
 
 	   return sb.toString();
-	}
-	
-	private void printConfig() {
-		for (Config config : configs.getConfigs()) {
-			log.info("    {}", config.toString());
-		}
 	}
 	
 	private boolean validate(Configs configs) {

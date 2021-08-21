@@ -83,4 +83,14 @@ public class TCPSink extends AbstractSink {
 			log.warn("Exception: ", e1);
 		}
 	}
+
+	@Override
+	public String getSinkType() {
+		return "TCP";
+	}
+	
+	@Override
+	public String getTarget() {
+		return String.valueOf(this.port);
+	}
 }

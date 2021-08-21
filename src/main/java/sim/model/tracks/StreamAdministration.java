@@ -37,32 +37,32 @@ public class StreamAdministration {
 			switch (type) {
 			case Constants.TOKEN_ADSB:
 				if (config.isActive()) {
-					streams.add(Stream.getInstance(ADSBTrackFactory.create(config), createSink(config)));
+					streams.add(Stream.getInstance(Constants.TOKEN_ADSB, ADSBTrackFactory.create(config), createSink(config)));
 				}
 				break;
 			case Constants.TOKEN_AIS:
 				if (config.isActive()) {
-					streams.add(Stream.getInstance(AISTrackFactory.create(config), createSink(config)));
+					streams.add(Stream.getInstance(Constants.TOKEN_AIS, AISTrackFactory.create(config), createSink(config)));
 				}
 				break;
 			case Constants.TOKEN_GPS:
 				if (config.isActive()) {
-					streams.add(Stream.getInstance(GPSTrackFactory.create(config), createSink(config)));
+					streams.add(Stream.getInstance(Constants.TOKEN_GPS, GPSTrackFactory.create(config), createSink(config)));
 				}
 				break;
 			case Constants.TOKEN_RADAR:
 				if (config.isActive()) {
-					streams.add(Stream.getInstance(RadarTrackFactory.create(config), createSink(config)));
+					streams.add(Stream.getInstance(Constants.TOKEN_RADAR, RadarTrackFactory.create(config), createSink(config)));
 				}
 				break;
 			case Constants.TOKEN_WEATHER:
 				if (config.isActive()) {
-					streams.add(Stream.getInstance(WeatherTrackFactory.create(config), createSink(config)));
+					streams.add(Stream.getInstance(Constants.TOKEN_WEATHER, WeatherTrackFactory.create(config), createSink(config)));
 				}
 				break;	
 			case Constants.TOKEN_COURSE:
 				if (config.isActive()) {
-					streams.add(Stream.getInstance(CourseTrackFactory.create(config), createSink(config)));
+					streams.add(Stream.getInstance(Constants.TOKEN_COURSE, CourseTrackFactory.create(config), createSink(config)));
 				}
 				break;
 			default:
@@ -70,6 +70,7 @@ public class StreamAdministration {
 			}
 		}
 		
+		printStreams();
 		startStreams();
 	}
 	
@@ -96,6 +97,13 @@ public class StreamAdministration {
 	private static void startStreams() {
 		for (IStream stream: streams) {
 			stream.start();
+		}
+	}
+	
+	private static void printStreams() {
+		log.info("Created Streams:");
+		for (IStream stream: streams) {
+			stream.print();
 		}
 	}
 	

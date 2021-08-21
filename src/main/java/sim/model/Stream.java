@@ -2,6 +2,10 @@ package sim.model;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +17,11 @@ import sim.model.tracks.ITrack;
 @ToString
 public class Stream implements IStream {
 
-	@Setter @Getter List<ITrack> tracks;
-	@Setter @Getter ISink sink;
+	@Getter private String streamName;
+	@Setter @Getter private List<ITrack> tracks;
+	@Setter @Getter private ISink sink;
+	
+	private static final Logger log = LoggerFactory.getLogger(Stream.class);
 	
 	@Override
 	public void start() {
@@ -32,11 +39,16 @@ public class Stream implements IStream {
 		if (null != sink) sink.kill();
 	}
 	
-	public static IStream getInstance(List<ITrack> tracks, ISink sink) {
+	@Override
+	public void print() {
+		log.info("   {}  ->  Nr of tracks: {} for {}:{}", StringUtils.leftPad(streamName, 8), tracks.size(), sink.getSinkType(), sink.getTarget());
+	}
+	
+	public static IStream getInstance(String streamName, List<ITrack> tracks, ISink sink) {
 		for (ITrack track : tracks) {
 			track.register(sink);
 		}
-		return new Stream(tracks, sink);
+		return new Stream(streamName.toUpperCase(), tracks, sink);
 	}
 
 }
