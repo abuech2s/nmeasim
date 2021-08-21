@@ -33,7 +33,7 @@ public class StreamAdministration {
 		stopStreams();
 		
 		for (Config config : configs.getConfigs()) {
-			String type = config.getType().toLowerCase().trim();
+			String type = config.getType().toLowerCase().strip();
 			switch (type) {
 			case Constants.TOKEN_ADSB:
 				if (config.isActive()) {

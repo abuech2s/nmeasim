@@ -22,7 +22,7 @@ public abstract class AbstractSink implements ISink {
 	protected abstract void close();
 	
 	protected AbstractSink(String identifier, int port, Mode mode, int amount) {
-		this.identifier = identifier.toLowerCase().trim();
+		this.identifier = identifier.toLowerCase().strip();
 		queue = new ConcurrentLinkedQueue<>();
 		this.port = port;
 		this.amount = amount;
@@ -30,7 +30,7 @@ public abstract class AbstractSink implements ISink {
 	}
 	
 	protected AbstractSink(String identifier, int port) {
-		this.identifier = identifier.toLowerCase().trim();
+		this.identifier = identifier.toLowerCase().strip();
 		queue = new ConcurrentLinkedQueue<>();
 		this.port = port;
 		this.amount = 0;

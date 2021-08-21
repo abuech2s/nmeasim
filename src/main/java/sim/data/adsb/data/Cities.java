@@ -55,7 +55,7 @@ public class Cities {
 	public static GeoCoordinate get(String city) {
 		if (cities == null)
 			init();
-		city = city.toLowerCase().trim();
+		city = city.toLowerCase().strip();
 		return cities.get(city);
 	}
 

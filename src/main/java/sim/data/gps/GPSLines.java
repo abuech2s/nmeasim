@@ -113,7 +113,7 @@ public class GPSLines {
 	
 	public static List<GeoCoordinate> get(String line) {
 		if (gpsLines == null) init();
-		line = line.toLowerCase().trim();
+		line = line.toLowerCase().strip();
 		return gpsLines.get(line);
 	}
 	

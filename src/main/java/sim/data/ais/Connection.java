@@ -6,8 +6,8 @@ public class Connection {
 	private double weight = 100000;
 
 	public Connection(String node1, String node2, double weight) {
-		this.node1 = node1.toLowerCase().trim();
-		this.node2 = node2.toLowerCase().trim();
+		this.node1 = node1.toLowerCase().strip();
+		this.node2 = node2.toLowerCase().strip();
 		this.weight = weight;
 	}
 	
