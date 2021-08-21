@@ -27,12 +27,12 @@ public class AISTrack extends Track {
 	private int navStatus;
 	private int posFixType;
 	
-	private long streamSleepTime;
+	private long sleeptime;
 	
 	public AISTrack(Config config, int mmsi, Route route) {
 		super(config, 25.0, 5);
 		this.mmsi = mmsi;
-		this.streamSleepTime = config.getStreamSleepTime();
+		this.sleeptime = config.getSleepTime();
 		init(route);
 	}
 	
@@ -90,8 +90,8 @@ public class AISTrack extends Track {
 			//If last point of track is received, sleep x minutes and restart it
 			if (position == points.size()-1) {
 				try {
-					log.info("Track for mmsi={} terminated. Restart in {} minutes.", mmsi, streamSleepTime/60_000);
-					Thread.sleep(streamSleepTime);
+					log.info("Track for mmsi={} terminated. Restart in {} minutes.", mmsi, sleeptime/60_000);
+					Thread.sleep(sleeptime);
 				} catch (InterruptedException e) {
 					log.warn("Exception at Thread {} ", e);
 				}
