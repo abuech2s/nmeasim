@@ -111,7 +111,11 @@ where
 
 ## Changelog
 
-2021-07-27 : V1.0.7rc
+2021-08-21 : V1.0.8
+
+- Make simulator compatible with OpenJDK 11
+
+2021-07-28 : V1.0.7
 
 - add navStatus, course and trueHeading for Message 1
 - add posFixType for Message 5
