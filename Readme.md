@@ -74,8 +74,8 @@ The content of `config.xml` must have the following structure
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configs>
-	<config type="adsb"    sink="tcp" active="true"  ip="" port="10300" nroftrack="1"/>
-	<config type="ais"     sink="tcp" active="false" ip="" port="10200" nroftrack="1" sleeptime ="600000" />
+	<config type="adsb"    sink="tcp" active="true"  ip="" port="10300" nroftrack="1" />
+	<config type="ais"     sink="tcp" active="false" ip="" port="10200" nroftrack="1" sleeptime="600000" />
 	<config type="radar"   sink="tcp" active="false" ip="" port="10400" />
 	<config type="gps"     sink="udp" active="true" ip="192.168.2.100" port="10500" />
 	<config type="weather" sink="tcp" active="false" ip="" port="10600" />
@@ -116,8 +116,9 @@ where
 
 2021-08-21 : V1.0.9rc
 
-- Add sleeptime for AIS streams
+- add sleeptime for AIS streams
 - adapt printing stream information
+- integrate version information and print them at start
 
 2021-08-21 : V1.0.8
 
