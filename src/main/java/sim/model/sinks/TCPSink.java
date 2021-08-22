@@ -53,7 +53,7 @@ public class TCPSink extends AbstractSink {
 						String message = queue.poll();
 						if (message == null) continue;
 
-						writer.write(message + Constants.rclf);
+						writer.write(message + Constants.RCLF);
 						writer.flush();
 						log.debug("Send via TCP " + getIdentifier() + " : 1");
 						if (queue.size() > 100) queue.clear();

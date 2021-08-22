@@ -51,7 +51,7 @@ public class UDPSink extends AbstractSink {
 					if (!queue.isEmpty()) {
 						String message = queue.poll();
 						if (message == null) continue;
-						message += Constants.rclf;
+						message += Constants.RCLF;
 					
 						byte[] bytes = message.getBytes();
 						DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);

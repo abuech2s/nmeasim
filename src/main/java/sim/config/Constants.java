@@ -33,5 +33,5 @@ public class Constants {
 	public static final String FILE_VERSION = "version.txt";
 	
 	//Linebreak
-	public static final String rclf = "\r\n";
+	public static final String RCLF = "\r\n";
 }
