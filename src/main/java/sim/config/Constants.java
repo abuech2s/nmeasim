@@ -29,8 +29,8 @@ public class Constants {
 	public static final double fromMmHgtoBar = 0.0013332; // from [mmHg] to [Bar]
 	
 	//Filenames
-	public static final String adsbCities = "cities.csv";
-	public static final String versionfile = "version.txt";
+	public static final String FILE_ADSBCITIES = "cities.csv";
+	public static final String FILE_VERSION = "version.txt";
 	
 	//Linebreak
 	public static final String rclf = "\r\n";

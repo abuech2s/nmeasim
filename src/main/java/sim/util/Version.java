@@ -15,7 +15,7 @@ public class Version {
 	private static final Logger log = LoggerFactory.getLogger(Version.class);
 
 	public static String get(String category) {
-		InputStream stream = StreamUtils.getFileFromResources(Constants.versionfile);
+		InputStream stream = StreamUtils.getFileFromResources(Constants.FILE_VERSION);
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 			String line;

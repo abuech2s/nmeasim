@@ -25,7 +25,7 @@ public class Cities {
 	private static void init() {
 		cities = new HashMap<>();
 
-		InputStream stream = StreamUtils.getFileFromResources(Constants.adsbCities);
+		InputStream stream = StreamUtils.getFileFromResources(Constants.FILE_ADSBCITIES);
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 			String line;
