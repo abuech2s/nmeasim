@@ -75,10 +75,10 @@ public class StreamAdministration {
 	}
 	
 	private static ISink createSink(Config config) {
-		switch (config.getSink().toLowerCase()) {
-		case "tcp":
+		switch (config.getSink().toLowerCase().strip()) {
+		case Constants.TOKEN_TCP:
 			return new TCPSink(config.getType(), config.getPort());
-		case "udp":
+		case Constants.TOKEN_UDP:
 			return new UDPSink(config.getType(), config.getIp(), config.getPort());
 		default:
 			log.warn("Unknown sink type: {}", config);

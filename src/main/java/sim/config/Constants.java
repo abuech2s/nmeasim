@@ -10,6 +10,10 @@ public class Constants {
 	public static final String TOKEN_WEATHER = "weather";
 	public static final String TOKEN_COURSE = "course";
 	
+	//Technical identifiers
+	public static final String TOKEN_TCP = "tcp";
+	public static final String TOKEN_UDP = "udp";
+	
 	//Config parameters
 	public static final String CONFIG_FILENAME = "config.xml";
 	public static final int CONFIG_RELOADTIME = 15_000;
