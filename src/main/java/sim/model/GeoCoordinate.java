@@ -9,9 +9,9 @@ public class GeoCoordinate {
 	@Getter private double latitude = Double.NaN;
 	@Getter private double longitude = Double.NaN;
 	@Getter private String name = "";
-	@Getter private boolean isAcity = false;
+	@Getter private boolean isACity = false;
 	
-	private double factor = 100_000;
+	private double factor = 100_000.0;
 	
 	public GeoCoordinate(double latitude, double longitude) {
 		setCoordinates(latitude, longitude);
@@ -22,10 +22,10 @@ public class GeoCoordinate {
 		this.name = name;
 	}
 	
-	public GeoCoordinate(String name, double latitude, double longitude, boolean isAcity) {
+	public GeoCoordinate(String name, double latitude, double longitude, boolean isACity) {
 		setCoordinates(latitude, longitude);
 		this.name = name;
-		this.isAcity = isAcity;
+		this.isACity = isACity;
 	}
 	
 	private void setCoordinates(double latitude, double longitude) {

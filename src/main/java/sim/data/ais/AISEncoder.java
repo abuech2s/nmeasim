@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sim.data.ais.data.ship.IShip;
-import sim.model.GeoOps;
+import sim.util.GeoOps;
 
 public class AISEncoder {
 	

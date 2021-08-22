@@ -10,9 +10,9 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sim.model.GeoOps;
 import sim.model.GeoCoordinate;
 import sim.model.tracks.Track;
+import sim.util.GeoOps;
 import sim.config.Config;
 import sim.data.adsb.data.Cities;
 

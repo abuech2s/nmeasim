@@ -1,4 +1,4 @@
-package sim.model;
+package sim.util;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

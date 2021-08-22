@@ -5,8 +5,8 @@ import java.util.List;
 
 import sim.config.Config;
 import sim.model.GeoCoordinate;
-import sim.model.GeoOps;
 import sim.model.sinks.ISink;
+import sim.util.GeoOps;
 
 public abstract class Track implements ITrack {
 	protected boolean kill = false;

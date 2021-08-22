@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import sim.config.Config;
 import sim.config.Constants;
-import sim.model.GeoOps;
 import sim.model.tracks.Track;
+import sim.util.GeoOps;
 
 public class WeatherTrack extends Track {
 	

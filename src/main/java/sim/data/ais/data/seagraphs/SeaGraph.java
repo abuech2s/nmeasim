@@ -18,8 +18,8 @@ import sim.data.ais.Connection;
 import sim.data.ais.Edge;
 import sim.data.ais.Node;
 import sim.data.ais.Route;
-import sim.model.GeoOps;
 import sim.model.GeoCoordinate;
+import sim.util.GeoOps;
 
 public abstract class SeaGraph {
 
@@ -81,7 +81,7 @@ public abstract class SeaGraph {
 			Object[] values = habours.toArray();
 			Object o = values[rand.nextInt(values.length)];
 			point = (GeoCoordinate)o;
-			if (!point.isAcity()) point = null;
+			if (!point.isACity()) point = null;
 		}
 		return point;
 	}
@@ -136,7 +136,7 @@ public abstract class SeaGraph {
 		log.debug("Nodes: " + nodes.size() + " Edges: " + edges.size() + " from " + startNode.getPoint().getName() + " to " + goalNode.getPoint().getName());
 		
 		//Check if two cities are connected directly
-		if (source.isAcity() && goal.isAcity() && containsConnection(source, goal)) {
+		if (source.isACity() && goal.isACity() && containsConnection(source, goal)) {
 			List<GeoCoordinate> points = new ArrayList<>();
 			points.add(source);
 			points.add(goal);
