@@ -41,7 +41,7 @@ public class Config {
 	@ToString.Exclude @Getter private int amount;
 	
 	public long getSleepTime() {
-		if (sleeptime == 0) return Constants.TRACK_SLEEP_TIME;
+		if (sleeptime == 0) return Constants.DEFAULT_TRACK_SLEEP_TIME;
 		return sleeptime;
 	}
 }

@@ -19,7 +19,7 @@ public class Constants {
 	public static final int CONFIG_RELOADTIME = 15_000;
 	
 	//Track parameters
-	public static final long TRACK_SLEEP_TIME = 600 * 1_000L; // in [s]
+	public static final long DEFAULT_TRACK_SLEEP_TIME = 600 * 1_000L; // in [s]
 	public static final double MAX_RADAR_RADIUS = 30_000.0;
 	
 	//Physical constants

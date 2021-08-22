@@ -82,9 +82,8 @@ public class StreamAdministration {
 			return new UDPSink(config.getType(), config.getIp(), config.getPort());
 		default:
 			log.warn("Unknown sink type: {}", config);
+			return null;
 		}
-
-		return null;
 	}
 	
 	private static void stopStreams() {
