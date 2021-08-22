@@ -28,13 +28,14 @@
 		<version.surefire>2.22.2</version.surefire>
 		<version.mvnshade>3.2.4</version.mvnshade>
 		<version.commons.lang3>3.12.0</version.commons.lang3>
-		<version.logback>1.2.3</version.logback>
-		<version.slf4j>1.7.31</version.slf4j>
+		<version.logback>1.2.5</version.logback>
+		<version.slf4j>1.7.32</version.slf4j>
 		<version.mvnjar>3.2.0</version.mvnjar>
 		<version.lombok>1.18.20</version.lombok>
 		<version.jaxb>2.3.1</version.jaxb>
 		<version.junit>5.7.2</version.junit>
 		<version.jaxb.runtime>2.3.5</version.jaxb.runtime>
+		<version.javax.activation>1.1</version.javax.activation>
 	</properties>
 
 	<dependencies>
@@ -84,7 +85,7 @@
 		<dependency>
 		    <groupId>javax.activation</groupId>
 		    <artifactId>activation</artifactId>
-		    <version>1.1</version>
+		    <version>${version.javax.activation}</version>
 		</dependency>
 		
 		<dependency>
