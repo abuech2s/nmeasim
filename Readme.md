@@ -120,6 +120,7 @@ where
 - adapt printing stream information
 - integrate version information in jar file
 - Recommended version of Maven is now 3.8.2
+- add some unit tests
 
 2021-08-21 : V1.0.8
 
@@ -127,8 +128,8 @@ where
 
 2021-07-28 : V1.0.7
 
-- add navStatus, course and trueHeading for Message 1
-- add posFixType for Message 5
+- add navStatus, course and trueHeading for AIS-Message 1
+- add posFixType for AIS-Message 5
 - add some unit tests
 
 2021-07-11 : V1.0.6
