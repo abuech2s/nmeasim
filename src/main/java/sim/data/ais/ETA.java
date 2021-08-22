@@ -7,10 +7,10 @@ import lombok.Getter;
 
 public class ETA {
 	
-	@Getter int month = 0;
-	@Getter int day = 0;
-	@Getter int hour = 0;
-	@Getter int minute = 0;
+	@Getter int month;
+	@Getter int day;
+	@Getter int hour;
+	@Getter int minute;
 	
 	public ETA(int position, int totalPoints, long timeInterval) {
 		long currentTime = System.currentTimeMillis();
