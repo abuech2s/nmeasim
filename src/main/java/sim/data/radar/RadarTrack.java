@@ -26,7 +26,7 @@ public class RadarTrack extends Track {
 	private int radarTrackCounter = 0;
 	private String currentRadarTrackId = null;
 	
-	private static GeoCoordinate current = null;
+	private GeoCoordinate current = null;
 
 	public RadarTrack(Config config) {
 		super(config, 100.0, 5);
