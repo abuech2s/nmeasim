@@ -27,6 +27,7 @@ public class RadarTrack extends Track {
 	private String currentRadarTrackId = null;
 	
 	private GeoCoordinate current = null;
+	private double course = 0.0;
 
 	public RadarTrack(Config config) {
 		super(config, 100.0, 5);
@@ -46,6 +47,9 @@ public class RadarTrack extends Track {
 					if (currentRadarTrackId == null) radarTrackCounter++;
 					radarTrackCounter = radarTrackCounter % 100;
 					
+					course += 0.1;
+					if (course >= 360.0) course = course - 360.0;
+					
 					currentRadarTrackId = String.valueOf(radarTrackCounter);
 					if (radarTrackCounter < 10) currentRadarTrackId = "0" + radarTrackCounter;
 					String msgRattm = RadarMessage.MSG_TTM;
@@ -60,6 +64,8 @@ public class RadarTrack extends Track {
 					msgRattm = msgRattm.replace("${bearing}", df3.format(bearing).replace(",", "."));
 					msgRattm = msgRattm.replace("${time}", dateTimeFormatterRadar.format(new Date().toInstant()));
 					msgRattm = msgRattm.replace("${name}", "TRK"+currentRadarTrackId);
+					msgRattm = msgRattm.replace("${course}", df3.format(course).replace(",", "."));
+					msgRattm = msgRattm.replace("${speed}", String.format("%.3f", speed * Constants.fromMstoKn).replaceAll(",", "."));
 					
 					msgRattm = "$" + msgRattm + "*" + GeoOps.calcCheckSum(msgRattm);
 					
