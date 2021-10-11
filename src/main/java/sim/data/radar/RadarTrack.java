@@ -65,7 +65,7 @@ public class RadarTrack extends Track {
 						msgRattm = msgRattm.replace("${dist}", df2.format(distance).replace(",", "."));
 						msgRattm = msgRattm.replace("${bearing}", df3.format(bearing).replace(",", "."));
 						msgRattm = msgRattm.replace("${time}", dateTimeFormatterRadar.format(new Date().toInstant()));
-						msgRattm = msgRattm.replace("${name}", currentRadarTrackId);
+						msgRattm = msgRattm.replace("${name}", "TRK"+currentRadarTrackId);
 						msgRattm = msgRattm.replace("${course}", df3.format(course).replace(",", "."));
 						msgRattm = msgRattm.replace("${speed}", String.format("%.3f", speed * Constants.fromMstoKn).replaceAll(",", "."));
 						
