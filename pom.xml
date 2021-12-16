@@ -5,7 +5,7 @@
 
 	<groupId>de.home.buechel</groupId>
 	<artifactId>simulator</artifactId>
-	<version>1.0.7_20211011</version>
+	<version>1.0.7_20211216</version>
 	<name>simulator</name>
 
 	<developers>
@@ -27,12 +27,12 @@
 		<version.surefire>2.22.2</version.surefire>
 		<version.mvnshade>3.2.4</version.mvnshade>
 		<version.commons.lang3>3.12.0</version.commons.lang3>
-		<version.logback>1.2.3</version.logback>
-		<version.slf4j>1.7.31</version.slf4j>
+		<version.logback>1.2.8</version.logback>
+		<version.slf4j>1.7.32</version.slf4j>
 		<version.mvnjar>3.2.0</version.mvnjar>
-		<version.lombok>1.18.20</version.lombok>
+		<version.lombok>1.18.22</version.lombok>
 		<version.jaxb>2.3.1</version.jaxb>
-		<version.junit>5.7.2</version.junit>
+		<version.junit>5.8.2</version.junit>
 	</properties>
 
 	<dependencies>
