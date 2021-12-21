@@ -114,13 +114,15 @@ where
 
 ## Changelog
 
-2021-08-21 : V1.0.9rc
+2021-10-09 : V1.0.9
 
 - add sleeptime for AIS streams
 - adapt printing stream information
+- refactoring of radar track messages
 - integrate version information in jar file
 - Recommended version of Maven is now 3.8.2
 - add some unit tests
+- add speed and course for radar tracks
 
 2021-08-21 : V1.0.8
 
