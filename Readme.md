@@ -8,7 +8,7 @@ This means, numerical they should be all correct; semantically there might be no
 ## Recommended Requirements
 
  - Java 11
- - Maven 3.8.2
+ - Maven 3.8.4
  
 These version are always recommended; no guarantee, that older versions are compatible.
 
@@ -117,6 +117,8 @@ where
 2021-12-24 : V1.0.10
 
 - fix bug of descarding messages based on too small queue size
+- Recommended version of Maven is now 3.8.4
+- Update Logback to 1.2.10 (Log4Shell fixes)
 
 2021-10-09 : V1.0.9
 
