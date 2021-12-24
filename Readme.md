@@ -111,6 +111,11 @@ where
 
 ## Changelog
 
+2021-10-xx : java8compatibility-branch (just hotfixes)
+
+- multiple radar plots
+- fix bug of discarding messages based on too small queue size
+
 2021-07-27 : V1.0.7rc
 
 - add navStatus, course and trueHeading for Message 1
