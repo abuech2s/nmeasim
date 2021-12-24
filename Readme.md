@@ -114,6 +114,10 @@ where
 
 ## Changelog
 
+2021-12-24 : V1.0.10
+
+- fix bug of descarding messages based on too small queue size
+
 2021-10-09 : V1.0.9
 
 - add sleeptime for AIS streams
@@ -164,4 +168,4 @@ where
 
 ## CopyRight
 
-(c) Alexander Buechel, abuech2s@gmail.com, August 2021
+(c) Alexander Buechel, abuech2s@gmail.com, December 2021
