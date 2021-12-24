@@ -77,9 +77,9 @@ public class StreamAdministration {
 	private static ISink createSink(Config config) {
 		switch (config.getSink().toLowerCase().strip()) {
 		case Constants.TOKEN_TCP:
-			return new TCPSink(config.getType(), config.getPort());
+			return new TCPSink(config.getType(), config.getPort(), config.getNroftrack());
 		case Constants.TOKEN_UDP:
-			return new UDPSink(config.getType(), config.getIp(), config.getPort());
+			return new UDPSink(config.getType(), config.getIp(), config.getPort(), config.getNroftrack());
 		default:
 			log.warn("Unknown sink type: {}", config);
 			return null;

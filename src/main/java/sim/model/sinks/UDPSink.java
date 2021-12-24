@@ -18,16 +18,18 @@ public class UDPSink extends AbstractSink {
 	private InetAddress address = null;
 	
 	private String ip = "";
+	private int queueSize;
 
-	public UDPSink(String identifier, String ip, int port) {
+	public UDPSink(String identifier, String ip, int port, int queueSize) {
 		super(identifier, port);
 		this.ip = ip;
+		this.queueSize = 3 * queueSize;
 	}
 
 	@Override
 	public void take(String message) {
 		if (isReady) queue.add(message);
-		if (queue.size() > 100) queue.poll();
+		if (queue.size() > queueSize) queue.poll();
 	}
 	
 	@Override
