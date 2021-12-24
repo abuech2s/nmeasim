@@ -28,10 +28,7 @@ public class TCPSink extends AbstractSink {
 	@Override
 	public void take(String message) {
 		if (isReady) queue.add(message);
-		if (queue.size() > this.queueSize) {
-			String s = queue.poll();
-			log.info("Discard:" + s);
-		}
+		if (queue.size() > this.queueSize) queue.poll();
 	}
 	
 	@Override
