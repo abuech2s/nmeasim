@@ -18,14 +18,17 @@ public class TCPSink extends AbstractSink {
 	private Socket socket = null;
 	private OutputStreamWriter writer = null;
 	
-	public TCPSink(String identifier, int port) {
+	private int queueSize = 100;
+	
+	public TCPSink(String identifier, int port, int queueSize) {
 		super(identifier, port);
+		this.queueSize = 3 * queueSize;
 	}
 
 	@Override
 	public void take(String message) {
 		if (isReady) queue.add(message);
-		if (queue.size() > 100) queue.poll();
+		if (queue.size() > this.queueSize) queue.poll();
 	}
 	
 	@Override
