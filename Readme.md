@@ -114,11 +114,13 @@ where
 
 ## Changelog
 
-2021-12-24 : V1.0.10
+2022-01-16 : V1.0.10
 
 - fix bug of descarding messages based on too small queue size
 - Recommended version of Maven is now 3.8.4
 - Update Logback to 1.2.10 (Log4Shell fixes)
+- Update maven-jar-plugin to 3.2.2
+- Update maven-compiler-plugin 3.9.0
 
 2021-10-09 : V1.0.9
 
