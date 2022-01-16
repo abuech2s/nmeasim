@@ -24,13 +24,13 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 
 		<!-- dependency versions -->
-		<version.mvncompilerplugin>3.8.1</version.mvncompilerplugin>
+		<version.mvncompilerplugin>3.9.0</version.mvncompilerplugin>
 		<version.surefire>2.22.2</version.surefire>
 		<version.mvnshade>3.2.4</version.mvnshade>
 		<version.commons.lang3>3.12.0</version.commons.lang3>
 		<version.logback>1.2.10</version.logback>
 		<version.slf4j>1.7.32</version.slf4j>
-		<version.mvnjar>3.2.0</version.mvnjar>
+		<version.mvnjar>3.2.2</version.mvnjar>
 		<version.lombok>1.18.22</version.lombok>
 		<version.jaxb>2.3.1</version.jaxb>
 		<version.junit>5.8.2</version.junit>
