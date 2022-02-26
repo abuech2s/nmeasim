@@ -59,7 +59,7 @@ public class UDPSink extends AbstractSink {
 						DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
 						datagramSocket.send(packet);
 						log.debug("Send via UDP " + getIdentifier() + " : 1");
-						if (queue.size() > 100) queue.clear();
+						if (queue.size() > queueSize) queue.clear();
 					} else {
 						Thread.sleep(100);
 					}

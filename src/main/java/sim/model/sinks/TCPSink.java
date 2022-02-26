@@ -59,7 +59,7 @@ public class TCPSink extends AbstractSink {
 						writer.write(message + Constants.rclf);
 						writer.flush();
 						log.debug("Send via TCP " + getIdentifier() + " : 1");
-						if (queue.size() > 100) queue.clear();
+						if (queue.size() > queueSize) queue.clear();
 					} else {
 						Thread.sleep(500);
 					}
