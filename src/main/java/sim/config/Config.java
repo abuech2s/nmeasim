@@ -35,5 +35,8 @@ public class Config {
 	@XmlAttribute (name = "nroftrack")
 	@Getter private int nroftrack = 1;
 	
+	@XmlAttribute (name = "offset")
+	@Getter private int offset = 0;
+	
 	@Getter private int amount = 0;
 }

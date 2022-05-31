@@ -15,7 +15,7 @@ public class AISTrackFactory {
 		
 		for (int i = 0; i < config.getNroftrack(); i++) {
 			Route route = new BalticSea().getRandomRoute();
-			ITrack track = new AISTrack(config, mmsi+i, route);
+			ITrack track = new AISTrack(config, mmsi+i+config.getOffset(), route);
 			threads.add(track);
 		}
 		return threads;
