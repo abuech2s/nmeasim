@@ -11,8 +11,8 @@ sleeptime - is the length of the time break, when an AIS route is reinitialized 
 -->
 
 <configs>
-	<config type="adsb" sink="tcp" active="false" ip="" port="10300" nroftrack="1"/>
-	<config type="ais" sink="tcp" active="false" ip="" port="10200" nroftrack="1" sleeptime="600000"/>
+	<config type="adsb" sink="tcp" active="false" ip="" port="10300" nroftrack="1" offset="0"/>
+	<config type="ais" sink="tcp" active="false" ip="" port="10200" nroftrack="1" sleeptime="600000" offset="0" />
 	<config type="radar" sink="tcp" active="true" ip="" port="10400"/>
 	<config type="gps" sink="tcp" active="false" ip="" port="10500"/>
 	<config type="weather" sink="tcp" active="false" ip="" port="10600"/>

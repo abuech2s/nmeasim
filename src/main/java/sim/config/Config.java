@@ -38,6 +38,9 @@ public class Config {
 	@XmlAttribute (name = "sleeptime")
 	private long sleeptime;
 	
+	@XmlAttribute (name = "offset")
+	@Getter private int offset;
+	
 	@ToString.Exclude @Getter private int amount;
 	
 	public long getSleepTime() {
