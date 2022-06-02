@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ShipFactory {
 	
-	private static int max = 12;
+	private static int max = 16;
 
 	public static IShip getRandomShip() {
 		int randomNr = ThreadLocalRandom.current().nextInt(max + 1) + 1;
@@ -37,7 +37,14 @@ public class ShipFactory {
 			return new Tug3();
 		case 12:
 			return new Fisher4();
-			
+		case 13:
+			return new Sailer3();
+		case 14:
+			return new Passenger();
+		case 15:
+			return new Passenger2();
+		case 16:
+			return new HighSpeedCraft();
 		default:
 			return new Fisher();
 		}
