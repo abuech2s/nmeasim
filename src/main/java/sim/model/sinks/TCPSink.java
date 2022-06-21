@@ -1,6 +1,7 @@
 package sim.model.sinks;
 
 import java.io.OutputStreamWriter;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -67,6 +68,10 @@ public class TCPSink extends AbstractSink {
 
 			} catch (InterruptedException e) {
 				// Do nothing
+			} catch (BindException e) {
+				// In case of a blocking port
+				log.warn("Exception: ", e);
+				try { Thread.sleep(5000);} catch (InterruptedException e1) {}
 			} catch (SocketException e) {
 				// This here is an exit for killing the current thread at being at a blocking function
 				log.debug("Exception: ", e);

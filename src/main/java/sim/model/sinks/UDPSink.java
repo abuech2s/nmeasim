@@ -1,5 +1,6 @@
 package sim.model.sinks;
 
+import java.net.BindException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -65,6 +66,10 @@ public class UDPSink extends AbstractSink {
 					}
 				}
 
+			} catch (BindException e) {
+				// In case of a blocking port
+				log.warn("Exception: ", e);
+				try { Thread.sleep(5000);} catch (InterruptedException e1) {}
 			} catch (InterruptedException e) {
 				// Do nothing
 			} catch (SocketException e) {
