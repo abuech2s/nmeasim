@@ -115,6 +115,9 @@ where
 
 - multiple radar plots
 - fix bug of discarding messages based on too small queue size
+- fix bug of blocking ports
+- add more ships
+- update dependencies
 
 2021-07-27 : V1.0.7rc
 
